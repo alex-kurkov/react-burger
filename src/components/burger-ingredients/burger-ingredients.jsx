@@ -13,7 +13,6 @@ const BurgerIngredients = ({data}) => {
     document.getElementById(current).scrollIntoView({ behavior: 'smooth' });
   }, [current])
 
-
   return (
     <section className={`${styles.section} pt-5 pb-5`}>
       <h2 className={`${styles.title} text text_type_main-large mb-2`}>
