@@ -1,0 +1,18 @@
+.link {
+  height: 56px;
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  gap: 8;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.inactive {
+  color: #8585AD;
+}
+.inactive svg {
+  fill: #8585AD;
+}
