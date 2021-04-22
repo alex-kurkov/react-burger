@@ -13,6 +13,6 @@
 .inactive {
   color: #8585AD;
 }
-.inactive svg {
-  fill: #8585AD;
+.text {
+  white-space: nowrap;
 }

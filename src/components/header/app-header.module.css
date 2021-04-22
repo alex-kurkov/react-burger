@@ -1,0 +1,35 @@
+.header {
+  margin: 0 auto;
+  max-width: 1440px;
+  min-height: 88px;
+  background: #1C1C21;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  background: #1C1C21;
+}
+.content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  grid-template-areas: 'nav logo auth';
+  gap: 8px;
+  align-items: center;
+}
+.navigation {
+  display: flex;
+  justify-self: left;
+}
+.logo {
+  grid-area: logo;
+  flex-basis: 33%;
+  width: 290px;
+  height: 50px;
+  justify-self: center;
+}
+.auth {
+  font-family: 'Jet Brains Mono', monospace;
+  grid-area: auth;
+  justify-self: right;
+  align-items: center;
+}

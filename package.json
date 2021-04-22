@@ -40,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^4.3.0",
+    "prop-types": "^15.7.2"
   }
 }
