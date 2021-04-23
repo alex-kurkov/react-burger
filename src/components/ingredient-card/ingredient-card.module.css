@@ -1,0 +1,21 @@
+.card {
+  flex-basis: calc(50% - 10px);
+  height: 208px;
+  position: relative;
+  box-sizing: border-box;
+}
+.image {
+  height: 120px;
+  object-fit: contain;
+}
+.price {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.name {
+  max-height: 48px;
+  text-align: center;
+  overflow: hidden;
+}
