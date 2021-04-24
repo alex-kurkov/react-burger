@@ -34,7 +34,7 @@ const BurgerConstructor = ({ items }) => {
   const setConstructorListHeight = () => {
     const contentHeight = content.current.offsetHeight;
     const listScrollHeight = list.current.scrollHeight;
-    if (listScrollHeight < contentHeight) return;
+    if (listScrollHeight < contentHeight) return container.current.style.height = `fit-content`;
     const availableSpace = Number(contentHeight) - (HEIGHT_OF_CONSTRUCTOR_ITEM * 3) + MARGIN;
     const countedSpace = availableSpace - (availableSpace % (HEIGHT_OF_CONSTRUCTOR_ITEM + MARGIN)) + MARGIN;
     container.current.style.height = `${countedSpace}px`;
