@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import PropTypes, { func } from 'prop-types';
+import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
+import IngredientCard from '../../components/ingredient-card/ingredient-card'
 import { 
   Tab
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
@@ -8,6 +9,7 @@ import styles from './burger-ingredients.module.css';
 const BurgerIngredients = ({data}) => {
 
   const [current, setCurrent] = useState('bun');
+  const [tabs, setTabs] = useState([]);
 
   useEffect(() => {
     document.getElementById(current).scrollIntoView({ behavior: 'smooth' });
@@ -31,40 +33,32 @@ const BurgerIngredients = ({data}) => {
       </div>
       <div className={`${styles.ingredients} pt-3 pb-3`}>
         <h3 className={`${styles.food} text text_type_main-medium`} id='bun'>Булки</h3>
-        <div className={`${styles['ingredients-container']} pr-2 pl-2`}>
+        <ul className={`${styles['ingredients-list']} pr-2 pl-2`}>
           {data &&
             data.filter(({ type }) => (type === 'bun')).map((item) => (
-              <React.Fragment key={item._id}>
-                <div style={{width: '50%', height: '300px'}}>{item.name}</div>
-              </React.Fragment>
+              <IngredientCard item={item} key={item._id} count={3} />
             ))
           }
-        </div>
+        </ul>
         <h3 className={`${styles.food} text text_type_main-medium`} id='sauce'>Соусы</h3>
-        <div className={`${styles['ingredients-container']} pr-2 pl-2`}>
+        <ul className={`${styles['ingredients-list']} pr-2 pl-2`}>
           {data &&
             data.filter(({ type }) => (type === 'sauce')).map((item) => (
-              <React.Fragment key={item._id}>
-                <div style={{width: '50%', height: '300px'}}>{item.name}</div>
-              </React.Fragment>
+                <IngredientCard item={item} key={item._id} />
             ))
           }
-        </div>
+        </ul>
         <h3 className={`${styles.food} text text_type_main-medium`} id='main'>Начинки</h3>
-        <div className={`${styles['ingredients-container']} pr-2 pl-2`}>
+        <ul className={`${styles['ingredients-list']} pr-2 pl-2`}>
           {data &&
             data.filter(({ type }) => (type === 'main')).map((item) => (
-              <React.Fragment key={item._id}>
-                <div style={{width: '50%', height: '300px'}}>{item.name}</div>
-              </React.Fragment>
+              <IngredientCard item={item} key={item._id} />
             ))
           }
-        </div>
+        </ul>
       </div>
     </section>
   )
 }
-
-/* .filter(({ type }) => (type === 'bun')) */
 
 export default BurgerIngredients;

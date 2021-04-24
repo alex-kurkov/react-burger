@@ -9,9 +9,9 @@ const IngredientCard = (props) => {
   return (
     <article className={`${styles.card} pr-2 pl-2 pb-3`}>
       {props.count && <Counter count={props.count} size="small" />}
-      <img src={image} className={`${styles.image}`} />
+      <img src={image} className={`${styles.image}` } alt={name} />
       <div className={`${styles.price} mt-1 mb-1`}>
-        <span className="text text_type_main-default mr-1">{price}</span>
+        <span className="text text_type_digits-default mr-1">{price}</span>
         <CurrencyIcon type="primary" />
       </div>
       <p className={`${styles.name} text text_type_main-default mr-1`}>{name}</p>

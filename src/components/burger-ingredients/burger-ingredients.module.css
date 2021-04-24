@@ -14,7 +14,6 @@
 .ingredients {
   max-height: calc(100vh - 368px);
   overflow-y: overlay;
-  scroll-behavior: auto;
 }
 .ingredients::-webkit-scrollbar {
   width: 12px;
@@ -28,7 +27,13 @@
 	border: 3px solid #2F2F37;
 	border-radius: 6px;
 }
-.ingredients-container {
+.ingredients-list {
   display: flex;
   flex-wrap: wrap;
+  padding-left: 0;
+  padding-right: 0;
+}
+.unordered-list-item {
+  list-style-type: none;
+  padding: 0;
 }
