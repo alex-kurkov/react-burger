@@ -23,9 +23,15 @@ export default IngredientCard;
 
 IngredientCard.propTypes = {
   item: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
     image: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
   }),
   onClick: PropTypes.func,
   count: PropTypes.number,

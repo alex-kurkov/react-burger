@@ -9,7 +9,7 @@
   padding: 20px 35px;
   box-sizing: border-box;
   height: 80px;
-  background: #1c1c21;
+  background: var(--background);
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 7fr 2fr 1fr;
@@ -22,7 +22,6 @@
   justify-content: center;
 }
 .position_top {
-  border-radius: 88px 88px 40px 40px;
   max-width: calc((100% - 8px) *0.95);
 }
 
@@ -33,19 +32,13 @@
   border-radius: 40px;
 }
 .border_style_top {
-  border-radius: 88px 88px 40px 40px;
+  border-radius: var(--top-constructor-item-border-radius);
 }
 .border_style_bottom {
-  border-radius: 40px 40px 88px 88px;
+  border-radius: var(--bottom-constructor-item-border-radius);
 }
 .border_style_center {
   border-radius: 40px;
-}
-
-.row {
-  display: grid;
-  width: 100%;
-  grid-template-columns: 1fr 5fr 2fr 1fr;
 }
 
 .image {

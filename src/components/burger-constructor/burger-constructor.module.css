@@ -43,14 +43,15 @@
 }
 .list::-webkit-scrollbar {
   width: 12px;
+  scrollbar-width: thin;
 }
 .list::-webkit-scrollbar-track {
-	background: #2F2F37;
+	background: var(--background-element);
   border-radius: 6px;
 }
 .list::-webkit-scrollbar-thumb {
 	background: #8585AD;
-	border: 3px solid #2F2F37;
+	border: 3px solid var(--background-element);
 	border-radius: 6px;
 }
 .listItem {

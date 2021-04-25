@@ -1,14 +1,14 @@
 .header {
-  margin: 0 auto;
-  max-width: 1440px;
-  min-height: 88px;
-  background: #1C1C21;
+  box-sizing: border-box;
+  height: 88px;
+  background: var(--background);
   display: flex;
-  justify-items: center;
   align-items: center;
-  background: #1C1C21;
 }
 .content {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1440px;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr min-content 1fr;
@@ -22,13 +22,12 @@
 }
 .logo {
   grid-area: logo;
-  flex-basis: 33%;
+  flex-basis: 20%;
   width: 290px;
   height: 50px;
   justify-self: center;
 }
 .auth {
-  font-family: 'Jet Brains Mono', monospace;
   grid-area: auth;
   justify-self: right;
   align-items: center;

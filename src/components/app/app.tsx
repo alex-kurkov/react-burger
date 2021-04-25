@@ -1,7 +1,7 @@
 import styles from './app.module.css';
-import { AppHeader } from '../header/app-header';
+import AppHeader from '../header/app-header';
 import Main from '../../components/main/main';
-import data from '../../utils/data'
+import { data } from '../../utils/data'
 
 function App() {
   return (

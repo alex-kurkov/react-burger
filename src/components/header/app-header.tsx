@@ -1,4 +1,3 @@
-import React from "react";
 import styles from './app-header.module.css';
 import { 
   Logo,
@@ -9,16 +8,16 @@ import {
 import { NavigationLink } from "../navigation-link/navigation-link";
 
 
-export const AppHeader = () => {
+const AppHeader = () => {
   return (
-    <header className={`${styles.header} pl-5 pr-5 pt-2 pb-2`} >
-      <div className={`${styles.content} pl-5 pr-5`} >
+    <header className={`${styles.header}`} >
+      <div className={`${styles.content} pl-5 pr-5 pt-2 pb-2`} >
         <nav className={styles.navigation}>
           <NavigationLink
             active={true}
             text="Конструктор"
             onClick={() => console.log('clicked "Конструктор"')}
-            icon={(<BurgerIcon type="primary"/>)}
+            icon={(<BurgerIcon type="primary" />)}
           />
           <NavigationLink
             active={false}
@@ -45,3 +44,5 @@ export const AppHeader = () => {
     </header>
   )
 }
+
+export default AppHeader;

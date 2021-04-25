@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { 
   CurrencyIcon, CloseIcon, LockIcon, DragIcon 
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
@@ -33,4 +34,12 @@ const ConstructorElement = ({ type, text, thumbnail, price, isLocked, handleClos
   );
 };
 
+ConstructorElement.propTypes = {
+  type: PropTypes.string,
+  text: PropTypes.string,
+  thumbnail: PropTypes.string,
+  price: PropTypes.number,
+  isLocked: PropTypes.bool,
+  handleClose: PropTypes.func,
+}
 export default ConstructorElement;

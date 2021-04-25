@@ -4,12 +4,10 @@
   width: calc(50% - 20px);
 }
 
-.title {
-  font-family: 'Jet Brains Mono', monospace;
-}
 .tabs {
   display: flex;
   padding-top: 4px;
+  max-height: 100%;
 }
 .ingredients {
   max-height: calc(100vh - 368px);
@@ -19,21 +17,11 @@
   width: 12px;
 }
 .ingredients::-webkit-scrollbar-track {
-	background: #2F2F37;
+	background:var(--background-element);
   border-radius: 6px;
 }
 .ingredients::-webkit-scrollbar-thumb {
 	background: #8585AD;
-	border: 3px solid #2F2F37;
+	border: 3px solid var(--background-element);
 	border-radius: 6px;
-}
-.ingredients-list {
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 0;
-  padding-right: 0;
-}
-.unordered-list-item {
-  list-style-type: none;
-  padding: 0;
 }
