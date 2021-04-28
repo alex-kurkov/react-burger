@@ -1,0 +1,34 @@
+.header {
+  box-sizing: border-box;
+  height: 88px;
+  background: var(--background);
+  display: flex;
+  align-items: center;
+}
+.content {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  grid-template-areas: 'nav logo auth';
+  gap: 8px;
+  align-items: center;
+}
+.navigation {
+  display: flex;
+  justify-self: left;
+}
+.logo {
+  grid-area: logo;
+  flex-basis: 20%;
+  width: 290px;
+  height: 50px;
+  justify-self: center;
+}
+.auth {
+  grid-area: auth;
+  justify-self: right;
+  align-items: center;
+}

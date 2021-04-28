@@ -1,0 +1,27 @@
+.section {
+  max-height: 100%;
+  height: auto;
+  width: calc(50% - 20px);
+}
+
+.tabs {
+  display: flex;
+  padding-top: 4px;
+  max-height: 100%;
+}
+.ingredients {
+  max-height: calc(100vh - 368px);
+  overflow-y: overlay;
+}
+.ingredients::-webkit-scrollbar {
+  width: 12px;
+}
+.ingredients::-webkit-scrollbar-track {
+	background:var(--background-element);
+  border-radius: 6px;
+}
+.ingredients::-webkit-scrollbar-thumb {
+	background: #8585AD;
+	border: 3px solid var(--background-element);
+	border-radius: 6px;
+}

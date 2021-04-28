@@ -1,0 +1,9 @@
+.main {
+  max-width: 1240px;
+  height: calc(100hv - 88px);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  background-color: #131316;
+}
