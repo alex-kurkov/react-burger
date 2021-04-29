@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 import ModalOverlay from '../modal-overlay/modal-overlay';
+import Modal from '../modal/modal';
 import { 
   Counter, CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
@@ -18,8 +19,7 @@ const IngredientCard = (props) => {
 
   const modal = (
     <ModalOverlay onClose={closeModal}> 
-      <p>Спасибо за внимание!</p>
-      <p>Открывай меня, если станет скучно :)</p>
+      <Modal onClose={closeModal} title="Детали ингредиента"/>
     </ModalOverlay>
   )
 
