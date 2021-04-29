@@ -1,5 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
+import OrderDetails from '../order-details/order-details';
+import ModalOverlay from '../modal-overlay/modal-overlay';
+import Modal from '../modal/modal';
 import {
   CurrencyIcon,
   Button,
@@ -14,6 +17,21 @@ import {
 const BurgerConstructor = ({ items }) => {
   const [total, setTotal] = useState(0);
   const [bun, setBun] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  
+  const closeModal = useCallback(() => {  setShowModal(false) }, [])
+  const openModal = useCallback((e) => {
+    e.stopPropagation();
+    setShowModal(true);
+  }, [])
+
+  const modal = (
+    <ModalOverlay onClose={closeModal}> 
+      <Modal onClose={closeModal} >
+        <OrderDetails />
+      </Modal>
+    </ModalOverlay>
+  )
 
   useEffect(() => {
     const foundBun = items.find(({ type }) => type === "bun");
@@ -26,6 +44,7 @@ const BurgerConstructor = ({ items }) => {
     }, 0);
     setTotal(sum);
   }, [items]);
+
 
   // *********************
   // block to calculate and set height of constructor list parent for neat display
@@ -57,6 +76,7 @@ const BurgerConstructor = ({ items }) => {
 
   return (
     <section className={`${styles.section} pt-5 pb-5`}>
+      {showModal && modal}
       <div ref={content} className={`${styles.content} mb-5`}>
         {bun.type && (
           <ConstructorElement
@@ -102,9 +122,11 @@ const BurgerConstructor = ({ items }) => {
             <CurrencyIcon type="primary" />
           </div>
         )}
-        <Button type="primary" size="large">
-          Оформить заказ
-        </Button>
+        <div onClick={openModal}>
+          <Button type="primary" size="large">
+            Оформить заказ
+          </Button>
+        </ div>
       </div>
     </section>
   );

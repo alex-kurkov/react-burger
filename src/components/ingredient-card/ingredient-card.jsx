@@ -17,7 +17,6 @@ const IngredientCard = ({item, count}) => {
     setShowModal(true);
   }, [])
 
-
   const modal = (
     <ModalOverlay onClose={closeModal}> 
       <Modal onClose={closeModal} title="Детали ингредиента">

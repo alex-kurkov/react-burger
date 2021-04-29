@@ -3,7 +3,7 @@ import styles from './ingredient-details.module.css';
 
 const IngredientDetails = ({ item }) => {
   const {
-    name, proteins, fat, carbohydrates, calories, price, image_large, description = 'описание ингредиента, которого пока что еще нет'
+    name, proteins, fat, carbohydrates, calories, image_large, description = 'описание ингредиента, которого пока что еще нет'
   } = item
   
   const nutrients = [
@@ -52,13 +52,12 @@ IngredientDetails.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
-    type: PropTypes.string,
     image: PropTypes.string,
+    image_large: PropTypes.string,
     proteins: PropTypes.number,
     fat: PropTypes.number,
     carbohydrates: PropTypes.number,
     calories: PropTypes.number,
-    price: PropTypes.number,
   }),
 }
 
