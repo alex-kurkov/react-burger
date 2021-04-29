@@ -11,6 +11,8 @@
 .title_icon_wrap {
   display: flex;
   flex-wrap: nowrap;
+  height: 64px;
+  align-items: center;
   justify-content: space-between;
   justify-items: end;
   align-items: center;
