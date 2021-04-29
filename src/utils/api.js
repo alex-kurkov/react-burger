@@ -8,7 +8,7 @@ const getResponseData = res => {
 }
 
 const getIngredients = () => {
-  return fetch(API_URL, {})
+  return fetch(`${API_URL}/ingredients`, {})
     .then(getResponseData)
     .then(res => res.data)
     .catch(e => new Promise.reject(`error while fetching\nurl: ${API_URL}\nerror: ${e.message}`))

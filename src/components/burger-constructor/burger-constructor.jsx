@@ -6,9 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
 import ConstructorElement from "../constructor-element/constructor-element";
 import styles from "./burger-constructor.module.css";
-
-const HEIGHT_OF_CONSTRUCTOR_ITEM = 80;
-const MARGIN = 8;
+import {
+  HEIGHT_OF_CONSTRUCTOR_ITEM,
+  CONSTRUCTOR_MARGIN
+} from '../../utils/constants';
 
 const BurgerConstructor = ({ items }) => {
   const [total, setTotal] = useState(0);
@@ -39,11 +40,11 @@ const BurgerConstructor = ({ items }) => {
       return container.current.style.height = `fit-content`;
     }
     const availableSpace =
-      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + MARGIN;
+      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + CONSTRUCTOR_MARGIN;
     const countedSpace =
       availableSpace -
-      (availableSpace % (HEIGHT_OF_CONSTRUCTOR_ITEM + MARGIN)) +
-      MARGIN;
+      (availableSpace % (HEIGHT_OF_CONSTRUCTOR_ITEM + CONSTRUCTOR_MARGIN)) +
+      CONSTRUCTOR_MARGIN;
     container.current.style.height = `${countedSpace}px`;
   };
 

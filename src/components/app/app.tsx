@@ -8,7 +8,7 @@ function App() {
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
-    const ingredients = getIngredients()
+    getIngredients()
       .then(data => {
         setIngredients(data)
       })
@@ -18,7 +18,7 @@ function App() {
   return (
     <div className={styles.app} >
       <AppHeader />
-      { ingredients.length &&
+      { !!ingredients.length &&
       <Main data={ingredients}/>
       }
     </div>

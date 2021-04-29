@@ -1,13 +1,33 @@
 import PropTypes from 'prop-types';
+import { useCallback, useState } from 'react';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 import { 
   Counter, CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
 import styles from './ingredient-card.module.css';
 
 const IngredientCard = (props) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const closeModal = useCallback(() => {  setShowModal(false) }, [])
+  const openModal = useCallback((e) => {
+    e.stopPropagation();
+    setShowModal(true);
+  }, [])
+
+
+  const modal = (
+    <ModalOverlay onClose={closeModal}> 
+      <p>Спасибо за внимание!</p>
+      <p>Открывай меня, если станет скучно :)</p>
+    </ModalOverlay>
+  )
+
+
   const { name, price, image } = props.item;
   return (
-    <article className={`${styles.card} pr-2 pl-2 pb-3`}>
+    <article className={`${styles.card} pr-2 pl-2 pb-3`} onClick={openModal}> 
+      {showModal && modal }
       {props.count && <Counter count={props.count} size="small" />}
       <img src={image} className={`${styles.image}` } alt={name} />
       <div className={`${styles.price} mt-1 mb-1`}>
