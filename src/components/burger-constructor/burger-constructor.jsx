@@ -28,7 +28,7 @@ const BurgerConstructor = ({ items }) => {
   const modal = (
     <ModalOverlay onClose={closeModal}> 
       <Modal onClose={closeModal} >
-        <OrderDetails />
+        <OrderDetails onClose={closeModal} />
       </Modal>
     </ModalOverlay>
   )
