@@ -1,18 +1,37 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
+import OrderDetails from '../order-details/order-details';
+import ModalOverlay from '../modal-overlay/modal-overlay';
+import Modal from '../modal/modal';
 import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
 import ConstructorElement from "../constructor-element/constructor-element";
 import styles from "./burger-constructor.module.css";
-
-const HEIGHT_OF_CONSTRUCTOR_ITEM = 80;
-const MARGIN = 8;
+import {
+  HEIGHT_OF_CONSTRUCTOR_ITEM,
+  CONSTRUCTOR_MARGIN
+} from '../../utils/constants';
 
 const BurgerConstructor = ({ items }) => {
   const [total, setTotal] = useState(0);
   const [bun, setBun] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  
+  const closeModal = useCallback(() => {  setShowModal(false) }, [])
+  const openModal = useCallback((e) => {
+    e.stopPropagation();
+    setShowModal(true);
+  }, [])
+
+  const modal = (
+    <ModalOverlay onClose={closeModal}> 
+      <Modal onClose={closeModal} >
+        <OrderDetails onClose={closeModal} />
+      </Modal>
+    </ModalOverlay>
+  )
 
   useEffect(() => {
     const foundBun = items.find(({ type }) => type === "bun");
@@ -25,6 +44,7 @@ const BurgerConstructor = ({ items }) => {
     }, 0);
     setTotal(sum);
   }, [items]);
+
 
   // *********************
   // block to calculate and set height of constructor list parent for neat display
@@ -39,11 +59,11 @@ const BurgerConstructor = ({ items }) => {
       return container.current.style.height = `fit-content`;
     }
     const availableSpace =
-      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + MARGIN;
+      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + CONSTRUCTOR_MARGIN;
     const countedSpace =
       availableSpace -
-      (availableSpace % (HEIGHT_OF_CONSTRUCTOR_ITEM + MARGIN)) +
-      MARGIN;
+      (availableSpace % (HEIGHT_OF_CONSTRUCTOR_ITEM + CONSTRUCTOR_MARGIN)) +
+      CONSTRUCTOR_MARGIN;
     container.current.style.height = `${countedSpace}px`;
   };
 
@@ -56,6 +76,7 @@ const BurgerConstructor = ({ items }) => {
 
   return (
     <section className={`${styles.section} pt-5 pb-5`}>
+      {showModal && modal}
       <div ref={content} className={`${styles.content} mb-5`}>
         {bun.type && (
           <ConstructorElement
@@ -101,9 +122,11 @@ const BurgerConstructor = ({ items }) => {
             <CurrencyIcon type="primary" />
           </div>
         )}
-        <Button type="primary" size="large">
-          Оформить заказ
-        </Button>
+        <div onClick={openModal}>
+          <Button type="primary" size="large">
+            Оформить заказ
+          </Button>
+        </ div>
       </div>
     </section>
   );

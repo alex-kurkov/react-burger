@@ -1,0 +1,17 @@
+.wrap {
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.wrap .text {
+  text-align: center;
+  width: 100%;
+}
+.waiting_text {
+  color: var(--text-inactive-color);
+}

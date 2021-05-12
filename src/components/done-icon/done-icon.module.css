@@ -1,0 +1,68 @@
+@keyframes initRotate {
+  from {
+    transform: rotate(-45deg);
+  } 
+  to {
+    transform: rotate(0);
+  }
+}
+@keyframes initScale {
+  from {
+    transform: scale(.3);
+  } 
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes hoverRotate {
+  from {
+    transform: none;
+  } 
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.done {
+  caret-color: transparent;
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  width: 120px;
+  height: 120px;
+}
+.done svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+}
+
+.vector {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: initScale .5s ease-in,
+    initRotate 1s ease-out .5s;
+}
+.vector_1 {
+  background-image: url('../../images/Vector_1.png');
+}
+.vector_2 {
+  background-image: url('../../images/Vector_2.png');
+}
+.vector_3 {
+  background-image: url('../../images/Vector_3.png');
+}
+
+.done:hover .vector_3 {
+  animation: hoverRotate 5s linear infinite;
+}
+.done:hover {
+  cursor: pointer;
+}
+

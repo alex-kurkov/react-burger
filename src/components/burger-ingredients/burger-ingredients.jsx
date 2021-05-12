@@ -8,7 +8,6 @@ import {
 import styles from './burger-ingredients.module.css';
 
 const BurgerIngredients = ({data}) => {
-
   const [current, setCurrent] = useState('bun');
 
   useEffect(() => {

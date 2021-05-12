@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { 
   CurrencyIcon, CloseIcon, LockIcon, DragIcon 
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';

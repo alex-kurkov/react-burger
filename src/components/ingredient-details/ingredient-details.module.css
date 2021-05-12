@@ -1,0 +1,35 @@
+.wrap {
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title, .description{
+  width: 100%;
+  text-align: center;
+}
+
+.nutrients {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+}
+
+.nutrient {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  flex-basis: calc((100% / 4) - 20px);
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}

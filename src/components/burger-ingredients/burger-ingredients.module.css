@@ -15,6 +15,7 @@
 }
 .ingredients::-webkit-scrollbar {
   width: 12px;
+  z-index: 2;
 }
 .ingredients::-webkit-scrollbar-track {
 	background:var(--background-element);
