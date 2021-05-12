@@ -20,13 +20,9 @@
   justify-content: flex-end;
   align-content: center;
 }
-.total {
- display: flex;
- flex-wrap: nowrap;
- align-items: center; 
-}
 .container {
-  height: 96px;
+  height: fit-content;
+  min-height: 96px;
   box-sizing: border-box;
   overflow: hidden;
   padding: 8px 0;

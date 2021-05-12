@@ -13,4 +13,19 @@ const getIngredients = () => {
     .then(res => res.data)
     .catch(e => new Promise.reject(`error while fetching\nurl: ${API_URL}\nerror: ${e.message}`))
 }
-  export { getIngredients }
+const postOrder = (data) => {
+  return fetch(`${API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(getResponseData)
+    .then(res => res)
+    .catch(e => new Promise.reject(`error while fetching\nurl: ${API_URL}\nerror: ${e.message}`))
+}
+
+
+
+  export { getIngredients, postOrder }

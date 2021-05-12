@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import PropTypes from 'prop-types';
 import { tabs } from '../../utils/data'
 import IngredientsSublist from '../ingredients-sublist/ingredients-sublist';
@@ -6,9 +6,13 @@ import {
   Tab
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
 import styles from './burger-ingredients.module.css';
+import { IngredientsContext } from '../../context/appContext';
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
+
+  const ingredients = useContext(IngredientsContext);
+
 
   useEffect(() => {
     document.getElementById(current).scrollIntoView({ behavior: 'smooth' });
@@ -28,11 +32,11 @@ const BurgerIngredients = ({data}) => {
 
       </div>
       <div className={`${styles.ingredients} pt-3 pb-3`}>
-        { tabs && 
+        { tabs && ingredients.length &&
           tabs.map(item => (
             <IngredientsSublist
               key={item.type}
-              data={data.filter(datum => datum.type === item.type)}
+              data={ingredients.filter(datum => datum.type === item.type)}
               type={item.type}
               name={item.name}
             />

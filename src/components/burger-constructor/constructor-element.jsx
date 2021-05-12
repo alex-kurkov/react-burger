@@ -1,18 +1,20 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
-
+import { ChosenIngredientsContext } from '../../context/appContext';
 import { 
   CurrencyIcon, CloseIcon, LockIcon, DragIcon 
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
 import styles from './constructor-element.module.css'
 import './constructor-element.module.css';
 
-const ConstructorElement = ({ type, text, thumbnail, price, isLocked, handleClose }) => {
+const ConstructorElement = ({ type, text, thumbnail, price, isLocked, _id }) => {
+  const { dispatchChosenIngredients } = useContext(ChosenIngredientsContext);
   const positionStyle = styles[`position_${type}`];
   const positionBorderStyle = styles[`border_style_${type}`]
   const action = isLocked ? (
       <LockIcon type="primary" />
   ) : (
-      <CloseIcon type="primary" onClick={handleClose} />
+      <CloseIcon type="primary" onClick={() => dispatchChosenIngredients({type: 'remove', payload: {_id}})} />
   );
 
   return (
@@ -42,5 +44,6 @@ ConstructorElement.propTypes = {
   price: PropTypes.number,
   isLocked: PropTypes.bool,
   handleClose: PropTypes.func,
+  _id: PropTypes.string,
 }
 export default ConstructorElement;
