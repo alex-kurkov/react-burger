@@ -58,7 +58,13 @@ export const rootReducer = (store = initialState, action) => {
       return { ...store, chosenBun: action.payload }
     }
     case REMOVE_CHOSEN_INGREDIENT: {
-      return { ...store, chosenIngredients: [...store.chosenIngredients.filter(i => i._id !== action.payload._id)]}
+      return { 
+        ...store, 
+        chosenIngredients: [
+          ...store.chosenIngredients.slice(0, action.payload.positionIndex), 
+          ...store.chosenIngredients.slice(action.payload.positionIndex + 1),
+        ]}
+/*       return { ...store, chosenIngredients: [...store.chosenIngredients.filter(i => i._id !== action.payload._id)]} */
     }
     default: {
       return store;

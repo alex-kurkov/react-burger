@@ -52,8 +52,8 @@ const BurgerConstructor = () => {
         <div ref={container} className={styles.container}>
           <ul className={styles.list}>
             { chosenIngredients
-                .map((item) => (
-                  <li className={`${styles.listItem} mb-1`} key={item._id}>
+                .map((item, index) => (
+                  <li className={`${styles.listItem} mb-1`} key={`${item._id}-${index}`}>
                     <ConstructorElement
                       type="center"
                       isLocked={false}
@@ -61,6 +61,7 @@ const BurgerConstructor = () => {
                       thumbnail={item.image}
                       price={item.price}
                       _id={item._id}
+                      positionIndex={index}
                     />
                   </li>
                 ))}

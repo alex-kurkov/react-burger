@@ -25,12 +25,11 @@ const IngredientCard = ({ item, count }) => {
   
   const openModal = (e) => {
     e.stopPropagation();
-    dispatch({type: SET_ACTIVE_INGREDIENT, payload: item })
-    console.log('item', item);
+    dispatch({type: SET_ACTIVE_INGREDIENT, payload: item });
     dispatch({
       type: item.type === 'bun' ? ADD_CHOSEN_BUN : ADD_CHOSEN_INGREDIENT,
       payload: item 
-    })
+    });
   }
 
   const modal = (
