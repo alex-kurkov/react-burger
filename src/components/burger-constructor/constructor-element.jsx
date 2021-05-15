@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { ChosenIngredientsContext } from '../../context/appContext';
 import { 
   CurrencyIcon, CloseIcon, LockIcon, DragIcon 
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';

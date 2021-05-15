@@ -27,6 +27,10 @@
   overflow: hidden;
   padding: 8px 0;
 }
+.bunContainer {
+  min-height: 80px;
+  box-sizing: border-box;
+}
 .list {
   display: block;
   list-style-type: none;

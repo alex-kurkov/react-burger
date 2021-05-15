@@ -11,21 +11,27 @@ import {
   SET_ACTIVE_INGREDIENT, 
   RESET_ACTIVE_INGREDIENT,
   ADD_CHOSEN_INGREDIENT,
+  ADD_CHOSEN_BUN,
  } from '../../utils/constants';
 import styles from './ingredient-card.module.css';
 
 const IngredientCard = ({ item, count }) => {
   const { activeIngredient } = useSelector(store => store);
   const dispatch = useDispatch();
-  const closeModal = useCallback(() => {
-    dispatch({type: RESET_ACTIVE_INGREDIENT })
-  }, [])
   
-  const openModal = useCallback((e) => {
+  const closeModal = useCallback(() => {
+    dispatch({ type: RESET_ACTIVE_INGREDIENT })
+  }, [dispatch])
+  
+  const openModal = (e) => {
     e.stopPropagation();
     dispatch({type: SET_ACTIVE_INGREDIENT, payload: item })
-    dispatch({type: ADD_CHOSEN_INGREDIENT, payload: item })
-  }, [])
+    console.log('item', item);
+    dispatch({
+      type: item.type === 'bun' ? ADD_CHOSEN_BUN : ADD_CHOSEN_INGREDIENT,
+      payload: item 
+    })
+  }
 
   const modal = (
     <ModalOverlay onClose={closeModal}> 
@@ -34,7 +40,6 @@ const IngredientCard = ({ item, count }) => {
       </Modal>
     </ModalOverlay>
   )
-
 
   const { name, price, image } = item;
   return (

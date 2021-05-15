@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef, useContext } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useRef } from "react";
+import { useSelector } from 'react-redux';
 import OrderButton from './orderButton';
 import ConstructorElement from "./constructor-element";
 import Total from "./total";
@@ -10,13 +10,7 @@ import {
 import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
-  const { chosenIngredients } = useSelector(store => store);
-  const [bun, setBun] = useState(null);
-
-  useEffect(() => {
-    const foundBun = chosenIngredients.find(({ type }) => type === "bun");
-    setBun(foundBun);
-  }, [chosenIngredients]);
+  const { chosenIngredients, chosenBun } = useSelector(store => store);
 
   // *********************
   // block to calculate and set height of constructor list parent for neat display
@@ -44,19 +38,20 @@ const BurgerConstructor = () => {
   return (
     <section className={`${styles.section} pt-5 pb-5`}>
       <div ref={content} className={`${styles.content} mb-5`}>
-        {bun && (
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${bun.name} (верх)`}
-            thumbnail={bun.image}
-            price={bun.price}
-          />
-        )}
+        <div className={styles.bunContainer}>
+          {chosenBun.name && (
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${chosenBun.name} (верх)`}
+              thumbnail={chosenBun.image}
+              price={chosenBun.price}
+            />
+          )}
+        </div>
         <div ref={container} className={styles.container}>
           <ul className={styles.list}>
             { chosenIngredients
-                .filter(({ type }) => type !== "bun")
                 .map((item) => (
                   <li className={`${styles.listItem} mb-1`} key={item._id}>
                     <ConstructorElement
@@ -71,15 +66,17 @@ const BurgerConstructor = () => {
                 ))}
           </ul>
         </div>
-        {bun && (
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${bun.name} (низ)`}
-            thumbnail={bun.image}
-            price={bun.price}
-          />
-        )}
+        <div className={styles.bunContainer}>
+          {chosenBun.name && (
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${chosenBun.name} (низ)`}
+              thumbnail={chosenBun.image}
+              price={chosenBun.price}
+            />
+          )}
+        </div>
       </div>
 
       <div className={`${styles.order} pt-2`}>
