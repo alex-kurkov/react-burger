@@ -3,8 +3,9 @@ import OrderDetails from './order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
-import { postOrder } from '../../services/actions/api'
-import { RESET_CURRENT_ORDER } from '../../utils/constants'
+import { postOrder } from '../../services/actions/api';
+import { RESET_CURRENT_ORDER } from '../../utils/constants';
+import styles from "./orderButton.module.css";
 
 const OrderButton = () => {
   const dispatch = useDispatch();
@@ -27,14 +28,13 @@ const OrderButton = () => {
     const ingredients = chosenIngredients.map(({_id}) => _id).concat(chosenBun._id);
     dispatch(postOrder({ingredients}))
   }
- 
   return (
-    <>
+    <div className={chosenBun.name ? '' : styles.disabled}>
       {currentOrder.success && modal}
-      <Button type="primary" size="large" onClick={placeOrder}>
+      <Button type="primary" size="large" onClick={placeOrder} >
         Оформить заказ
       </Button>
-    </>
+    </ div>
   )
 }
 
