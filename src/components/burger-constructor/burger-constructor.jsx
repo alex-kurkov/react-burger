@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useContext } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import OrderButton from './orderButton';
 import ConstructorElement from "./constructor-element";
 import Total from "./total";
@@ -6,11 +7,10 @@ import {
   HEIGHT_OF_CONSTRUCTOR_ITEM,
   CONSTRUCTOR_MARGIN
 } from '../../utils/constants';
-import { ChosenIngredientsContext } from '../../context/appContext';
 import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
-  const { chosenIngredients } = useContext(ChosenIngredientsContext);
+  const { chosenIngredients } = useSelector(store => store);
   const [bun, setBun] = useState(null);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const BurgerConstructor = () => {
     setConstructorListHeight();
     window.addEventListener("resize", setConstructorListHeight);
     return () => window.removeEventListener("resize", setConstructorListHeight);
-  }, [chosenIngredients.length]);
+  }, [chosenIngredients]);
   // **********************
 
   return (

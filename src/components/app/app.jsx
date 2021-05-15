@@ -1,40 +1,29 @@
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './app.module.css';
 import AppHeader from '../header/app-header';
 import Main from '../main/main';
-import { getIngredients } from '../../utils/api'
+import { getIngredients } from '../../services/actions/api'
 import { IngredientsContext, ChosenIngredientsContext } from '../../context/appContext';
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
-  const [chosenIngredients, dispatchChosenIngredients] = useReducer(chooseIngredients, []);
 
-  function chooseIngredients(state, action) {
-    switch (action.type) {
-      case 'add':
-        return [...state, ...action.payload]
-      case 'remove':
-        return [...state.filter(({_id})=> _id !== action.payload._id)]
-      default:
-        throw new Error(`неправильно передан тип action: ${action.type}`);
-    }
-  }
+  const dispatch = useDispatch();
+  const { ingredients, chosenIngredients } = useSelector(store => store);
 
   useEffect(() => {
-    getIngredients()
-      .then(data => {
-        setIngredients(data)
-        dispatchChosenIngredients({type: 'add', payload: data.slice(-12)})
-      })
-      .catch(e => console.log(e));
-  }, [])
+    dispatch(getIngredients());
+  }, [dispatch])
+  useEffect(() => {
+    dispatch({type: 'ADD_CHOSEN_INGREDIENT', payload: ingredients.length ? ingredients.slice(-12) : []}) ;
+  }, [ingredients, dispatch])
 
   return (
     <div className={styles.app} >
       <AppHeader />
-      { !!ingredients.length &&
+      { ingredients && !!ingredients.length &&
       <IngredientsContext.Provider value={ingredients}>
-        <ChosenIngredientsContext.Provider value={{ chosenIngredients, dispatchChosenIngredients }}>
+        <ChosenIngredientsContext.Provider value={{ chosenIngredients }}>
           <Main />
         </ChosenIngredientsContext.Provider>
       </IngredientsContext.Provider>

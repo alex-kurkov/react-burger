@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ChosenIngredientsContext } from '../../context/appContext';
 import { 
@@ -8,13 +9,13 @@ import styles from './constructor-element.module.css'
 import './constructor-element.module.css';
 
 const ConstructorElement = ({ type, text, thumbnail, price, isLocked, _id }) => {
-  const { dispatchChosenIngredients } = useContext(ChosenIngredientsContext);
+  const dispatch = useDispatch();
   const positionStyle = styles[`position_${type}`];
   const positionBorderStyle = styles[`border_style_${type}`]
   const action = isLocked ? (
       <LockIcon type="primary" />
   ) : (
-      <CloseIcon type="primary" onClick={() => dispatchChosenIngredients({type: 'remove', payload: {_id}})} />
+      <CloseIcon type="primary" onClick={() => dispatch({type: 'REMOVE_CHOSEN_INGREDIENT', payload: {_id}})} />
   );
 
   return (
