@@ -37,13 +37,13 @@ export const rootReducer = (store = initialState, action) => {
       return { ...store, ingredients: [...action.payload] }
     }
     case REQUEST_INGREDIENTS_FAILED: {
-      return { ...store, error: action.payload}
+      return { ...store, ingredients: initialState.ingredients, error: action.payload}
     }
     case POST_ORDER_SUCCESS: {
       return { ...store,  currentOrder: action.payload }
     }
     case POST_ORDER_FAILED: {
-      return { ...store, error: action.payload}
+      return { ...store, currentOrder: initialState.currentOrder, error: action.payload}
     }
     case RESET_CURRENT_ORDER: {
       return { ...store, currentOrder: {}, chosenBun: {}, chosenIngredients: []}
