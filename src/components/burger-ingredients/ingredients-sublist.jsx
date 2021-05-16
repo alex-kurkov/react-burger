@@ -14,7 +14,7 @@ const IngredientsSublist = ({ type, name }) => {
         { ingredientsSublist &&
           ingredientsSublist.map((item) => (
             <li className={styles.listItem} key={item._id}>
-              <IngredientCard item={item} count={3} />
+              <IngredientCard item={item} />
             </li>
           ))
         }

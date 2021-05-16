@@ -13,17 +13,15 @@ const BurgerIngredients = () => {
   const { ingredients, currentIngredientsTab } = useSelector(store => store);
   const dispatch = useDispatch();
 
-  const calculateNearestTab = () => {
-    const nearest = getNearestTab();
-    console.log(nearest);
-    dispatch({type: CHANGE_INGREDIENTS_TAB, payload: nearest});
-  };
-
   useEffect(() => {
     const container = document.getElementById('ingredients');
+    const calculateNearestTab = () => {
+      const nearest = getNearestTab();
+      dispatch({type: CHANGE_INGREDIENTS_TAB, payload: nearest});
+    };
     container.addEventListener("scroll", throttle(calculateNearestTab, 100));
     return () => container.removeEventListener("scroll", throttle(calculateNearestTab, 100));
-  }, []);
+  }, [dispatch]);
 
   const Title = () => (
     <h2 className={`${styles.title} text text_type_main-large mb-2`}>

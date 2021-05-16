@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalOverlay from '../modal-overlay/modal-overlay';
@@ -15,13 +14,18 @@ import {
  } from '../../utils/constants';
 import styles from './ingredient-card.module.css';
 
-const IngredientCard = ({ item, count }) => {
-  const { activeIngredient } = useSelector(store => store);
+const IngredientCard = ({ item }) => {
+  const { activeIngredient, chosenIngredients, chosenBun } = useSelector(store => store);
   const dispatch = useDispatch();
-  
-  const closeModal = useCallback(() => {
+  const count = item.type !== 'bun' 
+    ? chosenIngredients.filter(i => i._id === item._id).length
+    : chosenBun._id === item._id
+    ? 1
+    : 0
+
+  const closeModal = () => {
     dispatch({ type: RESET_ACTIVE_INGREDIENT })
-  }, [dispatch])
+  }
   
   const openModal = (e) => {
     e.stopPropagation();
@@ -44,7 +48,7 @@ const IngredientCard = ({ item, count }) => {
   return (
     <article className={`${styles.card} pr-2 pl-2 pb-3`} onClick={openModal}> 
       {activeIngredient._id && modal}
-      {count && <Counter count={count} size="small" />}
+      {!!count && <Counter count={count} size="small" />}
       <img src={image} className={`${styles.image}` } alt={name} />
       <div className={`${styles.price} mt-1 mb-1`}>
         <span className="text text_type_digits-default mr-1">{price}</span>
@@ -69,5 +73,4 @@ IngredientCard.propTypes = {
     calories: PropTypes.number,
     price: PropTypes.number,
   }),
-  count: PropTypes.number,
 }
