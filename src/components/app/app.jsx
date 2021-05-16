@@ -17,7 +17,7 @@ function App() {
   return (
     <div className={styles.app} >
       <AppHeader />
-      { ingredients && ingredients.length &&
+      { !!ingredients.length &&
         <Main />
       }
     </div>

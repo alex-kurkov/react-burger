@@ -5,7 +5,7 @@ import {
   ListIcon,
   ProfileIcon
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
-import { NavigationLink } from "../navigation-link/navigation-link";
+import { NavigationLink } from "./navigation-link";
 
 
 const AppHeader = () => {

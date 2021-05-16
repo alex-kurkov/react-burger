@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { CHANGE_INGREDIENTS_TAB } from '../../utils/constants';
 import { tabs } from '../../utils/data'
-import IngredientsSublist from '../ingredients-sublist/ingredients-sublist';
+import IngredientsSublist from './ingredients-sublist';
 import { 
   Tab
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';

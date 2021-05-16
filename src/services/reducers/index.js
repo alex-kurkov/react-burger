@@ -10,7 +10,6 @@ import {
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   RESET_CURRENT_ORDER,
-
 } from '../../utils/constants';
 
 const initialState = {

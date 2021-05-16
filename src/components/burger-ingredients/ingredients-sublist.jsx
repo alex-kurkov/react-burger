@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import IngredientCard from '../ingredient-card/ingredient-card';
+import IngredientCard from './ingredient-card';
 import styles from './ingredients-sublist.module.css';
 
 const IngredientsSublist = ({ type, name }) => {

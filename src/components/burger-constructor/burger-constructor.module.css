@@ -37,7 +37,7 @@
   margin: 0;
   padding: 0;
   scroll-snap-type: both mandatory;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 100%;
   box-sizing: border-box;
 }

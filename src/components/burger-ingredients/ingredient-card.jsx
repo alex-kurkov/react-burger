@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import IngredientDetails from './ingredient-details';
 import { 
   Counter, CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
