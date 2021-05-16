@@ -19,3 +19,6 @@
   text-align: center;
   overflow: hidden;
 }
+.dragging {
+  box-shadow: inset var(--colors-interface-accent) 0 0 15px;
+}

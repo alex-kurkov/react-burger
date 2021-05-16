@@ -7,6 +7,9 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.hovered {
+  background-color: rgba(76, 76, 255, 0.1);
+}
 .content {
   box-sizing: border-box;
   padding-top: 60px;
@@ -30,6 +33,8 @@
 .bunContainer {
   min-height: 80px;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 .list {
   display: block;
@@ -38,6 +43,7 @@
   padding: 0;
   scroll-snap-type: both mandatory;
   overflow-y: auto;
+  overflow-x: hidden;
   height: 100%;
   box-sizing: border-box;
 }

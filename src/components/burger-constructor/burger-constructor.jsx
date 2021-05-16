@@ -1,17 +1,20 @@
 import { useEffect, useRef } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
 import OrderButton from './orderButton';
 import ConstructorElement from "./constructor-element";
 import Total from "./total";
 import {
   HEIGHT_OF_CONSTRUCTOR_ITEM,
-  CONSTRUCTOR_MARGIN
+  CONSTRUCTOR_MARGIN,
+  ADD_CHOSEN_BUN,
+  ADD_CHOSEN_INGREDIENT
 } from '../../utils/constants';
 import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
   const { chosenIngredients, chosenBun } = useSelector(store => store);
-
+  const dispatch = useDispatch();
   // *********************
   // block to calculate and set height of constructor list parent for neat display
   const content = useRef();
@@ -27,6 +30,22 @@ const BurgerConstructor = () => {
       CONSTRUCTOR_MARGIN * 2;
     container.current.style.height = `${countedSpace}px`;
   }
+  const handleNewIndredientDrop = (item) => {
+    dispatch({
+      type: item.type === 'bun' ? ADD_CHOSEN_BUN : ADD_CHOSEN_INGREDIENT,
+      payload: item 
+    });
+  }
+
+  const [{isHover}, dropNewIngredientsTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      handleNewIndredientDrop(item)
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
+  });
 
   useEffect(() => {
     setConstructorListHeight();
@@ -36,48 +55,41 @@ const BurgerConstructor = () => {
   // **********************
 
   return (
-    <section className={`${styles.section} pt-5 pb-5`}>
+    <section ref={dropNewIngredientsTarget} className={`${styles.section} ${isHover && styles.hovered} pt-5 pb-5`}>
       <div ref={content} className={`${styles.content} mb-5`}>
-        <div className={styles.bunContainer}>
+        <ul className={styles.bunContainer}>
           {chosenBun.name && (
             <ConstructorElement
+              item={chosenBun}
               type="top"
               isLocked={true}
-              text={`${chosenBun.name} (верх)`}
-              thumbnail={chosenBun.image}
-              price={chosenBun.price}
             />
           )}
-        </div>
+        </ul>
         <div ref={container} className={styles.container}>
           <ul className={styles.list}>
             { chosenIngredients
                 .map((item, index) => (
-                  <li className={`${styles.listItem} mb-1`} key={`${item._id}-${index}`}>
                     <ConstructorElement
+                      key={`${item._id}-${index}`}
                       type="center"
+                      item={item}
                       isLocked={false}
-                      text={item.name}
-                      thumbnail={item.image}
-                      price={item.price}
-                      _id={item._id}
                       positionIndex={index}
                     />
-                  </li>
                 ))}
           </ul>
         </div>
-        <div className={styles.bunContainer}>
+        <ul className={styles.bunContainer}>
           {chosenBun.name && (
             <ConstructorElement
+              item={chosenBun}
               type="bottom"
               isLocked={true}
               text={`${chosenBun.name} (низ)`}
-              thumbnail={chosenBun.image}
-              price={chosenBun.price}
             />
           )}
-        </div>
+        </ul>
       </div>
 
       <div className={`${styles.order} pt-2`}>
@@ -87,19 +99,5 @@ const BurgerConstructor = () => {
     </section>
   );
 };
-
-/* BurgerConstructor.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    image: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-  }))
-} */
 
 export default BurgerConstructor;

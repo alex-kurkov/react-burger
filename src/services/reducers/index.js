@@ -10,6 +10,7 @@ import {
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   RESET_CURRENT_ORDER,
+  ELEMENT_SORTED_BY_DND,
 } from '../../utils/constants';
 
 const initialState = {
@@ -56,6 +57,17 @@ export const rootReducer = (store = initialState, action) => {
     case ADD_CHOSEN_BUN: {
       return { ...store, chosenBun: action.payload }
     }
+    case ELEMENT_SORTED_BY_DND: {
+      const ingredientsWithoutSorted = [
+        ...store.chosenIngredients.slice(0, action.payload.positionIndex), 
+        ...store.chosenIngredients.slice(action.payload.positionIndex + 1),
+      ]
+      const detachedHead = ingredientsWithoutSorted.slice(0, action.payload.targetIndex);
+      const detachedTail = ingredientsWithoutSorted.slice(action.payload.targetIndex)
+      const sortedElement = store.chosenIngredients[action.payload.positionIndex]
+
+      return { ...store, chosenIngredients: [...detachedHead, sortedElement, ...detachedTail] }
+    }
     case REMOVE_CHOSEN_INGREDIENT: {
       return { 
         ...store, 
@@ -63,7 +75,6 @@ export const rootReducer = (store = initialState, action) => {
           ...store.chosenIngredients.slice(0, action.payload.positionIndex), 
           ...store.chosenIngredients.slice(action.payload.positionIndex + 1),
         ]}
-/*       return { ...store, chosenIngredients: [...store.chosenIngredients.filter(i => i._id !== action.payload._id)]} */
     }
     default: {
       return store;

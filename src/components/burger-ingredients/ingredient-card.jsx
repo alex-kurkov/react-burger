@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useDrag } from "react-dnd";
 import PropTypes from 'prop-types';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
@@ -9,12 +10,11 @@ import {
 import { 
   SET_ACTIVE_INGREDIENT, 
   RESET_ACTIVE_INGREDIENT,
-  ADD_CHOSEN_INGREDIENT,
-  ADD_CHOSEN_BUN,
  } from '../../utils/constants';
 import styles from './ingredient-card.module.css';
 
 const IngredientCard = ({ item }) => {
+  const { name, price, image } = item;
   const { activeIngredient, chosenIngredients, chosenBun } = useSelector(store => store);
   const dispatch = useDispatch();
   const count = item.type !== 'bun' 
@@ -30,10 +30,6 @@ const IngredientCard = ({ item }) => {
   const openModal = (e) => {
     e.stopPropagation();
     dispatch({type: SET_ACTIVE_INGREDIENT, payload: item });
-    dispatch({
-      type: item.type === 'bun' ? ADD_CHOSEN_BUN : ADD_CHOSEN_INGREDIENT,
-      payload: item 
-    });
   }
 
   const modal = (
@@ -43,10 +39,16 @@ const IngredientCard = ({ item }) => {
       </Modal>
     </ModalOverlay>
   )
+  const [{isDrag}, dragRef] = useDrag({
+    type: 'ingredient',
+    item,
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+    })
+  });
 
-  const { name, price, image } = item;
   return (
-    <article className={`${styles.card} pr-2 pl-2 pb-3`} onClick={openModal}> 
+    <article ref={dragRef} className={`${styles.card} pr-2 pl-2 pb-3 ${isDrag ? styles.dragging : '' }` } onClick={openModal}> 
       {activeIngredient._id && modal}
       {!!count && <Counter count={count} size="small" />}
       <img src={image} className={`${styles.image}` } alt={name} />
