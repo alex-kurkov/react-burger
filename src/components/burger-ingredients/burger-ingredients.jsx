@@ -6,15 +6,24 @@ import IngredientsSublist from './ingredients-sublist';
 import { 
   Tab
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
+import { getNearestTab, throttle } from '../../utils/helpers';
 import styles from './burger-ingredients.module.css';
 
 const BurgerIngredients = () => {
   const { ingredients, currentIngredientsTab } = useSelector(store => store);
   const dispatch = useDispatch();
 
+  const calculateNearestTab = () => {
+    const nearest = getNearestTab();
+    console.log(nearest);
+    dispatch({type: CHANGE_INGREDIENTS_TAB, payload: nearest});
+  };
+
   useEffect(() => {
-    document.getElementById(currentIngredientsTab).scrollIntoView({ behavior: 'smooth' });
-  }, [currentIngredientsTab])
+    const container = document.getElementById('ingredients');
+    container.addEventListener("scroll", throttle(calculateNearestTab, 100));
+    return () => container.removeEventListener("scroll", throttle(calculateNearestTab, 100));
+  }, []);
 
   const Title = () => (
     <h2 className={`${styles.title} text text_type_main-large mb-2`}>
@@ -22,22 +31,27 @@ const BurgerIngredients = () => {
     </h2>
   )
 
-  const tabsContainer = useMemo(() => (
-    <div className={`${styles.tabs} mb-5`}>
-      { tabs.map(({ type, name }) => (
-        <Tab 
-          key={type} 
-          value={type} 
-          active={currentIngredientsTab === type} 
-          onClick={() => dispatch({type: CHANGE_INGREDIENTS_TAB, payload: type})}>
-          {name}
-        </Tab>
-      ))}
-    </div>
-  ), [currentIngredientsTab, dispatch]);
+  const tabsContainer = useMemo(() => {
+    const handleTabClick = (type) => {
+      document.getElementById(type).scrollIntoView({ behavior: 'smooth' });
+      dispatch({type: CHANGE_INGREDIENTS_TAB, payload: type});
+    }
+    return (
+      <div className={`${styles.tabs} mb-5`}>
+        { tabs.map(({ type, name }) => (
+          <Tab 
+            key={type} 
+            value={type} 
+            active={currentIngredientsTab === type} 
+            onClick={handleTabClick}> {/* value transferred by default */}
+            {name}
+          </Tab>
+        ))}
+      </div>
+    )}, [currentIngredientsTab, dispatch]);
 
   const ingredientsContainer = useMemo(() => (
-    <div className={`${styles.ingredients} pt-3 pb-3`}>
+    <div id="ingredients" className={`${styles.ingredients} pt-3 pb-3`}>
       { ingredients.length &&
         tabs.map(item => (
           <IngredientsSublist
