@@ -9,7 +9,7 @@ import styles from "./orderButton.module.css";
 
 const OrderButton = () => {
   const dispatch = useDispatch();
-  const { chosenIngredients, chosenBun, currentOrder } = useSelector(store => store);
+  const { chosenIngredients, chosenBun, currentOrder, apiRequestInProgress } = useSelector(store => store);
   
   const closeModal = () => {
     dispatch({type: RESET_CURRENT_ORDER})
@@ -29,11 +29,11 @@ const OrderButton = () => {
     dispatch(postOrder({ingredients}))
   }
   return (
-    <div className={chosenBun.name ? '' : styles.disabled}>
-      {currentOrder.success && modal}
-      <Button type="primary" size="large" onClick={placeOrder} >
-        Оформить заказ
-      </Button>
+    <div className={chosenBun.name && !apiRequestInProgress ? '' : styles.disabled} >
+      { currentOrder.success && modal }
+        <Button type="primary" size="large" onClick={placeOrder} >
+          Оформить заказ
+        </Button>
     </ div>
   )
 }

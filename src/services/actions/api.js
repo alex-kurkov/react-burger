@@ -4,10 +4,13 @@ import {
   REQUEST_INGREDIENTS_FAILED,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
+  API_REQUEST_IN_PROGRESS,
+  API_REQUEST_FINISHED,
 } from '../../utils/constants';
 
 export const getIngredients = () => {
   return function(dispatch) {
+    dispatch({type: API_REQUEST_IN_PROGRESS});
     fetch(`${API_URL}/ingredients`, {})
       .then(res => res.json())
       .then(res => {
@@ -27,10 +30,12 @@ export const getIngredients = () => {
       type: REQUEST_INGREDIENTS_FAILED,
       payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
     }))
+    .finally(() => dispatch({type: API_REQUEST_FINISHED}))
   };
 }
 export const postOrder = (data) => {
   return function(dispatch) {
+    dispatch({type: API_REQUEST_IN_PROGRESS});
     fetch(`${API_URL}/orders`, {
       method: 'POST',
       headers: {
@@ -56,5 +61,6 @@ export const postOrder = (data) => {
       type: POST_ORDER_FAILED,
       payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
     }))
+    .finally(() => dispatch({type: API_REQUEST_FINISHED}))
   };
 }

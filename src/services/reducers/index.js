@@ -7,6 +7,8 @@ import {
   CHANGE_INGREDIENTS_TAB,
   SET_ACTIVE_INGREDIENT,
   RESET_ACTIVE_INGREDIENT,
+  API_REQUEST_IN_PROGRESS,
+  API_REQUEST_FINISHED,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   RESET_CURRENT_ORDER,
@@ -20,6 +22,7 @@ const initialState = {
     currentIngredient: {},
     order: {},
     error: '',
+    apiRequestInProgress: false,
     currentIngredientsTab: 'bun',
     activeIngredient: {},
     currentOrder: {}
@@ -76,9 +79,20 @@ export const rootReducer = (store = initialState, action) => {
           ...store.chosenIngredients.slice(action.payload.positionIndex + 1),
         ]}
     }
+    case API_REQUEST_IN_PROGRESS: {
+      return { 
+        ...store, 
+        apiRequestInProgress: true,
+      }
+    }
+    case API_REQUEST_FINISHED: {
+      return { 
+        ...store, 
+        apiRequestInProgress: false,
+      }
+    }
     default: {
       return store;
     }
   }
 }
-
