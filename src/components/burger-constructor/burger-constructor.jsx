@@ -63,6 +63,7 @@ const BurgerConstructor = () => {
               item={chosenBun}
               type="top"
               isLocked={true}
+              key={chosenBun._id}
             />
           )}
         </ul>
@@ -86,7 +87,7 @@ const BurgerConstructor = () => {
               item={chosenBun}
               type="bottom"
               isLocked={true}
-              text={`${chosenBun.name} (низ)`}
+              key={chosenBun._id}
             />
           )}
         </ul>

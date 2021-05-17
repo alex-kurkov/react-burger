@@ -23,7 +23,7 @@ const ConstructorElement = ({ key = 'none', item, positionIndex, type, isLocked 
     ? `${item.name} (верх)`
     : `${item.name} (низ)`
 
-  const TargetElement = ({ index, children }) => {
+  const TargetElement = ({ key, index, children }) => {
     const handleIndredientSort = (positionIndex, targetIndex) => {
       dispatch({type: 'ELEMENT_SORTED_BY_DND', payload: {positionIndex, targetIndex}})
     }
@@ -71,7 +71,7 @@ const ConstructorElement = ({ key = 'none', item, positionIndex, type, isLocked 
   }
 
   return (
-    <TargetElement index={positionIndex} >
+    <TargetElement key={key} index={positionIndex} >
       <DraggableElement />
     </TargetElement>
   );
