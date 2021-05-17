@@ -23,11 +23,11 @@ const BurgerConstructor = () => {
   function setConstructorListHeight() {
     const contentHeight = content.current.offsetHeight;
     const availableSpace =
-      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + CONSTRUCTOR_MARGIN * 3;
+      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + CONSTRUCTOR_MARGIN * 4;
     const countedSpace =
       availableSpace -
       (availableSpace % (HEIGHT_OF_CONSTRUCTOR_ITEM + CONSTRUCTOR_MARGIN)) +
-      CONSTRUCTOR_MARGIN * 6;
+      CONSTRUCTOR_MARGIN * 4;
     container.current.style.height = `${countedSpace}px`;
   }
   const handleNewIndredientDrop = (item) => {
@@ -57,7 +57,7 @@ const BurgerConstructor = () => {
   return (
     <section ref={dropNewIngredientsTarget} className={`${styles.section} ${isHover && styles.hovered}`}>
       <div ref={content} className={`${styles.content} mb-5`}>
-        <ul className={styles.bunContainer}>
+        <ul className={`${styles.bunContainer}`}>
           {chosenBun.name && (
             <ConstructorElement
               item={chosenBun}
@@ -66,7 +66,7 @@ const BurgerConstructor = () => {
             />
           )}
         </ul>
-        <div ref={container} className={styles.container}>
+        <div ref={container} className={`${styles.container} mb-2 mt-2`}>
           <ul className={styles.list}>
             { chosenIngredients
                 .map((item, index) => (
