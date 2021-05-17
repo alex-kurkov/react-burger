@@ -1,6 +1,6 @@
 const API_URL = 'https://norma.nomoreparties.space/api'
 const HEIGHT_OF_CONSTRUCTOR_ITEM = 80;
-const CONSTRUCTOR_MARGIN = 8;
+const CONSTRUCTOR_MARGIN = 4;
 
 const ADD_CHOSEN_INGREDIENT = 'ADD_CHOSEN_INGREDIENT';
 const ADD_CHOSEN_BUN = 'ADD_CHOSEN_BUN';
