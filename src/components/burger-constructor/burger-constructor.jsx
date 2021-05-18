@@ -13,7 +13,7 @@ import {
 import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = () => {
-  const { chosenIngredients, chosenBun } = useSelector(store => store);
+  const { chosenIngredients, chosenBun } = useSelector(store => store.cart);
   const dispatch = useDispatch();
   // *********************
   // block to calculate and set height of constructor list parent for neat display

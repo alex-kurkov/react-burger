@@ -15,7 +15,8 @@ import styles from './ingredient-card.module.css';
 
 const IngredientCard = ({ item }) => {
   const { name, price, image } = item;
-  const { activeIngredient, chosenIngredients, chosenBun } = useSelector(store => store);
+  const { activeIngredient } = useSelector(store => store.content);
+  const { chosenIngredients, chosenBun } = useSelector(store => store.cart);
   const dispatch = useDispatch();
   const count = item.type !== 'bun' 
     ? chosenIngredients.filter(i => i._id === item._id).length

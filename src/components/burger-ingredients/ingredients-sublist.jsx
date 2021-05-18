@@ -4,7 +4,7 @@ import IngredientCard from './ingredient-card';
 import styles from './ingredients-sublist.module.css';
 
 const IngredientsSublist = ({ type, name }) => {
-  const { ingredients } = useSelector(store => store);
+  const { ingredients } = useSelector(store => store.content);
   const ingredientsSublist = ingredients.filter(i => i.type === type)
 
   return (

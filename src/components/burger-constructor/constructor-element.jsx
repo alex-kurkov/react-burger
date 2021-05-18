@@ -7,7 +7,7 @@ import {
 import styles from './constructor-element.module.css'
 import './constructor-element.module.css';
 
-const ConstructorElement = ({ key = 'none', item, positionIndex, type, isLocked }) => {
+const ConstructorElement = ({ item, positionIndex, type, isLocked }) => {
   const dispatch = useDispatch();
   const positionStyle = styles[`position_${type}`];
   const positionBorderStyle = styles[`border_style_${type}`]
@@ -23,7 +23,7 @@ const ConstructorElement = ({ key = 'none', item, positionIndex, type, isLocked 
     ? `${item.name} (верх)`
     : `${item.name} (низ)`
 
-  const TargetElement = ({ key, index, children }) => {
+  const TargetElement = ({ index, children }) => {
     const handleIndredientSort = (positionIndex, targetIndex) => {
       dispatch({type: 'ELEMENT_SORTED_BY_DND', payload: {positionIndex, targetIndex}})
     }
@@ -37,7 +37,7 @@ const ConstructorElement = ({ key = 'none', item, positionIndex, type, isLocked 
       })
     });
     return (
-      <li key={key} ref={item.type !== 'bun' ? dropTarget : null} className={`${styles.listItem} ${hoveredTarget ? styles.hovered : ''} mb-2`} >
+      <li ref={item.type !== 'bun' ? dropTarget : null} className={`${styles.listItem} ${hoveredTarget ? styles.hovered : ''} mb-2`} >
         { children }
       </li>
   )}
@@ -71,7 +71,7 @@ const ConstructorElement = ({ key = 'none', item, positionIndex, type, isLocked 
   }
 
   return (
-    <TargetElement key={key} index={positionIndex} >
+    <TargetElement index={positionIndex} >
       <DraggableElement />
     </TargetElement>
   );
@@ -82,6 +82,5 @@ ConstructorElement.propTypes = {
   positionIndex: PropTypes.number,
   type: PropTypes.string,
   isLocked: PropTypes.bool,
-  key: PropTypes.string
 }
 export default ConstructorElement;

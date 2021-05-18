@@ -8,7 +8,7 @@ import { getIngredients } from '../../services/actions/api'
 function App() {
 
   const dispatch = useDispatch();
-  const { ingredients } = useSelector(store => store);
+  const { ingredients } = useSelector(store => store.content);
 
   useEffect(() => {
     dispatch(getIngredients());

@@ -4,15 +4,19 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
 import { postOrder } from '../../services/actions/api';
-import { RESET_CURRENT_ORDER } from '../../utils/constants';
+import { RESET_CURRENT_ORDER, RESET_CHOSEN_INGREDIENTS } from '../../utils/constants';
 import styles from "./orderButton.module.css";
 
 const OrderButton = () => {
   const dispatch = useDispatch();
-  const { chosenIngredients, chosenBun, currentOrder, apiRequestInProgress } = useSelector(store => store);
+  const { chosenIngredients, chosenBun } = useSelector(store => store.cart);
+  const { currentOrder } = useSelector(store => store.order);
+  const { apiRequestInProgress } = useSelector(store => store.api);
   
   const closeModal = () => {
     dispatch({type: RESET_CURRENT_ORDER})
+    dispatch({type: RESET_CHOSEN_INGREDIENTS})
+    
   }
   
   const modal = (
@@ -25,8 +29,8 @@ const OrderButton = () => {
 
   const placeOrder = (e) => {
     e.stopPropagation();
-    const ingredients = chosenIngredients.map(({_id}) => _id).concat(chosenBun._id);
-    dispatch(postOrder({ingredients}))
+    const ingredientsIds = chosenIngredients.map(({_id}) => _id).concat(chosenBun._id);
+    dispatch(postOrder({ingredients: ingredientsIds}))
   }
   return (
     <div className={chosenBun.name && !apiRequestInProgress ? '' : styles.disabled} >

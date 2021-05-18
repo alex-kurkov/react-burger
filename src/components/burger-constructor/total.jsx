@@ -5,7 +5,7 @@ import styles from "./total.module.css";
 
 const Total = () => {
   const [total, setTotal] = useState(0);
-  const { chosenIngredients, chosenBun } = useSelector(store => store);
+  const { chosenIngredients, chosenBun } = useSelector(store => store.cart);
   
   useEffect(() => {
     const sum = chosenIngredients

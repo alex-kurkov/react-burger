@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import styles from './ingredient-details.module.css';
 
 const IngredientDetails = () => {
-  const { activeIngredient } = useSelector(store => store);
+  const { activeIngredient } = useSelector(store => store.content);
   const {
     name, proteins, fat, carbohydrates, calories, image_large, description = 'описание ингредиента, которого пока что еще нет'
   } = activeIngredient;

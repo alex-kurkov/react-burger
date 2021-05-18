@@ -5,7 +5,7 @@ import styles from './order-details.module.css';
 
 const OrderDetails = () => {
   const dispatch = useDispatch();
-  const { currentOrder } = useSelector(store => store);
+  const { currentOrder } = useSelector(store => store.order);
 
   return (
   <div className={styles.wrap}>

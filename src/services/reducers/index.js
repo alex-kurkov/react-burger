@@ -1,4 +1,11 @@
-import {
+import { combineReducers } from 'redux';
+import api from './api';
+import content from './content';
+import cart from './cart';
+import order from './order';
+import error from './error';
+
+/* import {
   ADD_CHOSEN_INGREDIENT,
   ADD_CHOSEN_BUN,
   REMOVE_CHOSEN_INGREDIENT,
@@ -7,15 +14,17 @@ import {
   CHANGE_INGREDIENTS_TAB,
   SET_ACTIVE_INGREDIENT,
   RESET_ACTIVE_INGREDIENT,
-  API_REQUEST_IN_PROGRESS,
-  API_REQUEST_FINISHED,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   RESET_CURRENT_ORDER,
   ELEMENT_SORTED_BY_DND,
-} from '../../utils/constants';
+} from '../../utils/constants'; */
 
-const initialState = {
+/* const initialState = {
+    content: {},
+    order: {},
+    api: {},
+    error: {},
     ingredients: [],
     chosenIngredients: [],
     chosenBun: {},
@@ -26,9 +35,9 @@ const initialState = {
     currentIngredientsTab: 'bun',
     activeIngredient: {},
     currentOrder: {}
-  }
+  } */
 
-export const rootReducer = (store = initialState, action) => {
+/* const root = (store = initialState, action) => {
   switch (action.type) {
     case RESET_ACTIVE_INGREDIENT: {
       return { ...store, activeIngredient: {} }
@@ -79,7 +88,7 @@ export const rootReducer = (store = initialState, action) => {
           ...store.chosenIngredients.slice(action.payload.positionIndex + 1),
         ]}
     }
-    case API_REQUEST_IN_PROGRESS: {
+     case API_REQUEST_IN_PROGRESS: {
       return { 
         ...store, 
         apiRequestInProgress: true,
@@ -95,4 +104,12 @@ export const rootReducer = (store = initialState, action) => {
       return store;
     }
   }
-}
+} */
+
+export const rootReducer = combineReducers({
+  cart,
+  api,
+  content,
+  order,
+  error
+})

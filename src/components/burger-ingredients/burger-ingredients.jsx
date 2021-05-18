@@ -10,7 +10,7 @@ import { getNearestTab, throttle } from '../../utils/helpers';
 import styles from './burger-ingredients.module.css';
 
 const BurgerIngredients = () => {
-  const { ingredients, currentIngredientsTab } = useSelector(store => store);
+  const { ingredients, currentIngredientsTab } = useSelector(store => store.content);
   const dispatch = useDispatch();
 
   useEffect(() => {
