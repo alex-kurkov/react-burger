@@ -1,6 +1,6 @@
 .element {
   width: 95%;
-  box-sizing: border-box;
+  box-sizing: content-box;
   height: 80px;
   display: flex;
 }
@@ -70,4 +70,31 @@
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+}
+
+.listItem {
+  max-height: 80px;
+  list-style-type: none;
+  padding: 0;
+  scroll-snap-align: start;
+}
+.listItem:last-of-type {
+  margin-bottom: 0;
+}
+.hovered {
+  background: linear-gradient(to bottom, transparent 0%, rgba(76, 76, 255, 0.2) 10%, transparent 50%);
+  padding-top: 40px;
+  box-sizing: content-box;
+  transition: padding .2s ease-in-out;
+}
+.dragged {
+  transform: scale(.8);
+  opacity: .5;
+}
+
+li:last-of-type.hovered {
+  padding-top: 0;
+  padding-bottom: 40px;
+  background: linear-gradient(to top, transparent 0%, rgba(76, 76, 255, 0.2) 10%, transparent 50%);
+
 }

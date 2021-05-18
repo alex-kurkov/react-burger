@@ -1,0 +1,5 @@
+.disabled > button {
+  pointer-events: none;
+  cursor: none;
+  opacity: .5;
+}

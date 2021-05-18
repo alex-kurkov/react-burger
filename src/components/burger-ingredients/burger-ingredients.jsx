@@ -1,61 +1,75 @@
-import { useEffect, useState } from "react";
-import PropTypes from 'prop-types';
+import { useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { CHANGE_INGREDIENTS_TAB } from '../../utils/constants';
 import { tabs } from '../../utils/data'
-import IngredientsSublist from '../ingredients-sublist/ingredients-sublist';
+import IngredientsSublist from './ingredients-sublist';
 import { 
   Tab
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
+import { getNearestTab, throttle } from '../../utils/helpers';
 import styles from './burger-ingredients.module.css';
 
-const BurgerIngredients = ({data}) => {
-  const [current, setCurrent] = useState('bun');
+const BurgerIngredients = () => {
+  const { ingredients, currentIngredientsTab } = useSelector(store => store.content);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    document.getElementById(current).scrollIntoView({ behavior: 'smooth' });
-  }, [current])
+    const container = document.getElementById('ingredients');
+    const calculateNearestTab = () => {
+      const nearest = getNearestTab();
+      dispatch({type: CHANGE_INGREDIENTS_TAB, payload: nearest});
+    };
+    container.addEventListener("scroll", throttle(calculateNearestTab, 100));
+    return () => container.removeEventListener("scroll", throttle(calculateNearestTab, 100));
+  }, [dispatch]);
+
+  const Title = () => (
+    <h2 className={`${styles.title} text text_type_main-large mb-2`}>
+      Соберите бургер
+    </h2>
+  )
+
+  const tabsContainer = useMemo(() => {
+    const handleTabClick = (type) => {
+      document.getElementById(type).scrollIntoView({ behavior: 'smooth' });
+      dispatch({type: CHANGE_INGREDIENTS_TAB, payload: type});
+    }
+    return (
+      <div className={`${styles.tabs} mb-5`}>
+        { tabs.map(({ type, name }) => (
+          <Tab 
+            key={type} 
+            value={type} 
+            active={currentIngredientsTab === type} 
+            onClick={handleTabClick}> {/* value transferred by default */}
+            {name}
+          </Tab>
+        ))}
+      </div>
+    )}, [currentIngredientsTab, dispatch]);
+
+  const ingredientsContainer = useMemo(() => (
+    <div id="ingredients" className={`${styles.ingredients} pt-3 pb-3`}>
+      { ingredients.length &&
+        tabs.map(item => (
+          <IngredientsSublist
+            key={item.type}
+            type={item.type}
+            name={item.name}
+          />
+        ))
+      }
+    </div>
+  ), [ ingredients ])
+  
 
   return (
     <section className={`${styles.section} pt-5 pb-5`}>
-      <h2 className={`${styles.title} text text_type_main-large mb-2`}>
-        Соберите бургер
-      </h2>
-      <div className={`${styles.tabs} mb-5`}>
-        { tabs && tabs.map(tab => (
-          <Tab key={tab.type} value={tab.type} active={current === tab.type} onClick={setCurrent}>
-            {tab.name}
-          </Tab>
-        ))}
-
-      </div>
-      <div className={`${styles.ingredients} pt-3 pb-3`}>
-        { tabs && 
-          tabs.map(item => (
-            <IngredientsSublist
-              key={item.type}
-              data={data.filter(datum => datum.type === item.type)}
-              type={item.type}
-              name={item.name}
-            />
-          ))
-        }
-      </div>
+      <Title />
+      { tabsContainer }
+      { ingredientsContainer }
     </section>
   )
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    image: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-  }))
-}
- 
 
 export default BurgerIngredients;

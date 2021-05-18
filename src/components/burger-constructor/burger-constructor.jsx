@@ -1,149 +1,104 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import PropTypes from "prop-types";
-import OrderDetails from '../order-details/order-details';
-import ModalOverlay from '../modal-overlay/modal-overlay';
-import Modal from '../modal/modal';
-import {
-  CurrencyIcon,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
-import ConstructorElement from "../constructor-element/constructor-element";
-import styles from "./burger-constructor.module.css";
+import { useEffect, useRef } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
+import OrderButton from './orderButton';
+import ConstructorElement from "./constructor-element";
+import Total from "./total";
 import {
   HEIGHT_OF_CONSTRUCTOR_ITEM,
-  CONSTRUCTOR_MARGIN
+  CONSTRUCTOR_MARGIN,
+  ADD_CHOSEN_BUN,
+  ADD_CHOSEN_INGREDIENT
 } from '../../utils/constants';
+import styles from "./burger-constructor.module.css";
 
-const BurgerConstructor = ({ items }) => {
-  const [total, setTotal] = useState(0);
-  const [bun, setBun] = useState({});
-  const [showModal, setShowModal] = useState(false);
-  
-  const closeModal = useCallback(() => {  setShowModal(false) }, [])
-  const openModal = useCallback((e) => {
-    e.stopPropagation();
-    setShowModal(true);
-  }, [])
-
-  const modal = (
-    <ModalOverlay onClose={closeModal}> 
-      <Modal onClose={closeModal} >
-        <OrderDetails onClose={closeModal} />
-      </Modal>
-    </ModalOverlay>
-  )
-
-  useEffect(() => {
-    const foundBun = items.find(({ type }) => type === "bun");
-    setBun(foundBun);
-  }, [items]);
-
-  useEffect(() => {
-    const sum = items.reduce((acc, item) => {
-      return acc + item.price;
-    }, 0);
-    setTotal(sum);
-  }, [items]);
-
-
+const BurgerConstructor = () => {
+  const { chosenIngredients, chosenBun } = useSelector(store => store.cart);
+  const dispatch = useDispatch();
   // *********************
   // block to calculate and set height of constructor list parent for neat display
   const content = useRef();
   const container = useRef();
-  const list = useRef();
 
-  const setConstructorListHeight = () => {
+  function setConstructorListHeight() {
     const contentHeight = content.current.offsetHeight;
-    const listScrollHeight = list.current.scrollHeight;
-    if (listScrollHeight < contentHeight) {
-      return container.current.style.height = `fit-content`;
-    }
     const availableSpace =
-      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + CONSTRUCTOR_MARGIN;
+      Number(contentHeight) - HEIGHT_OF_CONSTRUCTOR_ITEM * 3 + CONSTRUCTOR_MARGIN * 4;
     const countedSpace =
       availableSpace -
       (availableSpace % (HEIGHT_OF_CONSTRUCTOR_ITEM + CONSTRUCTOR_MARGIN)) +
-      CONSTRUCTOR_MARGIN;
+      CONSTRUCTOR_MARGIN * 4;
     container.current.style.height = `${countedSpace}px`;
-  };
+  }
+  const handleNewIndredientDrop = (item) => {
+    dispatch({
+      type: item.type === 'bun' ? ADD_CHOSEN_BUN : ADD_CHOSEN_INGREDIENT,
+      payload: item 
+    });
+  }
+
+  const [{isHover}, dropNewIngredientsTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      handleNewIndredientDrop(item)
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
+  });
 
   useEffect(() => {
     setConstructorListHeight();
     window.addEventListener("resize", setConstructorListHeight);
     return () => window.removeEventListener("resize", setConstructorListHeight);
-  }, []);
+  }, [chosenIngredients]);
   // **********************
 
   return (
-    <section className={`${styles.section} pt-5 pb-5`}>
-      {showModal && modal}
+    <section ref={dropNewIngredientsTarget} className={`${styles.section} ${isHover && styles.hovered}`}>
       <div ref={content} className={`${styles.content} mb-5`}>
-        {bun.type && (
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={bun.name}
-            thumbnail={bun.image}
-            price={bun.price}
-          />
-        )}
-        <div ref={container} className={`${styles.container}`}>
-          <ul ref={list} className={styles.list}>
-            {items &&
-              items
-                .filter(({ type }) => type !== "bun")
-                .map((item) => (
-                  <li className={`${styles.listItem} mb-1`} key={item._id}>
+        <ul className={`${styles.bunContainer}`}>
+          {chosenBun.name && (
+            <ConstructorElement
+              item={chosenBun}
+              type="top"
+              isLocked={true}
+              key={chosenBun._id}
+            />
+          )}
+        </ul>
+        <div ref={container} className={`${styles.container} mb-2 mt-2`}>
+          <ul className={styles.list}>
+            { chosenIngredients
+                .map((item, index) => (
                     <ConstructorElement
+                      key={`${item._id}-${index}`}
                       type="center"
+                      item={item}
                       isLocked={false}
-                      text={item.name}
-                      thumbnail={item.image}
-                      price={item.price}
+                      positionIndex={index}
                     />
-                  </li>
                 ))}
           </ul>
         </div>
-        {bun.type && (
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={bun.name}
-            thumbnail={bun.image}
-            price={bun.price}
-          />
-        )}
+        <ul className={styles.bunContainer}>
+          {chosenBun.name && (
+            <ConstructorElement
+              item={chosenBun}
+              type="bottom"
+              isLocked={true}
+              key={chosenBun._id}
+            />
+          )}
+        </ul>
       </div>
+
       <div className={`${styles.order} pt-2`}>
-        {!!total && (
-          <div className={`${styles.total} mt-1 mb-1 mr-5`}>
-            <span className="text text text_type_main-large mr-2">{total}</span>
-            <CurrencyIcon type="primary" />
-          </div>
-        )}
-        <div onClick={openModal}>
-          <Button type="primary" size="large">
-            Оформить заказ
-          </Button>
-        </ div>
+        <Total />
+        <OrderButton />
       </div>
     </section>
   );
 };
-
-BurgerConstructor.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    image: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-  }))
-}
 
 export default BurgerConstructor;
