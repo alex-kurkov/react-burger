@@ -1,0 +1,27 @@
+.main {
+  max-width: 1240px;
+  height: calc(100vh - 88px);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #131316;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper {
+  width: 480px;
+  min-height: 430px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+}
+.heading {
+  padding: 0;
+}

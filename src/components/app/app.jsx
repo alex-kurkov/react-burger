@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styles from './app.module.css';
 import AppHeader from '../header/app-header';
 import { getIngredients } from '../../services/actions/api'
-import { HomePage } from '../../pages';
+import { HomePage, LoginPage, NotFoundPage } from '../../pages';
 
 const App = () => {
 
@@ -23,8 +23,27 @@ const App = () => {
           <Route path="/" exact>
             { !!ingredients.length ? <HomePage /> : null }
           </Route>
+          <Route path="/login" exact>
+            <LoginPage />
+          </Route>
+          <Route path="/register" exact>
 
+          </Route>
+          <Route path="/forgot-password" exact>
 
+          </Route>
+          <Route path="/reset-password" exact>
+
+          </Route>
+          <Route path="/feed" exact>
+
+          </Route>
+          <Route path="/profile" exact>
+
+          </Route>
+          <Route path="*">
+            <NotFoundPage />
+          </Route>
         </Switch>
       </BrowserRouter>
 
