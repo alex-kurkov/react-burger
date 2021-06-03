@@ -24,6 +24,7 @@ const ConstructorElement = ({ item, positionIndex, type, isLocked }) => {
     : `${item.name} (низ)`
 
   const TargetElement = ({ index, children }) => {
+    console.log(index);
     const handleIndredientSort = (positionIndex, targetIndex) => {
       dispatch({type: 'ELEMENT_SORTED_BY_DND', payload: {positionIndex, targetIndex}})
     }
