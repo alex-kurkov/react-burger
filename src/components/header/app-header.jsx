@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom';
 import styles from './app-header.module.css';
 import { 
   Logo,
@@ -9,6 +10,7 @@ import { NavigationLink } from "./navigation-link";
 
 
 const AppHeader = () => {
+  const history = useHistory();
   return (
     <header className={`${styles.header}`} >
       <div className={`${styles.content} pl-5 pr-5 pt-2 pb-2`} >
@@ -16,13 +18,13 @@ const AppHeader = () => {
           <NavigationLink
             active={true}
             text="Конструктор"
-            onClick={() => console.log('clicked "Конструктор"')}
+            onClick={() => history.replace('/')}
             icon={(<BurgerIcon type="primary" />)}
           />
           <NavigationLink
             active={false}
             text="Лента заказов"
-            onClick={() => console.log('clicked "Лента заказов"')}
+            onClick={() => history.replace('/feed')}
             icon={(<ListIcon type="secondary"/>)}
           />
 

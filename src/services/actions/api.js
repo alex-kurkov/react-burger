@@ -6,7 +6,7 @@ import {
   POST_ORDER_FAILED,
   API_REQUEST_IN_PROGRESS,
   API_REQUEST_FINISHED,
-  SET_CURRENT_ERROR
+  SET_CURRENT_ERROR,
 } from '../../utils/constants';
 
 export const getIngredients = () => {
@@ -73,3 +73,4 @@ export const postOrder = (data) => {
     .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
   };
 }
+

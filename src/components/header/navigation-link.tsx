@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './navigation-link.module.css';
 
 export const NavigationLink = (
-  props: { 
+  props: {
     active: boolean;
     text: String; 
     onClick: React.MouseEventHandler | undefined; 

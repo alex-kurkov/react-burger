@@ -4,7 +4,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styles from './app.module.css';
 import AppHeader from '../header/app-header';
 import { getIngredients } from '../../services/actions/api'
-import { HomePage, LoginPage, NotFoundPage } from '../../pages';
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  NotFoundPage,
+  ResetPasswordPage,
+} from '../../pages';
 
 const App = () => {
 
@@ -27,13 +34,13 @@ const App = () => {
             <LoginPage />
           </Route>
           <Route path="/register" exact>
-
+            <RegisterPage />
           </Route>
           <Route path="/forgot-password" exact>
-
+            <ForgotPasswordPage />
           </Route>
           <Route path="/reset-password" exact>
-
+            <ResetPasswordPage />
           </Route>
           <Route path="/feed" exact>
 
