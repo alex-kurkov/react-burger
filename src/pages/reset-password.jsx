@@ -9,12 +9,11 @@ import { AuthForm } from '../components/auth-form'
 export const ResetPasswordPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const { password, code } = useSelector(state => state.form.reset);
-  const { email } = useSelector(state => state.user)
   const dispatch = useDispatch();
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(confirmPasswordReset({password, code, email}))
+    dispatch(confirmPasswordReset({ password, token: code }))
   }
 
   const onFormChange = (e) => {

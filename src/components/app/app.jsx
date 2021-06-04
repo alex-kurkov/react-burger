@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styles from './app.module.css';
 import AppHeader from '../header/app-header';
-import { getIngredients } from '../../services/actions/api'
+import { getIngredients } from '../../services/actions/api';
+import { Loader } from '../loader';
 import {
   HomePage,
   LoginPage,
@@ -17,6 +18,7 @@ const App = () => {
 
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.content);
+  const { apiRequestInProgress } = useSelector(store => store.api);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -24,6 +26,7 @@ const App = () => {
 
   return (
     <div className={styles.app} >
+      { apiRequestInProgress && <Loader /> }
       <BrowserRouter>
         <AppHeader />
         <Switch>
