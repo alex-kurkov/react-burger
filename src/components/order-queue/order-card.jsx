@@ -5,17 +5,17 @@ import { orderDateAgoToString } from '../../utils/helpers';
 
 const IngredientCard = ({ item, extrasCount }) => (
   <li className={styles.listItem}>
-  <div className={styles.imageWrap}>
-    <img 
-      className={styles.cardImage} 
-      alt={item.name} 
-      src={item.image} />        
-    { extrasCount && <span 
-      className={`${styles.extraIngredients} text text_type_digits-default`}>
-        +{extrasCount}
-    </span>}
-  </div>
-</li>
+    <figure className={styles.imageWrap}>
+      <img 
+        className={styles.cardImage} 
+        alt={item.name} 
+        src={item.image} />        
+      { extrasCount && <span 
+        className={`${styles.extraIngredients} text text_type_digits-default`}>
+          +{extrasCount}
+      </span>}
+    </figure>
+  </li>
 )
 
 export const OrderCard = ({ data }) => {
