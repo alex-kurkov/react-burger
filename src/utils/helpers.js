@@ -34,3 +34,28 @@ export const throttle = (callback, limit) => {
     }
   };
 }
+
+const daysAgoToString = days => days < 0 
+  ? 'Это случится в будущем'
+  : days === 0
+  ? 'Сегодня'
+  :  days === 1
+  ? 'Вчера'
+  : days > 1
+  ? `${days} дня(-ей) назад`
+  :'Ошибка в вычислении времени'
+
+export const orderDateAgoToString = (date1, date2 = new Date()) => {
+  date2.setHours(0);
+  date2.setMinutes(0);
+  date2.setSeconds(0);
+
+  const daysAgo = Math.ceil((date2 - date1) / (60 * 60 * 24 * 1000));
+
+  const days = daysAgoToString(daysAgo);
+  const hours = date1.getHours();
+  const minutes = date1.getMinutes();
+  const timeShift = `i-GMT${date1.getTimezoneOffset() / 60}`
+
+  return `${days}, ${hours}:${minutes} ${timeShift}`
+}

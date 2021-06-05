@@ -7,11 +7,12 @@ import { getIngredients } from '../../services/actions/api';
 import { Loader } from '../loader';
 import {
   HomePage,
+  FeedPage,
   LoginPage,
   RegisterPage,
   ForgotPasswordPage,
-  NotFoundPage,
   ResetPasswordPage,
+  NotFoundPage,
 } from '../../pages';
 
 const App = () => {
@@ -46,7 +47,7 @@ const App = () => {
             <ResetPasswordPage />
           </Route>
           <Route path="/feed" exact>
-
+            <FeedPage />
           </Route>
           <Route path="/profile" exact>
 

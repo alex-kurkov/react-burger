@@ -1,0 +1,105 @@
+.section {
+  flex-basis: calc(50% - 30px);
+  width: calc(50% - 30px);
+  max-height: calc(100vh - 200px);
+}
+
+.queue {
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 16px;
+  scroll-snap-type: both mandatory;
+}
+
+.queue::-webkit-scrollbar {
+  width: 12px;
+  z-index: 2;
+}
+.queue::-webkit-scrollbar-track {
+  background:var(--background-element);
+  border-radius: 6px;
+}
+.queue::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid var(--background-element);
+  border-radius: 6px;
+}
+
+.card {
+  height: 176px;
+  background-color: var(--background-element);
+  border-radius: 40px;
+  scroll-snap-align: start;
+}
+.cardInfo {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cardName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-spacing: -10px;
+  letter-spacing: 0px;
+}
+.cardOrderInfo {
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  gap: 8px;
+}
+.ingredients {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-items: flex-start;
+  flex-direction: row-reverse;
+}
+.listItem {
+  margin-right: -16px;
+}
+.listItem:last-of-type {
+  margin-left: 0;
+}
+.imageWrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background: linear-gradient(to top, #801AB2, #4C4CFF);
+}
+.cardImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  object-fit: cover;
+  background-color: var(--background-alt);
+}
+.extraIngredients {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cost {
+  flex-basis: 20%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}

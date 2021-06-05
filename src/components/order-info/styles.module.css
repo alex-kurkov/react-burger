@@ -1,0 +1,6 @@
+.section {
+  flex-basis: calc(50% - 30px);
+  width: calc(50% - 30px);
+  height: 50px;
+  background-color: white;
+}
