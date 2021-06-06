@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRegisterFormValue } from '../services/actions/form'; 
 import { register } from '../services/actions/auth';
@@ -10,7 +10,6 @@ export const RegisterPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const { name, email, password } = useSelector(state => state.form.register);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const onFormSubmit = (e) => {
     e.preventDefault();

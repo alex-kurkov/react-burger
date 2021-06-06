@@ -2,21 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderDateAgoToString } from '../../utils/helpers';
-
-const IngredientCard = ({ item, extrasCount }) => (
-  <li className={styles.listItem}>
-    <figure className={styles.imageWrap}>
-      <img 
-        className={styles.cardImage} 
-        alt={item.name} 
-        src={item.image} />        
-      { extrasCount && <span 
-        className={`${styles.extraIngredients} text text_type_digits-default`}>
-          +{extrasCount}
-      </span>}
-    </figure>
-  </li>
-)
+import { IngredientBorderedImage } from '../ingredient-bordered-image';
 
 export const OrderCard = ({ data }) => {
   const { number, cost, orderedAt, ingredients } = data.order;
@@ -38,18 +24,20 @@ export const OrderCard = ({ data }) => {
       <div className={`${styles.cardOrderInfo} p-6`}>
         <ul className={styles.ingredients}>
           { !!hiddenIngredients.length &&
-            <IngredientCard 
+          <li className={styles.listItem} key="extra-ingredient">
+            <IngredientBorderedImage 
               item={hiddenIngredients[0]}
-              key="extra-ingredient"
               extrasCount={hiddenIngredients.length}
             />
+          </li>
           }
           { visibleIngredients.map((item, idx) =>
-            <IngredientCard 
+          <li className={styles.listItem} key={`${item._id}-${idx}`}>  
+            <IngredientBorderedImage 
               item={item}
-              key={`${item._id}-${idx}`}
               extrasCount={null}
             />
+          </li>
           )}
         </ul>
         <span className={`${styles.cost} text text_type_digits-default`}>{cost} <CurrencyIcon /></span>
@@ -57,7 +45,6 @@ export const OrderCard = ({ data }) => {
     </article>
   )
 }
-
 
 OrderCard.propTypes = {
   data: PropTypes.shape({
@@ -70,17 +57,4 @@ OrderCard.propTypes = {
       ingredients: PropTypes.array
     })
   }),
-}
-IngredientCard.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    order: PropTypes.shape({
-      number: PropTypes.number,
-      cost: PropTypes.number,
-      orderedAt: PropTypes.object,
-      ingredients: PropTypes.array
-    })
-  }),
-  extrasCount: PropTypes.number,
 }

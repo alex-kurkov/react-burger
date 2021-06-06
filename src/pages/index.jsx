@@ -5,6 +5,7 @@ import { ForgotPasswordPage } from './forgot-password';
 import { ResetPasswordPage } from './reset-password';
 import { FeedPage } from './feed';
 import { NotFoundPage } from './404';
+import { FeedOrderDetails } from './feed-order-details';
 
 export {
   HomePage,
@@ -13,5 +14,6 @@ export {
   NotFoundPage,
   ForgotPasswordPage,
   ResetPasswordPage,
-  FeedPage
+  FeedPage,
+  FeedOrderDetails
 }

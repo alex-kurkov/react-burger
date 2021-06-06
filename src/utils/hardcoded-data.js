@@ -1,9 +1,12 @@
+import { IN_PROGRESS, COMPLETED } from './constants'
+
 export const orders = [
   {
     name: 'Space антарианский флюоресцентный бургер',
     _id: '60b920b9f26f8awrg027e0a02d',
+    status: IN_PROGRESS,
     order: {
-      number: 4503,
+      number: 4593,
       cost: 430,
       orderedAt: new Date(2021, 5, 2, 11, 44),
       ingredients: [
@@ -19,6 +22,34 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/bun-02.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
+          __v: 0
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a039',
+          name: 'Кристаллы марсианских альфа-сахаридов',
+          type: 'main',
+          proteins: 234,
+          fat: 432,
+          carbohydrates: 111,
+          calories: 189,
+          price: 762,
+          image: 'https://code.s3.yandex.net/react/code/core.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
+          __v: 0
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a039',
+          name: 'Кристаллы марсианских альфа-сахаридов',
+          type: 'main',
+          proteins: 234,
+          fat: 432,
+          carbohydrates: 111,
+          calories: 189,
+          price: 762,
+          image: 'https://code.s3.yandex.net/react/code/core.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
           __v: 0
         },
         {
@@ -69,6 +100,7 @@ export const orders = [
   {
     name: 'Бессмертный space краторный бургер',
     _id: '60b920b9f26f8a0027e0a02d',
+    status: IN_PROGRESS,
     order: {
       number: 457,
       cost: 8081,
@@ -172,12 +204,69 @@ export const orders = [
           image_large: 'https://code.s3.yandex.net/react/code/sp_1-large.png',
           __v: 0
         },
+        {
+          _id: '60b920b9f26f8a0027e0a039',
+          name: 'Кристаллы марсианских альфа-сахаридов',
+          type: 'main',
+          proteins: 234,
+          fat: 432,
+          carbohydrates: 111,
+          calories: 189,
+          price: 762,
+          image: 'https://code.s3.yandex.net/react/code/core.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
+          __v: 0
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a039',
+          name: 'Кристаллы марсианских альфа-сахаридов',
+          type: 'main',
+          proteins: 234,
+          fat: 432,
+          carbohydrates: 111,
+          calories: 189,
+          price: 762,
+          image: 'https://code.s3.yandex.net/react/code/core.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
+          __v: 0
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a03a',
+          name: 'Мини-салат Экзо-Плантаго',
+          type: 'main',
+          proteins: 1,
+          fat: 2,
+          carbohydrates: 3,
+          calories: 6,
+          price: 4400,
+          image: 'https://code.s3.yandex.net/react/code/salad.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/salad-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/salad-large.png',
+          __v: 0
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a03b',
+          name: 'Сыр с астероидной плесенью',
+          type: 'main',
+          proteins: 84,
+          fat: 48,
+          carbohydrates: 420,
+          calories: 3377,
+          price: 4142,
+          image: 'https://code.s3.yandex.net/react/code/cheese.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/cheese-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/cheese-large.png',
+          __v: 0
+        }
       ]
     }
   },
   {
     name: 'Фалленианский астероидный краторный минеральный бургер',
     _id: '60b920b9f26f8a0027erfui4',
+    status: COMPLETED,
     order: {
       number: 91276,
       cost: 2033,
@@ -245,6 +334,7 @@ export const orders = [
   {
     name: 'Space антарианский флюоресцентный бургер',
     _id: '60b920bzf26f8awrg027e0a02d',
+    status: COMPLETED,
     order: {
       number: 4503,
       cost: 430,
@@ -312,6 +402,7 @@ export const orders = [
   {
     name: 'Бессмертный space краторный бургер',
     _id: '60b920b9f26f8a0027e0a02das',
+    status: COMPLETED,
     order: {
       number: 457,
       cost: 8081,
@@ -379,6 +470,7 @@ export const orders = [
   {
     name: 'Фалленианский астероидный краторный минеральный бургер',
     _id: 'web920b9f26f8a0027erfui4',
+    status: COMPLETED,
     order: {
       number: 91276,
       cost: 2033,

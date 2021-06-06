@@ -24,7 +24,7 @@ const AppHeader = () => {
           <NavigationLink
             active={false}
             text="Лента заказов"
-            onClick={() => history.replace('/feed')}
+            onClick={() => history.push('/feed')}
             icon={(<ListIcon type="secondary"/>)}
           />
 

@@ -1,0 +1,24 @@
+.imageWrap {
+  position: relative;
+  margin: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background: linear-gradient(to top, #801AB2, #4C4CFF);
+}
+.cardImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  object-fit: cover;
+  background-color: var(--background-alt);
+}
+.extraIngredients {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
