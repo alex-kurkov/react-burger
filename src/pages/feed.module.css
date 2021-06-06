@@ -11,3 +11,8 @@
   flex-wrap: nowrap;
   gap: 60px;
 }
+.section {
+  flex-basis: calc(50% - 30px);
+  width: calc(50% - 30px);
+  max-height: calc(100vh - 200px);
+}

@@ -9,8 +9,6 @@ import {
 
 export const Header = () => {
   const location = useLocation();
-  console.log(location);
-
   return (
     <header className={`${styles.header}`} >
       <div className={`${styles.content} pl-5 pr-5 pt-2 pb-2`} >
@@ -39,7 +37,6 @@ export const Header = () => {
         </NavLink>
         <nav className={styles.auth}>
         <NavLink
-          exact 
           to={{ pathname: '/profile' }}
           activeClassName={`${styles.active}`}
           className={`${styles.link} text text_type_main-default p-2`}

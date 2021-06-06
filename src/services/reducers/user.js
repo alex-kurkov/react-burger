@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   passwordReset: false,
+  password: '',
   email: '',
   loggedIn: false,
   name: '',

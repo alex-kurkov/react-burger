@@ -2,6 +2,26 @@
   max-width: 1240px;
   max-height: calc(100vh - 88px);
   width: 100%;
-  margin: 0 auto;
   background-color: #131316;
+  display: grid;
+  gap: 60px;
+  grid-template-columns: 320px 1fr;
+  padding: 120px 0 20px 0;
+  margin: 0 auto;
+}
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+.link {
+  height: 64px;
+  text-decoration: none;
+  color: var(--text-inactive-color)
+}
+.activeLink {
+  color: var(--text-primary-color)
+}
+.orders {
+  max-height: calc(100vh - 320px);
+  overflow: hidden;
 }

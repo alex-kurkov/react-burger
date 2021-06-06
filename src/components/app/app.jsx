@@ -51,10 +51,10 @@ const App = () => {
           <Route path="/feed" exact>
             <FeedPage />
           </Route>
-          <Route path="/feed/:orderId" exact>
+          <Route path={["/feed/:orderId", "/profile/orders/:orderId"]} exact>
             <FeedOrderDetails />
           </Route>
-          <Route path="/profile" exact>
+          <Route path="/profile">
             <Profile />
           </Route>
           <Route path="*">
