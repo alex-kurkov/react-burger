@@ -16,12 +16,14 @@
 .link {
   height: 64px;
   text-decoration: none;
+  line-height: 64px;
   color: var(--text-inactive-color)
 }
 .activeLink {
   color: var(--text-primary-color)
 }
 .orders {
+  margin-top: -36px;
   max-height: calc(100vh - 320px);
   overflow: hidden;
 }
