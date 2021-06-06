@@ -35,6 +35,10 @@
   border-radius: 40px;
   scroll-snap-align: start;
 }
+.link {
+  text-decoration: none;
+  color: inherit;
+}
 .cardInfo {
   display: flex;
   flex-wrap: nowrap;

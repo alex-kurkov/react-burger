@@ -6,7 +6,7 @@ export const orders = [
     _id: '60b920b9f26f8awrg027e0a02d',
     status: IN_PROGRESS,
     order: {
-      number: 4593,
+      number: 459333,
       cost: 430,
       orderedAt: new Date(2021, 5, 2, 11, 44),
       ingredients: [
@@ -102,7 +102,7 @@ export const orders = [
     _id: '60b920b9f26f8a0027e0a02d',
     status: IN_PROGRESS,
     order: {
-      number: 457,
+      number: 84570,
       cost: 8081,
       orderedAt: new Date(2021, 5, 4, 12, 59),
       ingredients: [
@@ -472,8 +472,8 @@ export const orders = [
     _id: 'web920b9f26f8a0027erfui4',
     status: COMPLETED,
     order: {
-      number: 91276,
-      cost: 2033,
+      number: 61276,
+      cost: 55421,
       orderedAt: new Date(2021, 2, 1, 0, 15),
       ingredients: [
         {
