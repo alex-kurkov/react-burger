@@ -32,3 +32,24 @@
   justify-self: right;
   align-items: center;
 }
+.link {
+  height: 56px;
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  gap: 8;
+  padding-right: 20px;
+  padding-left: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-inactive-color);
+}
+
+.active {
+  color: var(--text-primary-color);
+}
+.text {
+  white-space: nowrap;
+}

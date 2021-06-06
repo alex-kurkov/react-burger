@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styles from './app.module.css';
-import AppHeader from '../header/app-header';
+import { Header } from '../header';
 import { getIngredients } from '../../services/actions/api';
 import { Loader } from '../loader';
 import {
@@ -13,7 +13,8 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   NotFoundPage,
-  FeedOrderDetails
+  FeedOrderDetails,
+  Profile
 } from '../../pages';
 
 const App = () => {
@@ -30,9 +31,9 @@ const App = () => {
     <div className={styles.app} >
       { apiRequestInProgress && <Loader /> }
       <BrowserRouter>
-        <AppHeader />
+        <Header />
         <Switch>
-          <Route path="/" exact>
+          <Route path="/" exact={true} >
             { !!ingredients.length ? <HomePage /> : null }
           </Route>
           <Route path="/login" exact>
@@ -54,7 +55,7 @@ const App = () => {
             <FeedOrderDetails />
           </Route>
           <Route path="/profile" exact>
-
+            <Profile />
           </Route>
           <Route path="*">
             <NotFoundPage />
