@@ -4,9 +4,11 @@ import { RegisterPage } from './register';
 import { ForgotPasswordPage } from './forgot-password';
 import { ResetPasswordPage } from './reset-password';
 import { FeedPage } from './feed';
-import { Profile } from './profile'
+import { ProfileEditPage } from './profile-edit-page'
 import { NotFoundPage } from './404';
 import { FeedOrderDetails } from './feed-order-details';
+import { ProfileOrders } from './profile-orders';
+import { ProfileOrderDetails } from './profile-order-details';
 
 export {
   HomePage,
@@ -17,5 +19,7 @@ export {
   ResetPasswordPage,
   FeedPage,
   FeedOrderDetails,
-  Profile
+  ProfileEditPage,
+  ProfileOrders,
+  ProfileOrderDetails
 }

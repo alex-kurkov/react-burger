@@ -14,7 +14,9 @@ import {
   ResetPasswordPage,
   NotFoundPage,
   FeedOrderDetails,
-  Profile
+  ProfileEditPage,
+  ProfileOrders,
+  ProfileOrderDetails
 } from '../../pages';
 
 const App = () => {
@@ -51,11 +53,17 @@ const App = () => {
           <Route path="/feed" exact>
             <FeedPage />
           </Route>
-          <Route path={["/feed/:orderId", "/profile/orders/:orderId"]} exact>
+          <Route path="/feed/:orderId" exact>
             <FeedOrderDetails />
           </Route>
-          <Route path="/profile">
-            <Profile />
+          <Route path="/profile" exact>
+            <ProfileEditPage />
+          </Route>
+          <Route path="/profile/orders" exact>
+            <ProfileOrders />
+          </Route>
+          <Route path="/profile/orders/:orderId">
+            <ProfileOrderDetails />
           </Route>
           <Route path="*">
             <NotFoundPage />
