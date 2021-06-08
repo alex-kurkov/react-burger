@@ -1,10 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
 
 export const ProfileEdit = () => {
   const { name, email, password } = useSelector(state => state.user);
-  const dispatch = useDispatch();
 
   const onFormChange = (e) => {
     console.log('form changed, without actions yet');
