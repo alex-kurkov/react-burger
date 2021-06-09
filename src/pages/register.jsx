@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRegisterFormValue } from '../services/actions/form'; 
 import { register } from '../services/actions/auth';
@@ -9,7 +9,15 @@ import { AuthForm } from '../components/auth-form'
 export const RegisterPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const { name, email, password } = useSelector(state => state.form.register);
+  const { loggedIn } = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  if (loggedIn) {
+    const { from } = location.state || { from: { pathname: "/" } }
+    return (
+      <Redirect to={from} />
+  )}
 
   const onFormSubmit = (e) => {
     e.preventDefault();

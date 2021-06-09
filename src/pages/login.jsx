@@ -2,14 +2,22 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoginFormValue } from '../services/actions/form'; 
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { login } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 
 export const LoginPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const { email, password } = useSelector(state => state.form.login);
+  const { loggedIn } = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  if (loggedIn) {
+    const { from } = location.state || { from: { pathname: "/" } }
+    return (
+      <Redirect to={from} />
+  )}
 
   const onFormSubmit = (e) => {
     e.preventDefault();

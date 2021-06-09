@@ -19,7 +19,8 @@ import {
   GET_USER_FAILED,
   PATCH_USER_SUCCESS,
   PATCH_USER_FAILED,
-  CLEAR_FORM_VALUES
+  CLEAR_FORM_VALUES,
+  CLEAR_PASSWORD_RESET
 } from '../../utils/constants';
 import { 
   registerRequest,
@@ -179,7 +180,6 @@ export const logout = () => {
 
 export const getUser = () => {
   const token = getCookie('token')
-  if (!token) return null;
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     getUserRequest(token)
@@ -212,7 +212,7 @@ export const getUser = () => {
 
 export const modifyUser = data => {
   const token = getCookie('token');
-  if (!token) return null;
+/*   if (!token) return null; */
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     patchUserRequest(token, data)
@@ -275,7 +275,7 @@ export const resetPassword = (data) => {
   };
 }
 
-export const confirmPasswordReset = (data) => {
+export const confirmPasswordReset = data => {
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     fetch(`${API_URL}/password-reset/reset`, {
@@ -292,6 +292,7 @@ export const confirmPasswordReset = (data) => {
           type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
           payload: res, 
         });
+        dispatch({ type: CLEAR_PASSWORD_RESET });
       } else {
         dispatch({ type: PASSWORD_RESET_CONFIRMATION_FAILED });
         dispatch({

@@ -3,17 +3,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setResetFormValue } from '../services/actions/form'; 
 import { confirmPasswordReset } from '../services/actions/auth';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { AuthForm } from '../components/auth-form'
 
 export const ResetPasswordPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
+  const { loggedIn, passwordReset } = useSelector(state => state.user);
   const { password, code } = useSelector(state => state.form.reset);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  const { from } = location.state || { from: { pathname: "/" } }
+
+  if (loggedIn) {
+    return (
+      <Redirect to={from} />
+      )}
+  if (!passwordReset && !loggedIn) return (<Redirect to="/forgot-password" />)
 
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch(confirmPasswordReset({ password, token: code }))
+    history.replace({ pathname: '/' });
   }
 
   const onFormChange = (e) => {

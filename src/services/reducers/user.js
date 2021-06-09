@@ -15,7 +15,6 @@ import {
 
 const initialState = {
   passwordReset: false,
-  password: '',
   email: '',
   loggedIn: false,
   name: '',
@@ -24,7 +23,7 @@ const initialState = {
 const user = (state = initialState, action) => {
   switch (action.type) {
     case PASSWORD_RESET_SUCCESS: {
-      return { ...state, passwordReset: true, email: action.payload.email }
+      return { ...state, passwordReset: true }
     }
     case PASSWORD_RESET_FAILED: {
       return { ...state, passwordReset: false }

@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styles from './app.module.css';
 import { Header } from '../header';
 import { getIngredients } from '../../services/actions/api';
+import { getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
 import {
@@ -19,15 +20,15 @@ import {
   ProfileOrders,
   ProfileOrderDetails
 } from '../../pages';
-
+  
 const App = () => {
 
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.content);
   const { apiRequestInProgress } = useSelector(store => store.api);
 
-
   useEffect(() => {
+    dispatch(getUser());
     dispatch(getIngredients());
   }, [dispatch])
 
