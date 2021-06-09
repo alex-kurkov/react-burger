@@ -16,6 +16,19 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+.dragInfo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 3px dashed var(--colors-interface-accent);
 }
 .order {
   box-sizing: border-box;

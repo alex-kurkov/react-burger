@@ -1,0 +1,23 @@
+.section {
+  flex-basis: calc(50% - 30px);
+  width: calc(50% - 30px);
+}
+.ordersIds {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 36px;
+  flex-wrap: nowrap;
+}
+.idsBlock {
+  width: 50%;
+}
+.list {
+  padding: 0;
+  list-style-type: none;
+}
+.listItem {
+  letter-spacing: 4px;
+}
+.ready {
+  color: var(--colors-interface-success);
+}

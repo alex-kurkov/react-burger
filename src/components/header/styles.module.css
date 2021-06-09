@@ -8,7 +8,7 @@
 .content {
   box-sizing: border-box;
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 1280px;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr min-content 1fr;
@@ -31,4 +31,25 @@
   grid-area: auth;
   justify-self: right;
   align-items: center;
+}
+.link {
+  height: 56px;
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  gap: 8;
+  padding-right: 20px;
+  padding-left: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-inactive-color);
+}
+
+.active {
+  color: var(--text-primary-color);
+}
+.text {
+  white-space: nowrap;
 }

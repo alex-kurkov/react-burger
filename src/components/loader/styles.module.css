@@ -1,0 +1,66 @@
+@keyframes rotation {
+  from {
+    transform: none;
+  } 
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes scaling {
+  from {
+    transform: none;
+  } 
+  to {
+    transform: scale(1.2);
+  } 
+}
+
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #000, transparent);
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 32px;
+  z-index: 100;
+}
+.wrap {
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.wrap svg {
+  width: 120px;
+  height: 120px;
+}
+
+.vector {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: scaling 3s ease-in-out infinite alternate;
+}
+.vector_1 {
+  background-image: url('../../images/Vector_1.png');
+}
+.vector_2 {
+  background-image: url('../../images/Vector_2.png');
+  animation: rotation 2s linear infinite;
+}
+.vector_3 {
+  background-image: url('../../images/Vector_3.png');
+}

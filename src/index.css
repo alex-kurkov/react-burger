@@ -16,3 +16,9 @@ body {
   left: 0;
   z-index: 5;
 }
+form .input__container {
+  width: 100%;
+}
+form .input_size_default {
+  width: 100%;
+}

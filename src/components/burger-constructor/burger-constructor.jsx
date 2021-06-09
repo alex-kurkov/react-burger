@@ -57,6 +57,10 @@ const BurgerConstructor = () => {
   return (
     <section ref={dropNewIngredientsTarget} className={`${styles.section} ${isHover && styles.hovered}`}>
       <div ref={content} className={`${styles.content} mb-5`}>
+        {
+          !chosenIngredients.length && !chosenBun._id &&
+          <p className={`${styles.dragInfo} text text_type_main-medium`}>Перетащите в эту область ингредиенты для Вашего бургера</p>
+        }
         <ul className={`${styles.bunContainer}`}>
           {chosenBun.name && (
             <ConstructorElement

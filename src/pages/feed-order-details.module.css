@@ -1,0 +1,7 @@
+.main {
+  max-width: 1240px;
+  max-height: calc(100vh - 88px);
+  width: 100%;
+  margin: 0 auto;
+  background-color: #131316;
+}

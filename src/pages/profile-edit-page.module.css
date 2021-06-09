@@ -1,0 +1,17 @@
+.main {
+  max-width: 1240px;
+  max-height: calc(100vh - 88px);
+  width: 100%;
+  background-color: #131316;
+  display: grid;
+  gap: 60px;
+  grid-template-columns: 320px 1fr;
+  padding: 120px 0 20px 0;
+  margin: 0 auto;
+}
+
+.orders {
+  margin-top: -36px;
+  max-height: calc(100vh - 320px);
+  overflow: hidden;
+}
