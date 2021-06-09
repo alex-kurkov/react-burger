@@ -5,6 +5,7 @@ import styles from './app.module.css';
 import { Header } from '../header';
 import { getIngredients } from '../../services/actions/api';
 import { Loader } from '../loader';
+import { ProtectedRoute } from '../protected-route';
 import {
   HomePage,
   FeedPage,
@@ -24,6 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.content);
   const { apiRequestInProgress } = useSelector(store => store.api);
+
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -56,15 +58,15 @@ const App = () => {
           <Route path="/feed/:orderId" exact>
             <FeedOrderDetails />
           </Route>
-          <Route path="/profile" exact>
+          <ProtectedRoute path="/profile" exact>
             <ProfileEditPage />
-          </Route>
-          <Route path="/profile/orders" exact>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders" exact>
             <ProfileOrders />
-          </Route>
-          <Route path="/profile/orders/:orderId">
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders/:orderId">
             <ProfileOrderDetails />
-          </Route>
+          </ProtectedRoute>
           <Route path="*">
             <NotFoundPage />
           </Route>

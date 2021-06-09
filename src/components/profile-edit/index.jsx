@@ -1,15 +1,23 @@
 import { useSelector } from 'react-redux';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.css';
+import { setProfileFormValue } from '../../services/actions/form';
+import { modifyUser } from '../../services/actions/auth';
+import { useDispatch } from 'react-redux';
+
 
 export const ProfileEdit = () => {
-  const { name, email, password } = useSelector(state => state.user);
+  const { name, email, password } = useSelector(state => state.form.profile );
+  const dispatch = useDispatch();
 
-  const onFormChange = (e) => {
-    console.log('form changed, without actions yet');
-      /*     dispatch(setEditProfileFormValue(e.target.name, e.target.value)) */
+  const onFormChange = e => {
+    e.preventDefault();
+    dispatch(setProfileFormValue(e.target.name, e.target.value))
   }
-
+  const onFormSubmit = data => {
+    dispatch(modifyUser(data));
+  }
+  
   return (
     <form className={styles.form}>
       <Input
@@ -20,7 +28,7 @@ export const ProfileEdit = () => {
         value={name}
         name={'name'}
         error={false}
-        onIconClick={onFormChange}
+        onIconClick={() => onFormSubmit({ name })}
         errorText={'Ошибка'}
         size={'default'}
       />
@@ -32,7 +40,7 @@ export const ProfileEdit = () => {
         value={email}
         name={'email'}
         error={false}
-        onIconClick={onFormChange}
+        onIconClick={() => onFormSubmit({ email })}
         errorText={'Ошибка'}
         size={'default'}
       />
@@ -44,7 +52,7 @@ export const ProfileEdit = () => {
         value={password}
         name={'password'}
         error={false}
-        onIconClick={onFormChange}
+        onIconClick={() => onFormSubmit({ password })}
         errorText={'Ошибка'}
         size={'default'}
       />

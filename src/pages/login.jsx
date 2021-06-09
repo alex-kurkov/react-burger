@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setLoginFormValue } from '../services/actions/form'; 
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom';
-import { AuthForm } from '../components/auth-form'
+import { login } from '../services/actions/auth';
+import { AuthForm } from '../components/auth-form';
 
 export const LoginPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -12,7 +13,7 @@ export const LoginPage = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    /* dispatch() */
+    dispatch(login({ email, password }));
   }
   const onFormChange = (e) => {
     dispatch(setLoginFormValue(e.target.name, e.target.value))

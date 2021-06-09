@@ -2,7 +2,9 @@ import {
   LOGIN_FORM_SET_VALUE,
   REGISTER_FORM_SET_VALUE,
   FORGOT_FORM_SET_VALUE,
-  RESET_FORM_SET_VALUE
+  RESET_FORM_SET_VALUE,
+  PROFILE_FORM_SET_VALUE,
+  CLEAR_FORM_VALUES
 } from '../../utils/constants';
 
 const initialState = {
@@ -21,6 +23,11 @@ const initialState = {
     reset: {
         password: '',
         code: ''
+    },
+    profile: {
+        name: '',
+        email: '',
+        password: '',
     }
 }
 
@@ -53,6 +60,15 @@ const form = (state = initialState, action) => {
                 }
             }
         }
+        case PROFILE_FORM_SET_VALUE: {
+            return {
+                ...state,
+                profile: {
+                  ...state.profile,
+                  [action.field]: action.value
+                }
+            }
+        }
         case RESET_FORM_SET_VALUE: {
             return {
                 ...state,
@@ -61,6 +77,9 @@ const form = (state = initialState, action) => {
                   [action.field]: action.value
                 }
             }
+        }
+        case CLEAR_FORM_VALUES: {
+            return initialState;
         }
         default: {
             return state;
