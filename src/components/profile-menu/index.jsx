@@ -26,7 +26,7 @@ export const ProfileMenu = () => {
           exact 
           activeClassName={styles.activeLink}
           className={`${styles.link} text text_type_main-medium`}
-          to={{ pathname: "/" }} 
+          to={{ pathname: "/profile" }}
           onClick={() => dispatch(logout())}>
           Выход
         </NavLink>
