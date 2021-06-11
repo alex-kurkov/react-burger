@@ -17,7 +17,6 @@ export const getIngredients = () => {
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     getIngredientsRequest()
-      .then(res => res.json())
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -47,7 +46,6 @@ export const postOrder = data => {
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     postOrderRequest(data)
-      .then(res => res.json())
       .then(res => {
         if (res && res.success) {
           dispatch({

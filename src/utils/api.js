@@ -1,6 +1,11 @@
 import { 
   API_URL,
 } from './constants';
+import { getCookie } from './common';
+
+const getResponseData = res => res.ok
+  ? res.json()
+  : res.json().then((e) => Promise.reject(e))
 
 export const registerRequest = data => fetch(
   `${API_URL}/auth/register`,
@@ -11,7 +16,8 @@ export const registerRequest = data => fetch(
     },
     body: JSON.stringify(data),
   }
-)
+).then(getResponseData);
+
 export const loginRequest = data => fetch(
   `${API_URL}/auth/login`,
   {
@@ -21,27 +27,29 @@ export const loginRequest = data => fetch(
     },
     body: JSON.stringify(data),
   }
-)
-export const refreshTokenRequest = refreshToken => fetch(
+).then(getResponseData);
+
+export const refreshTokenRequest = () => fetch(
   `${API_URL}/auth/token`,
   {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({refreshToken}),
+    body: JSON.stringify({refreshToken: localStorage.getItem('refreshToken')}),
   }
-)
-export const logoutRequest = refreshToken => fetch(
+).then(getResponseData);
+
+export const logoutRequest = () => fetch(
   `${API_URL}/auth/logout`,
   {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ token: refreshToken }),
+    body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
   }
-)
+).then(getResponseData);
 
 export const resetPasswordRequest = data => fetch(
   `${API_URL}/password-reset`,
@@ -52,9 +60,12 @@ export const resetPasswordRequest = data => fetch(
     },
     body: JSON.stringify(data),
   }
-)
+).then(getResponseData);
 
-export const getIngredientsRequest = () => fetch(`${API_URL}/ingredients`, {})
+export const getIngredientsRequest = () => fetch(
+  `${API_URL}/ingredients`, 
+  {}
+).then(getResponseData);
 
 export const postOrderRequest = data => fetch(
   `${API_URL}/orders`, 
@@ -65,9 +76,9 @@ export const postOrderRequest = data => fetch(
     },
     body: JSON.stringify(data)
   }
-)
+).then(getResponseData);
 
-export const getUserRequest = token => fetch(
+export const getUserRequest = () => fetch(
   `${API_URL}/auth/user`,
   {
     method: 'GET',
@@ -78,11 +89,12 @@ export const getUserRequest = token => fetch(
     referrerPolicy: 'no-referrer',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getCookie('token')}`
     },
   }
-)
-export const patchUserRequest = (token, data) => fetch(
+).then(getResponseData);
+
+export const patchUserRequest = data => fetch(
   `${API_URL}/auth/user`,
   {
     method: 'PATCH',
@@ -93,18 +105,19 @@ export const patchUserRequest = (token, data) => fetch(
     referrerPolicy: 'no-referrer',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${getCookie('token')}`
     },
     body: JSON.stringify(data),
   }
-)
+).then(getResponseData);
+
 export const Request = data => fetch(
   `${API_URL}/ingredients`,
   {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   }
-)
+).then(getResponseData);

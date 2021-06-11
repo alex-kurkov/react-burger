@@ -1,7 +1,6 @@
 import {
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
-  CLEAR_PASSWORD_RESET,
   REGISTER_SUCCESS,
   REGISTER_FAILED,
   LOGIN_FAILED,
@@ -10,11 +9,14 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAILED,
   PATCH_USER_SUCCESS,
-  PATCH_USER_FAILED
+  PATCH_USER_FAILED,
+  PASSWORD_RESET_CONFIRMATION_SUCCESS,
+  PASSWORD_RESET_CONFIRMATION_FAILED,
 } from '../../utils/constants';
 
 const initialState = {
   passwordReset: false,
+  passwordResetSuccess: false,
   email: '',
   loggedIn: false,
   name: '',
@@ -22,14 +24,17 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
+    case PASSWORD_RESET_CONFIRMATION_SUCCESS: {
+      return { ...state, passwordReset: false, passwordResetSuccess: true }
+    }
+    case PASSWORD_RESET_CONFIRMATION_FAILED: {
+      return { ...state, passwordReset: true, passwordResetSuccess: false }
+    }
     case PASSWORD_RESET_SUCCESS: {
-      return { ...state, passwordReset: true }
+      return { ...state, passwordReset: true, passwordResetSuccess: false }
     }
     case PASSWORD_RESET_FAILED: {
-      return { ...state, passwordReset: false }
-    }
-    case CLEAR_PASSWORD_RESET: {
-      return { ...state, passwordReset: false }
+      return { ...state, passwordReset: false, passwordResetSuccess: false }
     }
     case REGISTER_SUCCESS: {
       return { ...state, loggedIn: true, name: action.payload.name, email: action.payload.email }

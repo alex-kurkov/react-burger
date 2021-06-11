@@ -20,7 +20,6 @@ import {
   PATCH_USER_SUCCESS,
   PATCH_USER_FAILED,
   CLEAR_FORM_VALUES,
-  CLEAR_PASSWORD_RESET
 } from '../../utils/constants';
 import { 
   registerRequest,
@@ -31,7 +30,7 @@ import {
   getUserRequest,
   patchUserRequest,
  } from '../../utils/api'
-import { setCookie, deleteCookie, getCookie } from '../../utils/common';
+import { setCookie, deleteCookie } from '../../utils/common';
 import { setProfileFormValue } from '../actions/form';
 
 const setTokens = res => {
@@ -50,12 +49,9 @@ const setProfileFormValues = (dispatch, { name = '', email = '' }) => {
   dispatch(setProfileFormValue('email', email))
 }
 
-
-export const register = data => {
-  return function(dispatch) {
+export const register = data => dispatch => {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     registerRequest(data)
-      .then(res => res.json())
       .then(res => {
         if (res?.success) {
           setTokens(res);
@@ -81,142 +77,119 @@ export const register = data => {
       })
     .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
   };
-}
-export const login = data => {
-  return function(dispatch) {
-    dispatch({ type: API_REQUEST_IN_PROGRESS });
-    loginRequest(data)
-      .then(res => res.json())
-      .then(res => {
-        if (res?.success) {
-          setTokens(res);
-          dispatch({
-            type: LOGIN_SUCCESS,
-            payload: res.user,
-          });
-          setProfileFormValues(dispatch, res.user);
-        } else {
-          dispatch({ type: LOGIN_FAILED });
-          dispatch({
-            type: SET_CURRENT_ERROR,
-            payload: `что-то пошло не так при запросе на сервер: ${res.message}`
-          });
-        }
-      })
-      .catch(e => {
-        dispatch({ type: LOGIN_FAILED })
+
+export const login = data => dispatch => {
+  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  loginRequest(data)
+    .then(res => {
+      if (res?.success) {
+        setTokens(res);
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: res.user,
+        });
+        setProfileFormValues(dispatch, res.user);
+      } else {
+        dispatch({ type: LOGIN_FAILED });
         dispatch({
           type: SET_CURRENT_ERROR,
-          payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
+          payload: `что-то пошло не так при запросе на сервер: ${res.message}`
         });
-      })
+      }
+    })
+    .catch(e => {
+      dispatch({ type: LOGIN_FAILED })
+      dispatch({
+        type: SET_CURRENT_ERROR,
+        payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
+      });
+    })
+  .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+};
+
+export const refreshToken = afterRefreshFn => dispatch => {
+  refreshTokenRequest()
+    .then(res => {
+      setTokens(res);
+      dispatch({ type: REFRESH_TOKENS_SUCCESS });
+      dispatch(afterRefreshFn);
+    })
+    .catch(e => {
+      dispatch({ type: REFRESH_TOKENS_FAILED })
+      dispatch({
+        type: SET_CURRENT_ERROR,
+        payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
+      });
+    })
+};
+
+export const logout = () => dispatch => {
+  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  logoutRequest()
+    .then(res => {
+      if (res && res.success) {
+        localStorage.removeItem('refreshToken');
+        deleteCookie('token');
+        console.log(res.message);
+        dispatch({ type: CLEAR_FORM_VALUES });
+        dispatch({
+          type: LOGOUT_SUCCESS,
+        });
+      } else {
+        dispatch({ type: LOGOUT_FAILED });
+        dispatch({
+          type: SET_CURRENT_ERROR,
+          payload: `что-то пошло не так при запросе на сервер: ${res.message}`
+        });
+      }
+    })
+    .catch(e => {
+      dispatch({ type: LOGOUT_FAILED })
+      dispatch({
+        type: SET_CURRENT_ERROR,
+        payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
+      });
+    })
     .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
-}
+};
 
-export const refreshToken = () => {
-  return function(dispatch) {
-    const refreshToken = localStorage.getItem('refreshToken');
-    refreshTokenRequest(refreshToken)
-      .then(res => res.json())
-      .then(res => {
-        if (res?.success) {
-          setTokens(res);
-          dispatch({
-            type: REFRESH_TOKENS_SUCCESS,
-          });
-
-        } else {
-          dispatch({ type: REFRESH_TOKENS_FAILED });
-          dispatch({
-            type: SET_CURRENT_ERROR,
-            payload: `что-то пошло не так при запросе на сервер: ${res.message}`
-          });
-        }
-      })
-      .catch(e => {
-        dispatch({ type: REFRESH_TOKENS_FAILED })
+export const getUser = () => dispatch => {
+  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  getUserRequest()
+    .then(res => {
+      if (res && res.success) {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          payload: res.user,
+        });
+        setProfileFormValues(dispatch, res.user);
+      } else {
+        dispatch({ type: GET_USER_FAILED });
         dispatch({
           type: SET_CURRENT_ERROR,
-          payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
+          payload: `что-то пошло не так при запросе на сервер ${res.message}`
         });
-      })
-  };
-}
-
-export const logout = () => {
-  return function(dispatch) {
-    dispatch({ type: API_REQUEST_IN_PROGRESS });
-    const refreshToken = localStorage.getItem('refreshToken');
-    logoutRequest(refreshToken)
-      .then(res => res.json())
-      .then(res => {
-        if (res && res.success) {
-          localStorage.removeItem('refreshToken');
-          deleteCookie('token');
-          console.log(res.message);
-          dispatch({ type: CLEAR_FORM_VALUES });
-          dispatch({
-            type: LOGOUT_SUCCESS,
-          });
-        } else {
-          dispatch({ type: LOGOUT_FAILED });
-          dispatch({
-            type: SET_CURRENT_ERROR,
-            payload: `что-то пошло не так при запросе на сервер: ${res.message}`
-          });
-        }
-      })
-      .catch(e => {
-        dispatch({ type: LOGOUT_FAILED })
-        dispatch({
-          type: SET_CURRENT_ERROR,
-          payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
-        });
-      })
-      .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
-}
-
-export const getUser = () => {
-  const token = getCookie('token')
-  return function(dispatch) {
-    dispatch({ type: API_REQUEST_IN_PROGRESS });
-    getUserRequest(token)
-      .then(res => res.json())
-      .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_USER_SUCCESS,
-            payload: res.user,
-          });
-          setProfileFormValues(dispatch, res.user);
-        } else {
-          dispatch({ type: GET_USER_FAILED });
-          dispatch({
-            type: SET_CURRENT_ERROR,
-            payload: `что-то пошло не так при запросе на сервер ${res.message}`
-          });
-        }
-      })
-      .catch(e => {
+      }
+    })
+    .catch(e => {
+      if (e.massage === 'jwt expired') {
+        dispatch(refreshToken(getUser()));
+      } else {
         dispatch({ type: GET_USER_FAILED })
         dispatch({
           type: SET_CURRENT_ERROR,
           payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
         });
-      })
-      .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
-}
+      }
+    })
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+};
 
 export const modifyUser = data => {
-  const token = getCookie('token');
 /*   if (!token) return null; */
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
-    patchUserRequest(token, data)
-      .then(res => res.json())
+    patchUserRequest(data)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -244,12 +217,11 @@ export const modifyUser = data => {
   };
 }
 
-export const resetPassword = (data) => {
+export const resetPassword = data => {
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
 
     resetPasswordRequest(data)
-    .then(res => res.json())
     .then(res => {
       if (res && res.success) {
         dispatch({
@@ -285,14 +257,13 @@ export const confirmPasswordReset = data => {
       },
       body: JSON.stringify(data),
     })
-    .then(res => res.json())
+    .then(r => r.json())
     .then(res => {
       if (res && res.success) {
         dispatch({
           type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
           payload: res, 
         });
-        dispatch({ type: CLEAR_PASSWORD_RESET });
       } else {
         dispatch({ type: PASSWORD_RESET_CONFIRMATION_FAILED });
         dispatch({
