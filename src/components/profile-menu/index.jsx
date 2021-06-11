@@ -23,8 +23,7 @@ export const ProfileMenu = () => {
           История заказов
         </NavLink>
         <NavLink
-          exact 
-          activeClassName={styles.activeLink}
+          exact
           className={`${styles.link} text text_type_main-medium`}
           to={{ pathname: "/profile" }}
           onClick={() => dispatch(logout())}>

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Switch, Route } from 'react-router-dom';
 import styles from './app.module.css';
 import { Header } from '../header';
-import { getIngredients } from '../../services/actions/api';
+import { getIngredients } from '../../services/actions/auth';
 import { getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';

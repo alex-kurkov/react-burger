@@ -4,7 +4,7 @@ import OrderDetails from './order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
-import { postOrder } from '../../services/actions/api';
+import { postOrder } from '../../services/actions/auth';
 import { RESET_CURRENT_ORDER, RESET_CHOSEN_INGREDIENTS } from '../../utils/constants';
 import styles from "./orderButton.module.css";
 
