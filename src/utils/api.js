@@ -72,7 +72,8 @@ export const postOrderRequest = data => fetch(
   {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getCookie('token')}`
     },
     body: JSON.stringify(data)
   }
@@ -82,11 +83,6 @@ export const getUserRequest = () => fetch(
   `${API_URL}/auth/user`,
   {
     method: 'GET',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getCookie('token')}`
@@ -105,24 +101,13 @@ export const patchUserRequest = data => fetch(
     referrerPolicy: 'no-referrer',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getCookie('token')}`
+      'authorization': `Bearer ${getCookie('token')}`
     },
     body: JSON.stringify(data),
   }
 ).then(getResponseData);
 
 export const confirmPasswordResetRequest = data => fetch(
-  `${API_URL}/ingredients`,
-  {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
-).then(getResponseData);
-
-export const Request = data => fetch(
   `${API_URL}/ingredients`,
   {
     method: 'GET',

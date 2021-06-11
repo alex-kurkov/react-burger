@@ -3,7 +3,6 @@ import {
   REGISTER_FORM_SET_VALUE,
   FORGOT_FORM_SET_VALUE,
   RESET_FORM_SET_VALUE,
-  PROFILE_FORM_SET_VALUE,
   CLEAR_FORM_VALUES
 } from '../../utils/constants';
 
@@ -23,11 +22,6 @@ const initialState = {
     reset: {
         password: '',
         code: ''
-    },
-    profile: {
-        name: '',
-        email: '',
-        password: '',
     }
 }
 
@@ -56,15 +50,6 @@ const form = (state = initialState, action) => {
                 ...state,
                 forgot: {
                   ...state.forgot,
-                  [action.field]: action.value
-                }
-            }
-        }
-        case PROFILE_FORM_SET_VALUE: {
-            return {
-                ...state,
-                profile: {
-                  ...state.profile,
                   [action.field]: action.value
                 }
             }

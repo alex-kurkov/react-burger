@@ -3,7 +3,6 @@ import {
     REGISTER_FORM_SET_VALUE,
     FORGOT_FORM_SET_VALUE,
     RESET_FORM_SET_VALUE,
-    PROFILE_FORM_SET_VALUE
 } from '../../utils/constants';
 
 export const setLoginFormValue = (field, value) => ({
@@ -23,11 +22,6 @@ export const setForgotFormValue = (field, value) => ({
 })
 export const setResetFormValue = (field, value) => ({
     type: RESET_FORM_SET_VALUE,
-    field,
-    value
-})
-export const setProfileFormValue = (field, value) => ({
-    type: PROFILE_FORM_SET_VALUE,
     field,
     value
 })
