@@ -44,6 +44,12 @@ const setTokens = res => {
     localStorage.setItem('refreshToken', refreshToken);
   }
 }
+
+const clearTokens = () => {
+  localStorage.removeItem('refreshToken');
+  deleteCookie('token');
+}
+
 const setProfileFormValues = (dispatch, { name = '', email = '' }) => {
   dispatch(setProfileFormValue('name', name))
   dispatch(setProfileFormValue('email', email))
@@ -53,20 +59,12 @@ export const register = data => dispatch => {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     registerRequest(data)
       .then(res => {
-        if (res?.success) {
-          setTokens(res);
-          dispatch({
-            type: REGISTER_SUCCESS,
-            payload: res.user,
-          });
-          setProfileFormValues(dispatch, res.user);
-        } else {
-          dispatch({ type: REGISTER_FAILED });
-          dispatch({
-            type: SET_CURRENT_ERROR,
-            payload: `что-то пошло не так при запросе на сервер: ${res.message}`
-          });
-        }
+        setTokens(res);
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.user,
+        });
+        setProfileFormValues(dispatch, res.user);
       })
       .catch(e => {
         dispatch({ type: REGISTER_FAILED })
@@ -82,20 +80,12 @@ export const login = data => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   loginRequest(data)
     .then(res => {
-      if (res?.success) {
-        setTokens(res);
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: res.user,
-        });
-        setProfileFormValues(dispatch, res.user);
-      } else {
-        dispatch({ type: LOGIN_FAILED });
-        dispatch({
-          type: SET_CURRENT_ERROR,
-          payload: `что-то пошло не так при запросе на сервер: ${res.message}`
-        });
-      }
+      setTokens(res);
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.user,
+      });
+      setProfileFormValues(dispatch, res.user);
     })
     .catch(e => {
       dispatch({ type: LOGIN_FAILED })
@@ -107,12 +97,12 @@ export const login = data => dispatch => {
   .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
 };
 
-export const refreshToken = afterRefreshFn => dispatch => {
+export const refreshToken = afterRefreshFunc => dispatch => {
   refreshTokenRequest()
     .then(res => {
       setTokens(res);
       dispatch({ type: REFRESH_TOKENS_SUCCESS });
-      dispatch(afterRefreshFn);
+      dispatch(afterRefreshFunc);
     })
     .catch(e => {
       dispatch({ type: REFRESH_TOKENS_FAILED })
@@ -127,21 +117,10 @@ export const logout = () => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   logoutRequest()
     .then(res => {
-      if (res && res.success) {
-        localStorage.removeItem('refreshToken');
-        deleteCookie('token');
-        console.log(res.message);
-        dispatch({ type: CLEAR_FORM_VALUES });
-        dispatch({
-          type: LOGOUT_SUCCESS,
-        });
-      } else {
-        dispatch({ type: LOGOUT_FAILED });
-        dispatch({
-          type: SET_CURRENT_ERROR,
-          payload: `что-то пошло не так при запросе на сервер: ${res.message}`
-        });
-      }
+      clearTokens();
+      console.log(res.message);
+      dispatch({ type: CLEAR_FORM_VALUES });
+      dispatch({ type: LOGOUT_SUCCESS });
     })
     .catch(e => {
       dispatch({ type: LOGOUT_FAILED })
@@ -157,19 +136,11 @@ export const getUser = () => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   getUserRequest()
     .then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_USER_SUCCESS,
-          payload: res.user,
-        });
-        setProfileFormValues(dispatch, res.user);
-      } else {
-        dispatch({ type: GET_USER_FAILED });
-        dispatch({
-          type: SET_CURRENT_ERROR,
-          payload: `что-то пошло не так при запросе на сервер ${res.message}`
-        });
-      }
+      dispatch({
+        type: GET_USER_SUCCESS,
+        payload: res.user,
+      });
+      setProfileFormValues(dispatch, res.user);
     })
     .catch(e => {
       if (e.massage === 'jwt expired') {
@@ -191,20 +162,11 @@ export const modifyUser = data => {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     patchUserRequest(data)
       .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: PATCH_USER_SUCCESS,
-            payload: res.user,
-          });
-          setProfileFormValues(dispatch, res.user);
-        
-        } else {
-          dispatch({ type: PATCH_USER_FAILED });
-          dispatch({
-            type: SET_CURRENT_ERROR,
-            payload: `что-то пошло не так при запросе на сервер ${res.message}`
-          });
-        }
+        dispatch({
+          type: PATCH_USER_SUCCESS,
+          payload: res.user,
+        });
+        setProfileFormValues(dispatch, res.user);
       })
       .catch(e => {
         dispatch({ type: PATCH_USER_FAILED })
@@ -217,51 +179,39 @@ export const modifyUser = data => {
   };
 }
 
-export const resetPassword = data => {
-  return function(dispatch) {
-    dispatch({ type: API_REQUEST_IN_PROGRESS });
+export const resetPassword = data => dispatch => {
+  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  resetPasswordRequest(data)
+  .then(res => {
+    dispatch({
+      type: PASSWORD_RESET_SUCCESS,
+      payload: data,
+    });
+  })
+  .catch(e => {
+    dispatch({ type: PASSWORD_RESET_FAILED })
+    dispatch({
+      type: SET_CURRENT_ERROR,
+      payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
+    });
+  })
+  .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+};
 
-    resetPasswordRequest(data)
-    .then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: PASSWORD_RESET_SUCCESS,
-          payload: data,
-        });
-      } else {
-        dispatch({ type: PASSWORD_RESET_FAILED });
-        dispatch({
-          type: SET_CURRENT_ERROR,
-          payload: 'что-то пошло не так при запросе на сервер'
-        });
-      }
-    })
-    .catch(e => {
-      dispatch({ type: PASSWORD_RESET_FAILED })
-      dispatch({
-        type: SET_CURRENT_ERROR,
-        payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
-      });
-    })
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
-}
 
-export const confirmPasswordReset = data => {
-  return function(dispatch) {
-    dispatch({ type: API_REQUEST_IN_PROGRESS });
-    confirmPasswordResetRequest(data)
-    .then(res => dispatch({
-      type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
-      payload: res, 
-    }))
-    .catch(e => {
-      dispatch({ type: PASSWORD_RESET_CONFIRMATION_FAILED })
-      dispatch({
-        type: SET_CURRENT_ERROR,
-        payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
-      });
-    })
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
-}
+export const confirmPasswordReset = data => dispatch => {
+  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  confirmPasswordResetRequest(data)
+  .then(res => dispatch({
+    type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
+    payload: res, 
+  }))
+  .catch(e => {
+    dispatch({ type: PASSWORD_RESET_CONFIRMATION_FAILED })
+    dispatch({
+      type: SET_CURRENT_ERROR,
+      payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
+    });
+  })
+  .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+};
