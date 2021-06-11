@@ -17,20 +17,11 @@ export const getIngredients = () => {
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     getIngredientsRequest()
-      .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: REQUEST_INGREDIENTS_SUCCESS,
-            payload: res.data,
-          });
-      } else {
-        dispatch({ type: REQUEST_INGREDIENTS_FAILED });
-        dispatch({
-          type: SET_CURRENT_ERROR,
-          payload: 'что-то пошло не так при запросе на сервер'
-        });
-      }
-    })
+      .then(res => dispatch({
+        type: REQUEST_INGREDIENTS_SUCCESS,
+        payload: res.data,
+      })
+    )
     .catch(e => {
       dispatch({ type: REQUEST_INGREDIENTS_FAILED })
       dispatch({
@@ -46,20 +37,10 @@ export const postOrder = data => {
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     postOrderRequest(data)
-      .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: POST_ORDER_SUCCESS,
-            payload: res,
-          });
-        } else {
-          dispatch({ type: POST_ORDER_FAILED });
-          dispatch({
-            type: SET_CURRENT_ERROR,
-            payload: 'что-то пошло не так при запросе на сервер'
-          });
-        }
-      })
+      .then(res => dispatch({
+        type: POST_ORDER_SUCCESS,
+        payload: res,
+      }))
       .catch(e => {
         dispatch({ type: POST_ORDER_FAILED })
         dispatch({
