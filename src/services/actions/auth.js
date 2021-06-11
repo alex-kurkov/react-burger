@@ -24,18 +24,7 @@ import {
   API_REQUEST_FINISHED,
   SET_CURRENT_ERROR,
 } from '../../utils/constants';
-import {
-  getIngredientsRequest,
-  postOrderRequest,
-  registerRequest,
-  resetPasswordRequest,
-  loginRequest,
-  refreshTokenRequest,
-  logoutRequest,
-  getUserRequest,
-  patchUserRequest,
-  confirmPasswordResetRequest
- } from '../../utils/api'
+import api from '../../utils/api'
 import { setCookie, deleteCookie } from '../../utils/common';
 
 const _setTokens = res => {
@@ -51,7 +40,7 @@ const _clearTokens = () => {
 };
 
 const _refreshToken = afterRefreshFunc => dispatch => {
-  refreshTokenRequest()
+  api.refreshTokenRequest()
     .then(res => {
       _setTokens(res);
       dispatch({ type: REFRESH_TOKENS_SUCCESS });
@@ -79,7 +68,7 @@ const _handleError = (e, type, dispatch, func) => {
 
 export const register = data => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
-  registerRequest(data)
+  api.registerRequest(data)
     .then(res => {
       _setTokens(res);
       dispatch({
@@ -93,7 +82,7 @@ export const register = data => dispatch => {
 
 export const login = data => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
-  loginRequest(data)
+  api.loginRequest(data)
     .then(res => {
       _setTokens(res);
       dispatch({
@@ -107,7 +96,7 @@ export const login = data => dispatch => {
 
 export const logout = () => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
-  logoutRequest()
+  api.logoutRequest()
     .then(res => {
       _clearTokens();
       console.log(res.message);
@@ -120,7 +109,7 @@ export const logout = () => dispatch => {
 
 export const getUser = () => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
-  getUserRequest()
+  api.getUserRequest()
     .then(res => 
       dispatch({
         type: GET_USER_SUCCESS,
@@ -133,7 +122,7 @@ export const getUser = () => dispatch => {
 
 export const modifyUser = data => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
-  patchUserRequest(data)
+  api.patchUserRequest(data)
     .then(res => {
       dispatch({
         type: PATCH_USER_SUCCESS,
@@ -146,7 +135,7 @@ export const modifyUser = data => dispatch => {
 
 export const resetPassword = data => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
-  resetPasswordRequest(data)
+  api.resetPasswordRequest(data)
   .then(res => {
     dispatch({
       type: PASSWORD_RESET_SUCCESS,
@@ -160,7 +149,7 @@ export const resetPassword = data => dispatch => {
 
 export const confirmPasswordReset = data => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
-  confirmPasswordResetRequest(data)
+  api.confirmPasswordResetRequest(data)
   .then(res => dispatch({
     type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
     payload: res, 
@@ -169,29 +158,25 @@ export const confirmPasswordReset = data => dispatch => {
   .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
 };
 
-export const getIngredients = () => {
-  return function(dispatch) {
-    dispatch({ type: API_REQUEST_IN_PROGRESS });
-    getIngredientsRequest()
-      .then(res => dispatch({
-        type: REQUEST_INGREDIENTS_SUCCESS,
-        payload: res.data,
-      })
-    )
-    .catch(e => _handleError(e, REQUEST_INGREDIENTS_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
-}
+export const getIngredients = () => dispatch => {
+  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  api.getIngredientsRequest()
+    .then(res => dispatch({
+      type: REQUEST_INGREDIENTS_SUCCESS,
+      payload: res.data,
+    })
+  )
+  .catch(e => _handleError(e, REQUEST_INGREDIENTS_FAILED, dispatch))
+  .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+};
 
-export const postOrder = data => {
-  return function(dispatch) {
-    dispatch({ type: API_REQUEST_IN_PROGRESS });
-    postOrderRequest(data)
-      .then(res => dispatch({
-        type: POST_ORDER_SUCCESS,
-        payload: res,
-      }))
-      .catch(e => _handleError(e, POST_ORDER_FAILED, dispatch, postOrder()))
-      .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
-}
+export const postOrder = data => dispatch => {
+  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  api.postOrderRequest(data)
+    .then(res => dispatch({
+      type: POST_ORDER_SUCCESS,
+      payload: res,
+    }))
+    .catch(e => _handleError(e, POST_ORDER_FAILED, dispatch, postOrder()))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+};

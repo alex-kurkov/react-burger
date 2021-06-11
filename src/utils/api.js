@@ -7,7 +7,7 @@ const getResponseData = res => res.ok
   ? res.json()
   : res.json().then((e) => Promise.reject(e))
 
-export const registerRequest = data => fetch(
+const registerRequest = data => fetch(
   `${API_URL}/auth/register`,
   {
     method: 'POST',
@@ -18,7 +18,7 @@ export const registerRequest = data => fetch(
   }
 ).then(getResponseData);
 
-export const loginRequest = data => fetch(
+const loginRequest = data => fetch(
   `${API_URL}/auth/login`,
   {
     method: 'POST',
@@ -29,7 +29,7 @@ export const loginRequest = data => fetch(
   }
 ).then(getResponseData);
 
-export const refreshTokenRequest = () => fetch(
+const refreshTokenRequest = () => fetch(
   `${API_URL}/auth/token`,
   {
     method: 'POST',
@@ -40,7 +40,7 @@ export const refreshTokenRequest = () => fetch(
   }
 ).then(getResponseData);
 
-export const logoutRequest = () => fetch(
+const logoutRequest = () => fetch(
   `${API_URL}/auth/logout`,
   {
     method: 'POST',
@@ -51,7 +51,7 @@ export const logoutRequest = () => fetch(
   }
 ).then(getResponseData);
 
-export const resetPasswordRequest = data => fetch(
+const resetPasswordRequest = data => fetch(
   `${API_URL}/password-reset`,
   {
     method: 'POST',
@@ -62,12 +62,12 @@ export const resetPasswordRequest = data => fetch(
   }
 ).then(getResponseData);
 
-export const getIngredientsRequest = () => fetch(
+const getIngredientsRequest = () => fetch(
   `${API_URL}/ingredients`, 
   {}
 ).then(getResponseData);
 
-export const postOrderRequest = data => fetch(
+const postOrderRequest = data => fetch(
   `${API_URL}/orders`, 
   {
     method: 'POST',
@@ -79,7 +79,7 @@ export const postOrderRequest = data => fetch(
   }
 ).then(getResponseData);
 
-export const getUserRequest = () => fetch(
+const getUserRequest = () => fetch(
   `${API_URL}/auth/user`,
   {
     method: 'GET',
@@ -90,7 +90,7 @@ export const getUserRequest = () => fetch(
   }
 ).then(getResponseData);
 
-export const patchUserRequest = data => fetch(
+const patchUserRequest = data => fetch(
   `${API_URL}/auth/user`,
   {
     method: 'PATCH',
@@ -107,7 +107,7 @@ export const patchUserRequest = data => fetch(
   }
 ).then(getResponseData);
 
-export const confirmPasswordResetRequest = data => fetch(
+const confirmPasswordResetRequest = data => fetch(
   `${API_URL}/ingredients`,
   {
     method: 'GET',
@@ -117,3 +117,18 @@ export const confirmPasswordResetRequest = data => fetch(
     body: JSON.stringify(data)
   }
 ).then(getResponseData);
+
+const api = {
+  loginRequest, 
+  registerRequest,
+  refreshTokenRequest,
+  logoutRequest,
+  resetPasswordRequest,
+  getIngredientsRequest,
+  postOrderRequest,
+  getUserRequest,
+  patchUserRequest,
+  confirmPasswordResetRequest 
+}
+
+export default api;
