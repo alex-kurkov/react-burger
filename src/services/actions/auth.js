@@ -157,7 +157,6 @@ export const getUser = () => dispatch => {
 };
 
 export const modifyUser = data => {
-/*   if (!token) return null; */
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
     patchUserRequest(data)
