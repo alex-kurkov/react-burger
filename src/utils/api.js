@@ -108,9 +108,9 @@ const patchUserRequest = data => fetch(
 ).then(getResponseData);
 
 const confirmPasswordResetRequest = data => fetch(
-  `${API_URL}/ingredients`,
+  `${API_URL}/password-reset/reset`,
   {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
