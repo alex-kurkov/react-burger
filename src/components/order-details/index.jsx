@@ -17,8 +17,8 @@ export const OrderDetails = () => {
         <Button 
           type="secondary" 
           size="large" 
-          onClick={() => history.replace('/feed')}>
-            Вернуться к ленте заказов 
+          onClick={() => history.goBack()}>
+            Вернуться 
           </Button>
       </div>
   )

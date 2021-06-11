@@ -8,6 +8,7 @@ import { getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
 import { FeedOrderDetailsModal } from '../feed-order-detail-modal';
+import { IngredientDetailsModal } from '../ingredient-details-modal';
 import {
   HomePage,
   FeedPage,
@@ -19,14 +20,13 @@ import {
   FeedOrderDetailsPage,
   ProfileEditPage,
   ProfileOrders,
-  ProfileOrderDetails
+  ProfileOrderDetails,
+  IngredientDetailsPage
 } from '../../pages';
   
 const App = () => {
-  let location = useLocation();
-  let modalViewLocation = location.state && location.state.modalViewLocation;
-  console.log(location)
-  console.log(modalViewLocation)
+  const location = useLocation();
+  const modalViewLocation = location.state && location.state.modalViewLocation;
 
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.content);
@@ -40,8 +40,12 @@ const App = () => {
   return (
     <div className={styles.app} >
       { apiRequestInProgress && <Loader /> }
-      { modalViewLocation && 
-        <Route path="/feed/:orderId" children={<FeedOrderDetailsModal />} />
+      { modalViewLocation &&
+        <>
+          <Route path="/feed/:orderId" children={<FeedOrderDetailsModal />} />
+          <Route path="/profile/orders/:orderId" children={<FeedOrderDetailsModal />} />
+          <Route path="/ingredients/:ingredientId" children={<IngredientDetailsModal />} />
+        </>
       }
         <Header />
         <Switch location={ modalViewLocation || location }>
@@ -51,9 +55,8 @@ const App = () => {
           <Route path="/forgot-password" exact children={<ForgotPasswordPage />} />
           <Route path="/reset-password" exact children={<ResetPasswordPage />} />
           <Route path="/feed" exact children={<FeedPage />} />
-
+          <Route path="/ingredients/:ingredientId" children={<IngredientDetailsPage />} />
           <Route path="/feed/:orderId" children={<FeedOrderDetailsPage />} />
-
           <ProtectedRoute path="/profile" exact children={<ProfileEditPage />} />
           <ProtectedRoute path="/profile/orders" exact children={<ProfileOrders />} />
           <ProtectedRoute path="/profile/orders/:orderId" children={<ProfileOrderDetails />} />

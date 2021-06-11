@@ -12,6 +12,12 @@
   width: 100%;
   text-align: center;
 }
+.notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 
 .nutrients {
   display: flex;

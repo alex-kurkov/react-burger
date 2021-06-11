@@ -1,8 +1,26 @@
 import { useSelector } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
 
-const IngredientDetails = () => {
-  const { activeIngredient } = useSelector(store => store.content);
+export const IngredientDetails = () => {
+  const { ingredientId } = useParams();
+  const { ingredients } = useSelector(store => store.content);
+  const activeIngredient = ingredients.find(i => i._id === ingredientId);
+  const history = useHistory();
+
+  if (!activeIngredient) return (
+    <div className={styles.notFound}>
+      <span className="text text_type_main-large p-10">Заказ не найден</span>
+      <Button 
+        type="secondary" 
+        size="large" 
+        onClick={() => history.goBack()}>
+          Вернуться 
+        </Button>
+    </div>
+)
+
   const {
     name, proteins, fat, carbohydrates, calories, image_large, description = 'описание ингредиента, которого пока что еще нет'
   } = activeIngredient;
@@ -30,7 +48,6 @@ const IngredientDetails = () => {
     },
   ]
 
-
   return (
     <div className={styles.wrap}>
       <img src={image_large} alt={name} className={`mb-2`}/>
@@ -47,5 +64,3 @@ const IngredientDetails = () => {
   </div>
   )
 }
-
-export default IngredientDetails;

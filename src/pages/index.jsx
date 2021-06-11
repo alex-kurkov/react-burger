@@ -9,6 +9,7 @@ import { NotFoundPage } from './404';
 import { FeedOrderDetailsPage } from './feed-order-details';
 import { ProfileOrders } from './profile-orders';
 import { ProfileOrderDetails } from './profile-order-details';
+import { IngredientDetailsPage } from './ingredient-details-page';
 
 export {
   HomePage,
@@ -21,5 +22,6 @@ export {
   FeedOrderDetailsPage,
   ProfileEditPage,
   ProfileOrders,
-  ProfileOrderDetails
+  ProfileOrderDetails,
+  IngredientDetailsPage
 }
