@@ -17,3 +17,6 @@
   justify-items: end;
   align-items: center;
 }
+.title_icon_wrap svg{
+  cursor: pointer;
+}
