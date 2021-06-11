@@ -111,6 +111,17 @@ export const patchUserRequest = data => fetch(
   }
 ).then(getResponseData);
 
+export const confirmPasswordResetRequest = data => fetch(
+  `${API_URL}/ingredients`,
+  {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+).then(getResponseData);
+
 export const Request = data => fetch(
   `${API_URL}/ingredients`,
   {

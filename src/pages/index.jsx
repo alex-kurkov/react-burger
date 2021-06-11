@@ -6,7 +6,7 @@ import { ResetPasswordPage } from './reset-password';
 import { FeedPage } from './feed';
 import { ProfileEditPage } from './profile-edit-page'
 import { NotFoundPage } from './404';
-import { FeedOrderDetails } from './feed-order-details';
+import { FeedOrderDetailsPage } from './feed-order-details';
 import { ProfileOrders } from './profile-orders';
 import { ProfileOrderDetails } from './profile-order-details';
 
@@ -18,7 +18,7 @@ export {
   ForgotPasswordPage,
   ResetPasswordPage,
   FeedPage,
-  FeedOrderDetails,
+  FeedOrderDetailsPage,
   ProfileEditPage,
   ProfileOrders,
   ProfileOrderDetails

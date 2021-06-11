@@ -1,5 +1,4 @@
-import { 
-  API_URL,
+import {
   API_REQUEST_IN_PROGRESS,
   API_REQUEST_FINISHED,
   SET_CURRENT_ERROR,
@@ -29,6 +28,7 @@ import {
   logoutRequest,
   getUserRequest,
   patchUserRequest,
+  confirmPasswordResetRequest
  } from '../../utils/api'
 import { setCookie, deleteCookie } from '../../utils/common';
 import { setProfileFormValue } from '../actions/form';
@@ -250,30 +250,13 @@ export const resetPassword = data => {
 export const confirmPasswordReset = data => {
   return function(dispatch) {
     dispatch({ type: API_REQUEST_IN_PROGRESS });
-    fetch(`${API_URL}/password-reset/reset`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-    })
-    .then(r => r.json())
-    .then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
-          payload: res, 
-        });
-      } else {
-        dispatch({ type: PASSWORD_RESET_CONFIRMATION_FAILED });
-        dispatch({
-          type: SET_CURRENT_ERROR,
-          payload: 'что-то пошло не так при запросе на сервер'
-        });
-      }
-    })
+    confirmPasswordResetRequest(data)
+    .then(res => dispatch({
+      type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
+      payload: res, 
+    }))
     .catch(e => {
-      dispatch({ type: PASSWORD_RESET_FAILED })
+      dispatch({ type: PASSWORD_RESET_CONFIRMATION_FAILED })
       dispatch({
         type: SET_CURRENT_ERROR,
         payload: `что-то пошло не так при запросе на сервер: ${e.message}`,

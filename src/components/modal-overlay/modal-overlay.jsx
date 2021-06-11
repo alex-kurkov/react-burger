@@ -9,15 +9,14 @@ const modalRoot = document.getElementById("modals");
 const ModalOverlay = ({ children, onClose }) => {
 
     const handleOverlayClick = (e) => {
-      e.stopPropagation();
       if (e.target !== e.currentTarget) return;
-      onClose();
+      onClose(e);
     }
 
     useEffect(() => {
       const closeByEscape = (e) => {
         if (e.key !== 'Escape') return;
-        onClose();
+        onClose(e);
       }
       window.addEventListener('keydown', closeByEscape)
       return () => window.removeEventListener('keydown', closeByEscape)

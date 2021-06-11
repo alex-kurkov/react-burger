@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useLocation, Switch, Route } from 'react-router-dom';
 import styles from './app.module.css';
 import { Header } from '../header';
 import { getIngredients } from '../../services/actions/api';
 import { getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
+import { FeedOrderDetailsModal } from '../feed-order-detail-modal';
 import {
   HomePage,
   FeedPage,
@@ -15,13 +16,17 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   NotFoundPage,
-  FeedOrderDetails,
+  FeedOrderDetailsPage,
   ProfileEditPage,
   ProfileOrders,
   ProfileOrderDetails
 } from '../../pages';
   
 const App = () => {
+  let location = useLocation();
+  let modalViewLocation = location.state && location.state.modalViewLocation;
+  console.log(location)
+  console.log(modalViewLocation)
 
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.content);
@@ -35,45 +40,25 @@ const App = () => {
   return (
     <div className={styles.app} >
       { apiRequestInProgress && <Loader /> }
-      <BrowserRouter>
+      { modalViewLocation && 
+        <Route path="/feed/:orderId" children={<FeedOrderDetailsModal />} />
+      }
         <Header />
-        <Switch>
-          <Route path="/" exact={true} >
-            { !!ingredients.length ? <HomePage /> : null }
-          </Route>
-          <Route path="/login" exact>
-            <LoginPage />
-          </Route>
-          <Route path="/register" exact>
-            <RegisterPage />
-          </Route>
-          <Route path="/forgot-password" exact>
-            <ForgotPasswordPage />
-          </Route>
-          <Route path="/reset-password" exact>
-            <ResetPasswordPage />
-          </Route>
-          <Route path="/feed" exact>
-            <FeedPage />
-          </Route>
-          <Route path="/feed/:orderId" exact>
-            <FeedOrderDetails />
-          </Route>
-          <ProtectedRoute path="/profile" exact>
-            <ProfileEditPage />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders" exact>
-            <ProfileOrders />
-          </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders/:orderId">
-            <ProfileOrderDetails />
-          </ProtectedRoute>
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+        <Switch location={ modalViewLocation || location }>
+          <Route path="/" exact={true} children={ingredients.length ? <HomePage />: null} />
+          <Route path="/login" children={<LoginPage />} exact />
+          <Route path="/register" exact children={<RegisterPage />} />
+          <Route path="/forgot-password" exact children={<ForgotPasswordPage />} />
+          <Route path="/reset-password" exact children={<ResetPasswordPage />} />
+          <Route path="/feed" exact children={<FeedPage />} />
 
+          <Route path="/feed/:orderId" children={<FeedOrderDetailsPage />} />
+
+          <ProtectedRoute path="/profile" exact children={<ProfileEditPage />} />
+          <ProtectedRoute path="/profile/orders" exact children={<ProfileOrders />} />
+          <ProtectedRoute path="/profile/orders/:orderId" children={<ProfileOrderDetails />} />
+          <Route path="*" children={<NotFoundPage />} />
+        </Switch>
     </div>
   );
 }

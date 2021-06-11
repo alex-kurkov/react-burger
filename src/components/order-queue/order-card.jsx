@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import styles from './styles.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderDateAgoToString } from '../../utils/helpers';
@@ -9,13 +9,13 @@ export const OrderCard = ({ data }) => {
   const match = useRouteMatch();
   const { number, cost, orderedAt, ingredients } = data.order;
   const date = orderDateAgoToString(orderedAt);
-
+  const location = useLocation();
   const visibleIngredients = ingredients.slice(0, 5).reverse();
   const hiddenIngredients = ingredients.slice(5);
   
   return (
     <article className={`${styles.card} p-6`}>
-      <Link className={styles.link} to={{pathname: `${match.url}/${data._id}`}}>
+      <Link className={styles.link} to={{pathname: `${match.url}/${data._id}`, state: { modalViewLocation: location }}}>
         <div className={`${styles.cardInfo} mb-6`}>
           <span className="text text_type_digits-default">#{number}</span>
           <span className="text text_type_main-default text_color_inactive">{date}</span>
