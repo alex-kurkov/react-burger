@@ -136,7 +136,7 @@ export const modifyUser = data => dispatch => {
 export const resetPassword = data => dispatch => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.resetPasswordRequest(data)
-  .then(res => {
+  .then(() => {
     dispatch({
       type: PASSWORD_RESET_SUCCESS,
       payload: data,
