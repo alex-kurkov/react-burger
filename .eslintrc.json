@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+        "airbnb",
         "eslint:recommended",
         "plugin:react/recommended"
     ],
@@ -18,5 +19,9 @@
         "react"
     ],
     "rules": {
+        "react/no-children-prop": "off",
+        "react/react-in-jsx-scope": "off",
+        "no-underscore-dangle": "off",
+        "import/prefer-default-export": "off"
     }
 }

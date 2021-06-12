@@ -24,10 +24,10 @@ import {
   API_REQUEST_FINISHED,
   SET_CURRENT_ERROR,
 } from '../../utils/constants';
-import api from '../../utils/api'
+import api from '../../utils/api';
 import { setCookie, deleteCookie } from '../../utils/common';
 
-const _setTokens = res => {
+const _setTokens = (res) => {
   const { accessToken, refreshToken } = res;
   const authToken = accessToken?.split('Bearer ')[1];
   if (authToken) setCookie('token', authToken);
@@ -39,144 +39,141 @@ const _clearTokens = () => {
   deleteCookie('token');
 };
 
-const _refreshToken = afterRefreshFunc => dispatch => {
+const _refreshToken = (afterRefreshFunc) => (dispatch) => {
   api.refreshTokenRequest()
-    .then(res => {
+    .then((res) => {
       _setTokens(res);
       dispatch({ type: REFRESH_TOKENS_SUCCESS });
       dispatch(afterRefreshFunc);
     })
-    .catch(e => {
-      dispatch({ type: REFRESH_TOKENS_FAILED })
+    .catch((e) => {
+      dispatch({ type: REFRESH_TOKENS_FAILED });
       dispatch({
         type: SET_CURRENT_ERROR,
         payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
       });
-    })
+    });
 };
 const _handleError = (e, type, dispatch, func) => {
   if (e.message === 'jwt expired' && func) {
     dispatch(_refreshToken(func));
   } else {
-    dispatch({ type })
+    dispatch({ type });
     dispatch({
       type: SET_CURRENT_ERROR,
       payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
     });
   }
-}
+};
 
-export const register = data => dispatch => {
+export const register = (data) => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.registerRequest(data)
-    .then(res => {
+    .then((res) => {
       _setTokens(res);
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.user,
       });
     })
-    .catch(e => _handleError(e, REGISTER_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
-  };
+    .catch((e) => _handleError(e, REGISTER_FAILED, dispatch))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+};
 
-export const login = data => dispatch => {
+export const login = (data) => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.loginRequest(data)
-    .then(res => {
+    .then((res) => {
       _setTokens(res);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.user,
       });
     })
-    .catch(e => _handleError(e, LOGIN_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    .catch((e) => _handleError(e, LOGIN_FAILED, dispatch))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
 
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.logoutRequest()
-    .then(res => {
+    .then((res) => {
       _clearTokens();
+      // eslint-disable-next-line no-console
       console.log(res.message);
       dispatch({ type: CLEAR_FORM_VALUES });
       dispatch({ type: LOGOUT_SUCCESS });
     })
-    .catch(e => _handleError(e, LOGOUT_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    .catch((e) => _handleError(e, LOGOUT_FAILED, dispatch))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
 
-export const getUser = () => dispatch => {
+export const getUser = () => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.getUserRequest()
-    .then(res => 
-      dispatch({
-        type: GET_USER_SUCCESS,
-        payload: res.user,
-      })
-    )
-    .catch(e => _handleError(e, GET_USER_FAILED, dispatch, getUser()))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    .then((res) => dispatch({
+      type: GET_USER_SUCCESS,
+      payload: res.user,
+    }))
+    .catch((e) => _handleError(e, GET_USER_FAILED, dispatch, getUser()))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
 
-export const modifyUser = data => dispatch => {
+export const modifyUser = (data) => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.patchUserRequest(data)
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: PATCH_USER_SUCCESS,
         payload: res.user,
       });
     })
-    .catch(e => _handleError(e, PATCH_USER_FAILED, dispatch, modifyUser()))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    .catch((e) => _handleError(e, PATCH_USER_FAILED, dispatch, modifyUser()))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
 
-export const resetPassword = data => dispatch => {
+export const resetPassword = (data) => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.resetPasswordRequest(data)
-  .then(() => {
-    dispatch({
-      type: PASSWORD_RESET_SUCCESS,
-      payload: data,
-    });
-  })
-  .catch(e => _handleError(e, PASSWORD_RESET_FAILED, dispatch))
-  .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    .then(() => {
+      dispatch({
+        type: PASSWORD_RESET_SUCCESS,
+        payload: data,
+      });
+    })
+    .catch((e) => _handleError(e, PASSWORD_RESET_FAILED, dispatch))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
 
-
-export const confirmPasswordReset = data => dispatch => {
+export const confirmPasswordReset = (data) => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.confirmPasswordResetRequest(data)
-  .then(res => dispatch({
-    type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
-    payload: res, 
-  }))
-  .catch(e => _handleError(e, PASSWORD_RESET_CONFIRMATION_FAILED, dispatch))
-  .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    .then((res) => dispatch({
+      type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
+      payload: res,
+    }))
+    .catch((e) => _handleError(e, PASSWORD_RESET_CONFIRMATION_FAILED, dispatch))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
 
-export const getIngredients = () => dispatch => {
+export const getIngredients = () => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.getIngredientsRequest()
-    .then(res => dispatch({
+    .then((res) => dispatch({
       type: REQUEST_INGREDIENTS_SUCCESS,
       payload: res.data,
-    })
-  )
-  .catch(e => _handleError(e, REQUEST_INGREDIENTS_FAILED, dispatch))
-  .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    }))
+    .catch((e) => _handleError(e, REQUEST_INGREDIENTS_FAILED, dispatch))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
 
-export const postOrder = data => dispatch => {
+export const postOrder = (data) => (dispatch) => {
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.postOrderRequest(data)
-    .then(res => dispatch({
+    .then((res) => dispatch({
       type: POST_ORDER_SUCCESS,
       payload: res,
     }))
-    .catch(e => _handleError(e, POST_ORDER_FAILED, dispatch, postOrder()))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }))
+    .catch((e) => _handleError(e, POST_ORDER_FAILED, dispatch, postOrder()))
+    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
 };
