@@ -1,4 +1,4 @@
-import { IN_PROGRESS, COMPLETED } from './constants'
+import { IN_PROGRESS, COMPLETED } from './constants';
 
 export const orders = [
   {
@@ -22,7 +22,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/bun-02.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a039',
@@ -36,7 +36,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/core.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a039',
@@ -50,7 +50,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/core.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a039',
@@ -64,7 +64,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/core.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a03a',
@@ -78,7 +78,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/salad.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/salad-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/salad-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a03b',
@@ -92,10 +92,10 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/cheese.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/cheese-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/cheese-large.png',
-          __v: 0
-        }
-      ]
-    }
+          __v: 0,
+        },
+      ],
+    },
   },
   {
     name: 'Бессмертный space краторный бургер',
@@ -118,7 +118,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/bun-02.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a036',
@@ -132,7 +132,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/sauce-01.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/sauce-01-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/sauce-01-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a037',
@@ -146,7 +146,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/mineral_rings-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/mineral_rings-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a038',
@@ -160,7 +160,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/sp_1.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/sp_1-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/sp_1-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a036',
@@ -174,7 +174,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/sauce-01.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/sauce-01-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/sauce-01-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a037',
@@ -188,7 +188,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/mineral_rings-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/mineral_rings-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a038',
@@ -202,7 +202,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/sp_1.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/sp_1-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/sp_1-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a039',
@@ -216,7 +216,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/core.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a039',
@@ -230,7 +230,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/core.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a03a',
@@ -244,7 +244,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/salad.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/salad-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/salad-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a03b',
@@ -258,10 +258,10 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/cheese.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/cheese-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/cheese-large.png',
-          __v: 0
-        }
-      ]
-    }
+          __v: 0,
+        },
+      ],
+    },
   },
   {
     name: 'Фалленианский астероидный краторный минеральный бургер',
@@ -273,63 +273,63 @@ export const orders = [
       orderedAt: new Date(2021, 5, 5, 12, 59),
       ingredients: [
         {
-        _id: '60b920b9f26f8a0027e0a02d',
-        name: 'Краторная булка N-200i',
-        type: 'bun',
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-        __v: 0
-      },
-      {
-        _id: '60b920b9f26f8a0027e0a030',
-        name: 'Мясо бессмертных моллюсков Protostomia',
-        type: 'main',
-        proteins: 433,
-        fat: 244,
-        carbohydrates: 33,
-        calories: 420,
-        price: 1337,
-        image: 'https://code.s3.yandex.net/react/code/meat-02.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
-        __v: 0
-      },
-      {
-        _id: '60b920b9f26f8a0027e0a030',
-        name: 'Мясо бессмертных моллюсков Protostomia',
-        type: 'main',
-        proteins: 433,
-        fat: 244,
-        carbohydrates: 33,
-        calories: 420,
-        price: 1337,
-        image: 'https://code.s3.yandex.net/react/code/meat-02.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
-        __v: 0
-      },
-      {
-        _id: '60b920b1116f8a0027e0a035',
-        name: 'Соус традиционный галактический',
-        type: 'sauce',
-        proteins: 42,
-        fat: 24,
-        carbohydrates: 42,
-        calories: 99,
-        price: 15,
-        image: 'https://code.s3.yandex.net/react/code/sauce-03.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/sauce-03-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/sauce-03-large.png',
-        __v: 0
-      },
-    ]
-    }
+          _id: '60b920b9f26f8a0027e0a02d',
+          name: 'Краторная булка N-200i',
+          type: 'bun',
+          proteins: 80,
+          fat: 24,
+          carbohydrates: 53,
+          calories: 420,
+          price: 1255,
+          image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
+          __v: 0,
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a030',
+          name: 'Мясо бессмертных моллюсков Protostomia',
+          type: 'main',
+          proteins: 433,
+          fat: 244,
+          carbohydrates: 33,
+          calories: 420,
+          price: 1337,
+          image: 'https://code.s3.yandex.net/react/code/meat-02.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
+          __v: 0,
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a030',
+          name: 'Мясо бессмертных моллюсков Protostomia',
+          type: 'main',
+          proteins: 433,
+          fat: 244,
+          carbohydrates: 33,
+          calories: 420,
+          price: 1337,
+          image: 'https://code.s3.yandex.net/react/code/meat-02.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
+          __v: 0,
+        },
+        {
+          _id: '60b920b1116f8a0027e0a035',
+          name: 'Соус традиционный галактический',
+          type: 'sauce',
+          proteins: 42,
+          fat: 24,
+          carbohydrates: 42,
+          calories: 99,
+          price: 15,
+          image: 'https://code.s3.yandex.net/react/code/sauce-03.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/sauce-03-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/sauce-03-large.png',
+          __v: 0,
+        },
+      ],
+    },
   },
   {
     name: 'Space антарианский флюоресцентный бургер',
@@ -352,7 +352,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/bun-02.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a039',
@@ -366,7 +366,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/core.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a03a',
@@ -380,7 +380,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/salad.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/salad-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/salad-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a03b',
@@ -394,10 +394,10 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/cheese.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/cheese-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/cheese-large.png',
-          __v: 0
-        }
-      ]
-    }
+          __v: 0,
+        },
+      ],
+    },
   },
   {
     name: 'Бессмертный space краторный бургер',
@@ -420,7 +420,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/bun-02.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a036',
@@ -434,7 +434,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/sauce-01.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/sauce-01-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/sauce-01-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a037',
@@ -448,7 +448,7 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/mineral_rings-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/mineral_rings-large.png',
-          __v: 0
+          __v: 0,
         },
         {
           _id: '60b920b9f26f8a0027e0a038',
@@ -462,10 +462,10 @@ export const orders = [
           image: 'https://code.s3.yandex.net/react/code/sp_1.png',
           image_mobile: 'https://code.s3.yandex.net/react/code/sp_1-mobile.png',
           image_large: 'https://code.s3.yandex.net/react/code/sp_1-large.png',
-          __v: 0
+          __v: 0,
         },
-      ]
-    }
+      ],
+    },
   },
   {
     name: 'Фалленианский астероидный краторный минеральный бургер',
@@ -477,63 +477,63 @@ export const orders = [
       orderedAt: new Date(2021, 2, 1, 0, 15),
       ingredients: [
         {
-        _id: '60b920b9f26f8a0027e0a02d',
-        name: 'Краторная булка N-200i',
-        type: 'bun',
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
-        __v: 0
-      },
-      {
-        _id: '60b920b9f26f8a0027e0a030',
-        name: 'Мясо бессмертных моллюсков Protostomia',
-        type: 'main',
-        proteins: 433,
-        fat: 244,
-        carbohydrates: 33,
-        calories: 420,
-        price: 1337,
-        image: 'https://code.s3.yandex.net/react/code/meat-02.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
-        __v: 0
-      },
-      {
-        _id: '60b920b9f26f8a0027e0a030',
-        name: 'Мясо бессмертных моллюсков Protostomia',
-        type: 'main',
-        proteins: 433,
-        fat: 244,
-        carbohydrates: 33,
-        calories: 420,
-        price: 1337,
-        image: 'https://code.s3.yandex.net/react/code/meat-02.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
-        __v: 0
-      },
-      {
-        _id: '60b920b9f26f8a0027e0a035',
-        name: 'Соус традиционный галактический',
-        type: 'sauce',
-        proteins: 42,
-        fat: 24,
-        carbohydrates: 42,
-        calories: 99,
-        price: 15,
-        image: 'https://code.s3.yandex.net/react/code/sauce-03.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/sauce-03-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/sauce-03-large.png',
-        __v: 0
-      },
-    ]
-    }
+          _id: '60b920b9f26f8a0027e0a02d',
+          name: 'Краторная булка N-200i',
+          type: 'bun',
+          proteins: 80,
+          fat: 24,
+          carbohydrates: 53,
+          calories: 420,
+          price: 1255,
+          image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
+          __v: 0,
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a030',
+          name: 'Мясо бессмертных моллюсков Protostomia',
+          type: 'main',
+          proteins: 433,
+          fat: 244,
+          carbohydrates: 33,
+          calories: 420,
+          price: 1337,
+          image: 'https://code.s3.yandex.net/react/code/meat-02.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
+          __v: 0,
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a030',
+          name: 'Мясо бессмертных моллюсков Protostomia',
+          type: 'main',
+          proteins: 433,
+          fat: 244,
+          carbohydrates: 33,
+          calories: 420,
+          price: 1337,
+          image: 'https://code.s3.yandex.net/react/code/meat-02.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
+          __v: 0,
+        },
+        {
+          _id: '60b920b9f26f8a0027e0a035',
+          name: 'Соус традиционный галактический',
+          type: 'sauce',
+          proteins: 42,
+          fat: 24,
+          carbohydrates: 42,
+          calories: 99,
+          price: 15,
+          image: 'https://code.s3.yandex.net/react/code/sauce-03.png',
+          image_mobile: 'https://code.s3.yandex.net/react/code/sauce-03-mobile.png',
+          image_large: 'https://code.s3.yandex.net/react/code/sauce-03-large.png',
+          __v: 0,
+        },
+      ],
+    },
   },
 
-]
+];

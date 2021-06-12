@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Switch, Route } from 'react-router-dom';
-import styles from './app.module.css';
 import { Header } from '../header';
 import { getIngredients, getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
@@ -22,6 +21,7 @@ import {
   ProfileOrderDetails,
   IngredientDetailsPage,
 } from '../../pages';
+import styles from './app.module.css';
 
 const App = () => {
   const location = useLocation();

@@ -1,8 +1,8 @@
-import { IngredientDetails } from '../components/ingredient-details'
+import { IngredientDetails } from '../components/ingredient-details';
 import styles from './ingredient-details.module.css';
 
 export const IngredientDetailsPage = () => (
-  <main class={styles.main}>
+  <main className={styles.main}>
     <IngredientDetails />
   </main>
-  )
+);

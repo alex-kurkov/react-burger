@@ -1,20 +1,20 @@
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import styles from './styles.module.css';
-import { 
+import {
   Logo,
   BurgerIcon,
   ListIcon,
-  ProfileIcon
-} from '@ya.praktikum/react-developer-burger-ui-components/dist/index.js';
+  ProfileIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
+import styles from './styles.module.css';
 
 export const Header = () => {
-  const isHome = useRouteMatch('/')
-  const isFeed = useRouteMatch('/feed')
-  const isProfile = useRouteMatch('/profile')
+  const isHome = useRouteMatch('/');
+  const isFeed = useRouteMatch('/feed');
+  const isProfile = useRouteMatch('/profile');
 
   return (
-    <header className={`${styles.header}`} >
-      <div className={`${styles.content} pl-5 pr-5 pt-2 pb-2`} >
+    <header className={`${styles.header}`}>
+      <div className={`${styles.content} pl-5 pr-5 pt-2 pb-2`}>
         <nav className={styles.navigation}>
           <NavLink
             exact
@@ -22,10 +22,10 @@ export const Header = () => {
             activeClassName={`${styles.active}`}
             className={`${styles.link} text text_type_main-default p-2`}
           >
-            <BurgerIcon type={ isHome && isHome.isExact ? 'primary' : 'secondary' } />
+            <BurgerIcon type={isHome && isHome.isExact ? 'primary' : 'secondary'} />
             <span className={`${styles.text} ml-2`}>Конструктор</span>
           </NavLink>
-          <NavLink 
+          <NavLink
             to={{ pathname: '/feed' }}
             activeClassName={`${styles.active}`}
             className={`${styles.link} text text_type_main-default p-2`}
@@ -38,18 +38,17 @@ export const Header = () => {
           <Logo />
         </NavLink>
         <nav className={styles.auth}>
-        <NavLink
-          to={{ pathname: '/profile' }}
-          activeClassName={`${styles.active}`}
-          className={`${styles.link} text text_type_main-default p-2`}
-        >
-          <ProfileIcon type={ isProfile ? 'primary' : 'secondary' } />
-          <span className={`${styles.text} ml-2`}>Личный кабинет</span>
-        </NavLink>
+          <NavLink
+            to={{ pathname: '/profile' }}
+            activeClassName={`${styles.active}`}
+            className={`${styles.link} text text_type_main-default p-2`}
+          >
+            <ProfileIcon type={isProfile ? 'primary' : 'secondary'} />
+            <span className={`${styles.text} ml-2`}>Личный кабинет</span>
+          </NavLink>
         </nav>
       </div>
-      
-      
+
     </header>
-  )
-}
+  );
+};

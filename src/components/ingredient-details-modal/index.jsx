@@ -1,11 +1,11 @@
+import { useHistory } from 'react-router-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details';
-import { useHistory } from 'react-router-dom';
 
 export const IngredientDetailsModal = () => {
   const history = useHistory();
-  const back = e => {
+  const back = (e) => {
     e.stopPropagation();
     history.goBack();
   };
@@ -15,6 +15,6 @@ export const IngredientDetailsModal = () => {
       <Modal onClose={back}>
         <IngredientDetails />
       </Modal>
-    </ModalOverlay> 
-  )
-}
+    </ModalOverlay>
+  );
+};

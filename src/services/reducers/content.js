@@ -5,27 +5,27 @@ import {
 } from '../../utils/constants';
 
 const initialState = {
-    ingredients: [],
-    activeIngredient: {},
-    currentIngredientsTab: 'bun',
-    currentIngredient: {},
-  }
+  ingredients: [],
+  activeIngredient: {},
+  currentIngredientsTab: 'bun',
+  currentIngredient: {},
+};
 
 const content = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_INGREDIENTS_SUCCESS: {
-      return { ...state, ingredients: [...action.payload] }
+      return { ...state, ingredients: [...action.payload] };
     }
     case REQUEST_INGREDIENTS_FAILED: {
-      return { ...state, ingredients: initialState.ingredients}
+      return { ...state, ingredients: initialState.ingredients };
     }
     case CHANGE_INGREDIENTS_TAB: {
-      return { ...state, currentIngredientsTab: action.payload }
+      return { ...state, currentIngredientsTab: action.payload };
     }
     default: {
       return state;
     }
   }
-}
+};
 
 export default content;

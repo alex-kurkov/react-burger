@@ -4,8 +4,8 @@ import content from './content';
 import cart from './cart';
 import order from './order';
 import error from './error';
-import form from './form'
-import user from './user'
+import form from './form';
+import user from './user';
 
 export const rootReducer = combineReducers({
   cart,
@@ -14,5 +14,5 @@ export const rootReducer = combineReducers({
   order,
   form,
   error,
-  user
-})
+  user,
+});

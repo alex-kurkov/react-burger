@@ -5,11 +5,10 @@ export const Loader = () => (
     <div className={`${styles.wrap}`}>
       <div className={`${styles.vector_1} ${styles.vector}`}>
         <div className={`${styles.vector_2} ${styles.vector}`}>
-          <div className={`${styles.vector_3} ${styles.vector}`}>
-          </div>
+          <div className={`${styles.vector_3} ${styles.vector}`} />
         </div>
       </div>
-      <p className='text text_type_main-default text_color_inactive mt-4'>Loading...</p>
+      <p className="text text_type_main-default text_color_inactive mt-4">Loading...</p>
     </div>
   </div>
-)
+);
