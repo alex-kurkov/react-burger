@@ -3,7 +3,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components/di
 import styles from './modal.module.css';
 
 const Modal = ({ title = '', onClose, children = null }) => (
-  <div className={`${styles.modal} p-5`}>
+  <div className={`${styles.modal} p-5`} data-cy="modal">
     <div className={`${styles.title_icon_wrap}`}>
       <h3 className="text text_type_main-large mr-4">{title}</h3>
       <CloseIcon type="primary" onClick={onClose} />

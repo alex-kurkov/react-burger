@@ -22,7 +22,7 @@ const ModalOverlay = ({ children, onClose }) => {
 
   return ReactDOM.createPortal(
     (
-      <div onClick={(handleOverlayClick)} className={styles.overlay}>
+      <div data-cy="modal-overlay" onClick={(handleOverlayClick)} className={styles.overlay}>
         { children }
       </div>
     ),
