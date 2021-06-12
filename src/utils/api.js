@@ -36,7 +36,7 @@ const refreshTokenRequest = () => fetch(
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ refreshToken: localStorage.getItem('refreshToken') }),
+    body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
   },
 ).then(getResponseData);
 

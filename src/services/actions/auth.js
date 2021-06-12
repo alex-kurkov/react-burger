@@ -55,7 +55,7 @@ const _refreshToken = (afterRefreshFunc) => (dispatch) => {
     });
 };
 const _handleError = (e, type, dispatch, func) => {
-  if (e.message === 'jwt expired' && func) {
+  if ((e.message === 'jwt expired' || e.message === 'jwt malformed') && func) {
     dispatch(_refreshToken(func));
   } else {
     dispatch({ type });
