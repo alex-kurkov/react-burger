@@ -18,7 +18,7 @@ export const OrderCard = ({ data }) => {
 
   return (
     <article className={`${styles.card} p-6`}>
-      <Link className={styles.link} to={{ pathname: `${match.url}/${data._id}`, state: { modalViewLocation: location } }}>
+      <Link data-cy="order-card" className={styles.link} to={{ pathname: `${match.url}/${data._id}`, state: { modalViewLocation: location } }}>
         <div className={`${styles.cardInfo} mb-6`}>
           <span className="text text_type_digits-default">
             #
