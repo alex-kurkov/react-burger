@@ -109,6 +109,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const getUser = () => (dispatch) => {
+  if (!localStorage.getItem('refreshToken')) return;
   dispatch({ type: API_REQUEST_IN_PROGRESS });
   api.getUserRequest()
     .then((res) => dispatch({
