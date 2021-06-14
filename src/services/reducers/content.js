@@ -6,9 +6,7 @@ import {
 
 const initialState = {
   ingredients: [],
-  activeIngredient: {},
   currentIngredientsTab: 'bun',
-  currentIngredient: {},
 };
 
 const content = (state = initialState, action) => {
@@ -17,7 +15,7 @@ const content = (state = initialState, action) => {
       return { ...state, ingredients: [...action.payload] };
     }
     case REQUEST_INGREDIENTS_FAILED: {
-      return { ...state, ingredients: initialState.ingredients };
+      return { ...state, ingredients: state.ingredients };
     }
     case CHANGE_INGREDIENTS_TAB: {
       return { ...state, currentIngredientsTab: action.payload };
