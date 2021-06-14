@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Switch, Route } from 'react-router-dom';
@@ -24,16 +25,17 @@ import {
 import styles from './app.module.css';
 
 const App = () => {
-  const location = useLocation();
-  const modalViewLocation = location.state && location.state.modalViewLocation;
-
   const dispatch = useDispatch();
+  const location = useLocation();
+  const modalViewLocation = location.state?.modalViewLocation;
   const { ingredients } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
 
   useEffect(() => {
-    dispatch(getUser());
     dispatch(getIngredients());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUser());
   }, [dispatch]);
 
   return (
@@ -42,25 +44,25 @@ const App = () => {
       { modalViewLocation
         && (
         <>
-          <Route path="/feed/:orderId" children={<FeedOrderDetailsModal />} />
-          <Route path="/profile/orders/:orderId" children={<FeedOrderDetailsModal />} />
-          <Route path="/ingredients/:ingredientId" children={<IngredientDetailsModal />} />
+          <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
+          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} />
+          <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
         </>
         )}
       <Header />
       <Switch location={modalViewLocation || location}>
-        <Route path="/" exact children={ingredients.length ? <HomePage /> : null} />
-        <Route path="/login" children={<LoginPage />} exact />
-        <Route path="/register" exact children={<RegisterPage />} />
-        <Route path="/forgot-password" exact children={<ForgotPasswordPage />} />
-        <Route path="/reset-password" exact children={<ResetPasswordPage />} />
-        <Route path="/feed" exact children={<FeedPage />} />
-        <Route path="/ingredients/:ingredientId" children={<IngredientDetailsPage />} />
-        <Route path="/feed/:orderId" children={<FeedOrderDetailsPage />} />
+        <Route path="/" exact render={() => (ingredients.length && <HomePage />)} />
+        <Route path="/login" render={() => <LoginPage />} exact />
+        <Route path="/register" exact render={() => <RegisterPage />} />
+        <Route path="/forgot-password" exact render={() => <ForgotPasswordPage />} />
+        <Route path="/reset-password" exact render={() => <ResetPasswordPage />} />
+        <Route path="/feed" exact render={() => <FeedPage />} />
+        <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsPage />} />
+        <Route path="/feed/:orderId" render={() => <FeedOrderDetailsPage />} />
         <ProtectedRoute path="/profile" exact children={<ProfileEditPage />} />
         <ProtectedRoute path="/profile/orders" exact children={<ProfileOrders />} />
         <ProtectedRoute path="/profile/orders/:orderId" children={<ProfileOrderDetails />} />
-        <Route path="*" children={<NotFoundPage />} />
+        <Route path="*" render={() => <NotFoundPage />} />
       </Switch>
     </div>
   );

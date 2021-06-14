@@ -28,7 +28,7 @@ const IngredientCard = ({ item }) => {
   return (
     <Link
       className={styles.link}
-      to={{ pathname: `ingredients/${item._id}`, state: { modalViewLocation: location } }}
+      to={{ pathname: `ingredients/${item._id}`, state: { modalViewLocation: location, from: '/' } }}
     >
 
       <article ref={dragRef} className={`${styles.card} pr-2 pl-2 pb-3 ${isDrag ? styles.dragging : ''}`}>
