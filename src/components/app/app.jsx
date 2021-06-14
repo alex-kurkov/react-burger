@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, Switch, Route } from 'react-router-dom';
+import {
+  useLocation, useHistory, Switch, Route,
+} from 'react-router-dom';
 import { Header } from '../header';
 import { getIngredients, getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
@@ -27,7 +29,10 @@ import styles from './app.module.css';
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const modalViewLocation = location.state?.modalViewLocation;
+  const history = useHistory();
+
+  let modalViewLocation;
+  if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
   const { ingredients } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
 
