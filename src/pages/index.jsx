@@ -4,11 +4,12 @@ import { RegisterPage } from './register';
 import { ForgotPasswordPage } from './forgot-password';
 import { ResetPasswordPage } from './reset-password';
 import { FeedPage } from './feed';
-import { ProfileEditPage } from './profile-edit-page'
+import { ProfileEditPage } from './profile-edit-page';
 import { NotFoundPage } from './404';
-import { FeedOrderDetails } from './feed-order-details';
+import { FeedOrderDetailsPage } from './feed-order-details';
 import { ProfileOrders } from './profile-orders';
 import { ProfileOrderDetails } from './profile-order-details';
+import { IngredientDetailsPage } from './ingredient-details-page';
 
 export {
   HomePage,
@@ -18,8 +19,9 @@ export {
   ForgotPasswordPage,
   ResetPasswordPage,
   FeedPage,
-  FeedOrderDetails,
+  FeedOrderDetailsPage,
   ProfileEditPage,
   ProfileOrders,
-  ProfileOrderDetails
-}
+  ProfileOrderDetails,
+  IngredientDetailsPage,
+};

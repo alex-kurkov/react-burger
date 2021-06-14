@@ -1,10 +1,13 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import styles from './app.module.css';
+import { useLocation, Switch, Route } from 'react-router-dom';
 import { Header } from '../header';
-import { getIngredients } from '../../services/actions/api';
+import { getIngredients, getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
+import { ProtectedRoute } from '../protected-route';
+import { FeedOrderDetailsModal } from '../feed-order-detail-modal';
+import { IngredientDetailsModal } from '../ingredient-details-modal';
 import {
   HomePage,
   FeedPage,
@@ -13,66 +16,56 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   NotFoundPage,
-  FeedOrderDetails,
+  FeedOrderDetailsPage,
   ProfileEditPage,
   ProfileOrders,
-  ProfileOrderDetails
+  ProfileOrderDetails,
+  IngredientDetailsPage,
 } from '../../pages';
+import styles from './app.module.css';
 
 const App = () => {
-
   const dispatch = useDispatch();
-  const { ingredients } = useSelector(store => store.content);
-  const { apiRequestInProgress } = useSelector(store => store.api);
+  const location = useLocation();
+  const modalViewLocation = location.state?.modalViewLocation;
+  const { ingredients } = useSelector((store) => store.content);
+  const { apiRequestInProgress } = useSelector((store) => store.api);
 
   useEffect(() => {
     dispatch(getIngredients());
-  }, [dispatch])
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   return (
-    <div className={styles.app} >
+    <div className={styles.app}>
       { apiRequestInProgress && <Loader /> }
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route path="/" exact={true} >
-            { !!ingredients.length ? <HomePage /> : null }
-          </Route>
-          <Route path="/login" exact>
-            <LoginPage />
-          </Route>
-          <Route path="/register" exact>
-            <RegisterPage />
-          </Route>
-          <Route path="/forgot-password" exact>
-            <ForgotPasswordPage />
-          </Route>
-          <Route path="/reset-password" exact>
-            <ResetPasswordPage />
-          </Route>
-          <Route path="/feed" exact>
-            <FeedPage />
-          </Route>
-          <Route path="/feed/:orderId" exact>
-            <FeedOrderDetails />
-          </Route>
-          <Route path="/profile" exact>
-            <ProfileEditPage />
-          </Route>
-          <Route path="/profile/orders" exact>
-            <ProfileOrders />
-          </Route>
-          <Route path="/profile/orders/:orderId">
-            <ProfileOrderDetails />
-          </Route>
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-
+      { modalViewLocation
+        && (
+        <>
+          <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
+          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} />
+          <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
+        </>
+        )}
+      <Header />
+      <Switch location={modalViewLocation || location}>
+        <Route path="/" exact render={() => (ingredients.length && <HomePage />)} />
+        <Route path="/login" render={() => <LoginPage />} exact />
+        <Route path="/register" exact render={() => <RegisterPage />} />
+        <Route path="/forgot-password" exact render={() => <ForgotPasswordPage />} />
+        <Route path="/reset-password" exact render={() => <ResetPasswordPage />} />
+        <Route path="/feed" exact render={() => <FeedPage />} />
+        <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsPage />} />
+        <Route path="/feed/:orderId" render={() => <FeedOrderDetailsPage />} />
+        <ProtectedRoute path="/profile" exact children={<ProfileEditPage />} />
+        <ProtectedRoute path="/profile/orders" exact children={<ProfileOrders />} />
+        <ProtectedRoute path="/profile/orders/:orderId" children={<ProfileOrderDetails />} />
+        <Route path="*" render={() => <NotFoundPage />} />
+      </Switch>
     </div>
   );
-}
+};
 
 export default App;

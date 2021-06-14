@@ -1,5 +1,5 @@
 export const getNearestTab = () => {
-  const [container, bunsList, saucesList, mainsList] = ['ingredients', 'bun', 'sauce', 'main'].map(type => document.getElementById(type));
+  const [container, bunsList, saucesList, mainsList] = ['ingredients', 'bun', 'sauce', 'main'].map((type) => document.getElementById(type));
 
   const containerY = container.getBoundingClientRect().y;
   const bunsListY = bunsList.getBoundingClientRect().y;
@@ -17,10 +17,10 @@ export const getNearestTab = () => {
       ? 'sauce'
       : calculatedSmallestDelta === mainsDelta
         ? 'main'
-        : 'bun'
+        : 'bun';
 
-  return calculatedNearestTab
-}
+  return calculatedNearestTab;
+};
 
 export const throttle = (callback, limit) => {
   let waiting = false;
@@ -33,19 +33,19 @@ export const throttle = (callback, limit) => {
       }, limit);
     }
   };
-}
+};
 
-const daysAgoToString = days => days < 0 
+const daysAgoToString = (days) => (days < 0
   ? 'Это случится в будущем'
   : days === 0
-  ? 'Сегодня'
-  :  days === 1
-  ? 'Вчера'
-  : days > 1
-  ? `${days} дня(-ей) назад`
-  :'Ошибка в вычислении времени'
+    ? 'Сегодня'
+    : days === 1
+      ? 'Вчера'
+      : days > 1
+        ? `${days} дня(-ей) назад`
+        : 'Ошибка в вычислении времени');
 
-export const orderDateAgoToString = date => {
+export const orderDateAgoToString = (date) => {
   const today = new Date();
   today.setHours(0);
   today.setMinutes(0);
@@ -56,18 +56,18 @@ export const orderDateAgoToString = date => {
   const days = daysAgoToString(daysAgo);
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  const timeShift = `i-GMT${date.getTimezoneOffset() / 60}`
+  const timeShift = `i-GMT${date.getTimezoneOffset() / 60}`;
 
-  return `${days}, ${hours}:${minutes} ${timeShift}`
-}
+  return `${days}, ${hours}:${minutes} ${timeShift}`;
+};
 
-export const countIngredients = ingredients => ingredients
+export const countIngredients = (ingredients) => ingredients
   .reduce((acc, item) => {
     const currentItemIndexInAcc = acc.findIndex((i) => i._id === item._id);
 
-    if (currentItemIndexInAcc < 0) return [...acc, { count: 1, ...item }]
-    
-    acc[currentItemIndexInAcc]['count'] += 1;
+    if (currentItemIndexInAcc < 0) return [...acc, { count: 1, ...item }];
+
+    acc[currentItemIndexInAcc].count += 1;
 
     return acc;
-  }, [])
+  }, []);

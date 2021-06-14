@@ -7,4 +7,4 @@ export const ProfileEditPage = () => (
     <ProfileMenu />
     <ProfileEdit />
   </main>
-)
+);

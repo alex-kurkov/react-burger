@@ -5,8 +5,8 @@ import { OrderQueue } from '../components/order-queue';
 export const ProfileOrders = () => (
   <main className={styles.main}>
     <ProfileMenu />
-    <section className={styles.orders}> 
-      <OrderQueue /> 
+    <section className={styles.orders}>
+      <OrderQueue />
     </section>
   </main>
-)
+);

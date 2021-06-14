@@ -1,40 +1,86 @@
 import {
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
-  CLEAR_PASSWORD_RESET,
   REGISTER_SUCCESS,
-  REGISTER_FAILED
+  REGISTER_FAILED,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
+  PATCH_USER_SUCCESS,
+  PATCH_USER_FAILED,
+  PASSWORD_RESET_CONFIRMATION_SUCCESS,
+  PASSWORD_RESET_CONFIRMATION_FAILED,
 } from '../../utils/constants';
 
 const initialState = {
   passwordReset: false,
-  password: '',
+  passwordResetSuccess: false,
   email: '',
   loggedIn: false,
   name: '',
-}
+};
 
 const user = (state = initialState, action) => {
   switch (action.type) {
+    case PASSWORD_RESET_CONFIRMATION_SUCCESS: {
+      return { ...state, passwordReset: false, passwordResetSuccess: true };
+    }
+    case PASSWORD_RESET_CONFIRMATION_FAILED: {
+      return { ...state, passwordReset: true, passwordResetSuccess: false };
+    }
     case PASSWORD_RESET_SUCCESS: {
-      return { ...state, passwordReset: true, email: action.payload.email }
+      return { ...state, passwordReset: true, passwordResetSuccess: false };
     }
     case PASSWORD_RESET_FAILED: {
-      return { ...state, passwordReset: false }
-    }
-    case CLEAR_PASSWORD_RESET: {
-      return { ...state, passwordReset: false }
+      return { ...state, passwordReset: false, passwordResetSuccess: false };
     }
     case REGISTER_SUCCESS: {
-      return { ...state, loggedIn: true, name: action.payload.user.name, email: action.payload.user.email }
+      return {
+        ...state, loggedIn: true, name: action.payload.name, email: action.payload.email,
+      };
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state, loggedIn: false, name: '', email: '',
+      };
     }
     case REGISTER_FAILED: {
-      return { ...state, loggedIn: false }
+      return { ...state, loggedIn: false };
+    }
+    case LOGIN_SUCCESS: {
+      return {
+        ...state, loggedIn: true, name: action.payload.name, email: action.payload.email,
+      };
+    }
+    case LOGIN_FAILED: {
+      return {
+        ...state, loggedIn: false, name: '', email: '',
+      };
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state, loggedIn: true, name: action.payload.name, email: action.payload.email,
+      };
+    }
+    case GET_USER_FAILED: {
+      return {
+        ...state, loggedIn: false, name: '', email: '',
+      };
+    }
+    case PATCH_USER_SUCCESS: {
+      return {
+        ...state, loggedIn: true, name: action.payload.name, email: action.payload.email,
+      };
+    }
+    case PATCH_USER_FAILED: {
+      return state;
     }
     default: {
       return state;
     }
   }
-}
+};
 
 export default user;

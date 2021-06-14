@@ -1,5 +1,5 @@
-import { OrderQueue } from '../components/order-queue'
-import { OrderInfo } from '../components/order-info'
+import { OrderQueue } from '../components/order-queue';
+import { OrderInfo } from '../components/order-info';
 import styles from './feed.module.css';
 
 export const FeedPage = () => (
@@ -10,4 +10,4 @@ export const FeedPage = () => (
       <section className={styles.section}><OrderInfo /></section>
     </div>
   </main>
-)
+);
