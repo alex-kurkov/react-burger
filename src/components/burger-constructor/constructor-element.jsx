@@ -67,7 +67,7 @@ const ConstructorElement = ({
             {item.price}
             <CurrencyIcon type="primary" />
           </span>
-          <span className={styles.action}>{action}</span>
+          <span data-cy="action-icon" className={styles.action}>{action}</span>
         </div>
       </div>
     );

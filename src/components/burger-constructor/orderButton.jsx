@@ -39,7 +39,7 @@ const OrderButton = () => {
     }
   };
   return (
-    <div className={chosenBun.name && !apiRequestInProgress ? '' : styles.disabled}>
+    <div data-cy="order-button" className={chosenBun.name && !apiRequestInProgress ? '' : styles.disabled}>
       { currentOrder.success && modal }
       <Button type="primary" size="large" onClick={placeOrder}>
         Оформить заказ

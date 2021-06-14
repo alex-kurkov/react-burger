@@ -28,6 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "wslcy:open": "export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 \n./node_modules/.bin/cypress open",
     "cy:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {

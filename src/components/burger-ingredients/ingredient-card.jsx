@@ -31,7 +31,7 @@ const IngredientCard = ({ item }) => {
       to={{ pathname: `ingredients/${item._id}`, state: { modalViewLocation: location, from: '/' } }}
     >
 
-      <article ref={dragRef} className={`${styles.card} pr-2 pl-2 pb-3 ${isDrag ? styles.dragging : ''}`}>
+      <article data-cy="ingredient" ref={dragRef} className={`${styles.card} pr-2 pl-2 pb-3 ${isDrag ? styles.dragging : ''}`}>
         {!!count && <Counter count={count} size="small" />}
         <img src={image} className={`${styles.image}`} alt={name} />
         <div className={`${styles.price} mt-1 mb-1`}>

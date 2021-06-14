@@ -1,6 +1,6 @@
 describe('app works correctly with routes', () => {
   before(() => {
-    cy.visit('');
+    cy.visit('/');
   });
 
   it('should open main page by default', () => {
@@ -14,23 +14,23 @@ describe('app works correctly with routes', () => {
   });
 
   it('should open feed/:orderId modal after order card click', () => {
-    cy.getBySel('order-card').first().click();
-    cy.getBySel('modal').should('exist');
+    cy.getByDataCy('order-card').first().click();
+    cy.getByDataCy('modal').should('exist');
   });
 
   it('should close modal by overlay click', () => {
-    cy.getBySel('modal-overlay').click(1, 1);
-    cy.getBySel('modal').should('not.exist');
+    cy.getByDataCy('modal-overlay').click(1, 1);
+    cy.getByDataCy('modal').should('not.exist');
   });
 
   it('should open feed/:orderId modal after order card click', () => {
-    cy.getBySel('order-card').last().scrollIntoView().click();
-    cy.getBySel('modal').should('exist');
+    cy.getByDataCy('order-card').last().scrollIntoView().click();
+    cy.getByDataCy('modal').should('exist');
   });
 
   it('should close modal by ESCAPE press', () => {
     cy.get('body').type('{esc}', { force: true });
-    cy.getBySel('modal').should('not.exist');
+    cy.getByDataCy('modal').should('not.exist');
   });
 
   it('should redirect to login page after profile button click', () => {
