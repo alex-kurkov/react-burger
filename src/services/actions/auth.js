@@ -1,29 +1,4 @@
-import {
-  REGISTER_SUCCESS,
-  REGISTER_FAILED,
-  PASSWORD_RESET_SUCCESS,
-  PASSWORD_RESET_FAILED,
-  PASSWORD_RESET_CONFIRMATION_SUCCESS,
-  PASSWORD_RESET_CONFIRMATION_FAILED,
-  LOGIN_FAILED,
-  LOGIN_SUCCESS,
-  REFRESH_TOKENS_SUCCESS,
-  REFRESH_TOKENS_FAILED,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILED,
-  GET_USER_SUCCESS,
-  GET_USER_FAILED,
-  PATCH_USER_SUCCESS,
-  PATCH_USER_FAILED,
-  CLEAR_FORM_VALUES,
-  REQUEST_INGREDIENTS_SUCCESS,
-  REQUEST_INGREDIENTS_FAILED,
-  POST_ORDER_SUCCESS,
-  POST_ORDER_FAILED,
-  API_REQUEST_IN_PROGRESS,
-  API_REQUEST_FINISHED,
-  SET_CURRENT_ERROR,
-} from '../../utils/constants';
+import * as types from '../../utils/constants';
 import api from '../../utils/api';
 import { setCookie, deleteCookie } from '../../utils/common';
 
@@ -43,13 +18,13 @@ const _refreshToken = (afterRefreshFunc) => (dispatch) => {
   api.refreshTokenRequest()
     .then((res) => {
       _setTokens(res);
-      dispatch({ type: REFRESH_TOKENS_SUCCESS });
+      dispatch({ type: types.REFRESH_TOKENS_SUCCESS });
       dispatch(afterRefreshFunc);
     })
     .catch((e) => {
-      dispatch({ type: REFRESH_TOKENS_FAILED });
+      dispatch({ type: types.REFRESH_TOKENS_FAILED });
       dispatch({
-        type: SET_CURRENT_ERROR,
+        type: types.SET_CURRENT_ERROR,
         payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
       });
     });
@@ -60,121 +35,121 @@ const _handleError = (e, type, dispatch, func) => {
   } else {
     dispatch({ type });
     dispatch({
-      type: SET_CURRENT_ERROR,
+      type: types.SET_CURRENT_ERROR,
       payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
     });
   }
 };
 
-export const register = (data) => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+export const register = async (data) => (dispatch) => {
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.registerRequest(data)
     .then((res) => {
       _setTokens(res);
       dispatch({
-        type: REGISTER_SUCCESS,
+        type: types.REGISTER_SUCCESS,
         payload: res.user,
       });
     })
-    .catch((e) => _handleError(e, REGISTER_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.REGISTER_FAILED, dispatch))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const login = (data) => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.loginRequest(data)
     .then((res) => {
       _setTokens(res);
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: types.LOGIN_SUCCESS,
         payload: res.user,
       });
     })
-    .catch((e) => _handleError(e, LOGIN_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.LOGIN_FAILED, dispatch))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const logout = () => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.logoutRequest()
     .then((res) => {
       _clearTokens();
       // eslint-disable-next-line no-console
       console.log(res.message);
-      dispatch({ type: CLEAR_FORM_VALUES });
-      dispatch({ type: LOGOUT_SUCCESS });
+      dispatch({ type: types.CLEAR_FORM_VALUES });
+      dispatch({ type: types.LOGOUT_SUCCESS });
     })
-    .catch((e) => _handleError(e, LOGOUT_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.LOGOUT_FAILED, dispatch))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const getUser = () => (dispatch) => {
   if (!localStorage.getItem('refreshToken')) return;
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.getUserRequest()
     .then((res) => dispatch({
-      type: GET_USER_SUCCESS,
+      type: types.GET_USER_SUCCESS,
       payload: res.user,
     }))
-    .catch((e) => _handleError(e, GET_USER_FAILED, dispatch, getUser()))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.GET_USER_FAILED, dispatch, getUser()))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const modifyUser = (data) => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.patchUserRequest(data)
     .then((res) => {
       dispatch({
-        type: PATCH_USER_SUCCESS,
+        type: types.PATCH_USER_SUCCESS,
         payload: res.user,
       });
     })
-    .catch((e) => _handleError(e, PATCH_USER_FAILED, dispatch, modifyUser()))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.PATCH_USER_FAILED, dispatch, modifyUser()))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const resetPassword = (data) => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.resetPasswordRequest(data)
     .then(() => {
       dispatch({
-        type: PASSWORD_RESET_SUCCESS,
+        type: types.PASSWORD_RESET_SUCCESS,
         payload: data,
       });
     })
-    .catch((e) => _handleError(e, PASSWORD_RESET_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.PASSWORD_RESET_FAILED, dispatch))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const confirmPasswordReset = (data) => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.confirmPasswordResetRequest(data)
     .then((res) => dispatch({
-      type: PASSWORD_RESET_CONFIRMATION_SUCCESS,
+      type: types.PASSWORD_RESET_CONFIRMATION_SUCCESS,
       payload: res,
     }))
-    .catch((e) => _handleError(e, PASSWORD_RESET_CONFIRMATION_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.PASSWORD_RESET_CONFIRMATION_FAILED, dispatch))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const getIngredients = () => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.getIngredientsRequest()
     .then((res) => dispatch({
-      type: REQUEST_INGREDIENTS_SUCCESS,
+      type: types.REQUEST_INGREDIENTS_SUCCESS,
       payload: res.data,
     }))
-    .catch((e) => _handleError(e, REQUEST_INGREDIENTS_FAILED, dispatch))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.REQUEST_INGREDIENTS_FAILED, dispatch))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
 
 export const postOrder = (data) => (dispatch) => {
-  dispatch({ type: API_REQUEST_IN_PROGRESS });
+  dispatch({ type: types.API_REQUEST_IN_PROGRESS });
   api.postOrderRequest(data)
     .then((res) => dispatch({
-      type: POST_ORDER_SUCCESS,
+      type: types.POST_ORDER_SUCCESS,
       payload: res,
     }))
-    .catch((e) => _handleError(e, POST_ORDER_FAILED, dispatch, postOrder()))
-    .finally(() => dispatch({ type: API_REQUEST_FINISHED }));
+    .catch((e) => _handleError(e, types.POST_ORDER_FAILED, dispatch, postOrder()))
+    .finally(() => dispatch({ type: types.API_REQUEST_FINISHED }));
 };
