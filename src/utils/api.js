@@ -3,9 +3,10 @@ import {
 } from './constants';
 import { getCookie } from './common';
 
-const getResponseData = (res) => (res.ok
-  ? res.json()
-  : res.json().then((e) => Promise.reject(e)));
+const getResponseData = (res) => res.json()
+  .then((resp) => (resp.success
+    ? Promise.resolve(resp)
+    : Promise.reject(resp)));
 
 const registerRequest = (data) => fetch(
   `${API_URL}/auth/register`,

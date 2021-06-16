@@ -1,8 +1,11 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-param-reassign */
-export const setCookie = (name, value, props) => {
-  props = props || {};
+export const setCookie = (name, value, props = {}) => {
+  props = {
+    path: '/',
+    ...props,
+  };
   let exp = props.expires;
   if (typeof exp === 'number' && exp) {
     const d = new Date();
