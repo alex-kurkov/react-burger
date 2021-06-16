@@ -26,7 +26,7 @@ describe('burger constructor works correctly', () => {
     cy.get('@btn').should('have.css', 'opacity').and('match', /\.5/);
   });
 
-  it('should have one bun and five ingredients, order-button is active only after bun is added', () => {
+  it('should DND work, order-button is active only after bun is added', () => {
     cy.getByDataCy('order-button').find('button').as('btn');
     dragAndDropIngredient(7);
     cy.get('@btn').should('have.css', 'pointer-events').and('match', /none/);
