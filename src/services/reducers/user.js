@@ -41,11 +41,6 @@ const user = (state = initialState, action) => {
         ...state, loggedIn: true, name: action.payload.name, email: action.payload.email,
       };
     }
-    case LOGOUT_SUCCESS: {
-      return {
-        ...state, loggedIn: false, name: '', email: '',
-      };
-    }
     case REGISTER_FAILED: {
       return { ...state, loggedIn: false };
     }
@@ -76,6 +71,11 @@ const user = (state = initialState, action) => {
     }
     case PATCH_USER_FAILED: {
       return state;
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state, loggedIn: false, name: '', email: '',
+      };
     }
     default: {
       return state;
