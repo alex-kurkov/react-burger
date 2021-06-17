@@ -86,10 +86,10 @@ export const logout = () => async (dispatch) => {
     .finally(() => dispatch(requestFinished()));
 };
 
-export const getUser = () => (dispatch) => {
+export const getUser = () => async (dispatch) => {
   if (!localStorage.getItem('refreshToken')) return;
   dispatch(requestStarted());
-  api.getUserRequest()
+  await api.getUserRequest()
     .then((res) => dispatch({
       type: types.GET_USER_SUCCESS,
       payload: res.user,
@@ -98,9 +98,9 @@ export const getUser = () => (dispatch) => {
     .finally(() => dispatch(requestFinished()));
 };
 
-export const modifyUser = (data) => (dispatch) => {
+export const modifyUser = (data) => async (dispatch) => {
   dispatch(requestStarted());
-  api.patchUserRequest(data)
+  await api.patchUserRequest(data)
     .then((res) => {
       dispatch({
         type: types.PATCH_USER_SUCCESS,
@@ -111,9 +111,9 @@ export const modifyUser = (data) => (dispatch) => {
     .finally(() => dispatch(requestFinished()));
 };
 
-export const resetPassword = (data) => (dispatch) => {
+export const resetPassword = (data) => async (dispatch) => {
   dispatch(requestStarted());
-  api.resetPasswordRequest(data)
+  await api.resetPasswordRequest(data)
     .then(() => {
       dispatch({
         type: types.PASSWORD_RESET_SUCCESS,
@@ -124,9 +124,9 @@ export const resetPassword = (data) => (dispatch) => {
     .finally(() => dispatch(requestFinished()));
 };
 
-export const confirmPasswordReset = (data) => (dispatch) => {
+export const confirmPasswordReset = (data) => async (dispatch) => {
   dispatch(requestStarted());
-  api.confirmPasswordResetRequest(data)
+  await api.confirmPasswordResetRequest(data)
     .then((res) => dispatch({
       type: types.PASSWORD_RESET_CONFIRMATION_SUCCESS,
       payload: res,

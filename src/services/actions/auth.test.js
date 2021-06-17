@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import * as types from '../../utils/constants';
-import { setCookie, deleteCookie } from '../../utils/common';
 import {
   getIngredients, login, logout, register,
 } from './auth';
@@ -37,23 +35,6 @@ describe('Test async auth thunks action creators', () => {
     });
   });
 
-  it('expected actions should be dispatched on failed getIngredients request', () => {
-    fetchMock.get(`${types.API_URL}/ingredients`, {
-      body: { success: false, message: 'ERROR!' },
-      headers: { 'content-type': 'application/json' },
-    });
-    const expectedActions = [
-      { type: types.API_REQUEST_IN_PROGRESS },
-      { type: types.REQUEST_INGREDIENTS_FAILED },
-      { type: types.SET_CURRENT_ERROR, payload: `${mockData.error}ERROR!` },
-      { type: types.API_REQUEST_FINISHED },
-    ];
-    const store = mockStore({});
-    return store.dispatch(getIngredients()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
   it('expected actions should be dispatched on successful register request', () => {
     fetchMock.post(`${types.API_URL}/auth/register`, {
       body: { user: mockData.user, success: true },
@@ -70,6 +51,7 @@ describe('Test async auth thunks action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
+
   it('expected actions should be dispatched on successful login request', () => {
     fetchMock.post(`${types.API_URL}/auth/login`, {
       body: { user: mockData.user, success: true },
@@ -86,6 +68,7 @@ describe('Test async auth thunks action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
+
   it('expected actions should be dispatched on successful logout request', () => {
     fetchMock.post(`${types.API_URL}/auth/logout`, {
       body: { success: true },
@@ -101,6 +84,53 @@ describe('Test async auth thunks action creators', () => {
 
     return store.dispatch(logout()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
+
+describe('Test FAILED async auth thunks action creators', () => {
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  const requests = [
+    {
+      url: '/ingredients',
+      method: 'GET',
+      mainType: [{ type: types.REQUEST_INGREDIENTS_FAILED }],
+      action: getIngredients,
+    },
+    {
+      url: '/auth/register',
+      method: 'POST',
+      mainType: [{ type: types.REGISTER_FAILED }],
+      action: register,
+    },
+    {
+      url: '/auth/login',
+      method: 'POST',
+      mainType: [{ type: types.LOGIN_FAILED }],
+      action: login,
+    },
+  ];
+
+  requests.forEach((request) => {
+    it(`expected actions should be dispatched on failed ${request.url} request`, () => {
+      fetchMock.mock(`${types.API_URL}${request.url}`, {
+        body: { success: false, message: undefined },
+        headers: { 'content-type': 'application/json' },
+        method: request.method,
+      });
+      const expectedActions = [
+        { type: types.API_REQUEST_IN_PROGRESS },
+        ...request.mainType,
+        { type: types.SET_CURRENT_ERROR, payload: `${mockData.error}${undefined}` },
+        { type: types.API_REQUEST_FINISHED },
+      ];
+      const store = mockStore({});
+      return store.dispatch(request.action()).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
   });
 });
