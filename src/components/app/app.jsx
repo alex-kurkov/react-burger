@@ -55,7 +55,7 @@ const App = () => {
         )}
       <Header />
       <Switch location={modalViewLocation || location}>
-        <Route path="/" exact render={() => (ingredients.length && <HomePage />)} />
+        <Route path="/" exact render={() => (!!ingredients.length && <HomePage />)} />
         <Route path="/login" render={() => <LoginPage />} exact />
         <Route path="/register" exact render={() => <RegisterPage />} />
         <Route path="/forgot-password" exact render={() => <ForgotPasswordPage />} />
