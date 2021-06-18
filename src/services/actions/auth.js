@@ -1,6 +1,7 @@
 import * as types from '../../utils/constants';
 import api from '../../utils/api';
 import { setCookie, deleteCookie } from '../../utils/common';
+import { startRequest, finishRequest } from '../../features/api/apiSlice';
 
 const _setTokens = (res) => {
   const { accessToken, refreshToken } = res;
@@ -144,6 +145,16 @@ export const getIngredients = () => async (dispatch) => {
     }))
     .catch((e) => _handleError(e, types.REQUEST_INGREDIENTS_FAILED, dispatch))
     .finally(() => dispatch(requestFinished()));
+};
+export const getIngredientsRTK = () => async (dispatch) => {
+  dispatch(startRequest());
+  await api.getIngredientsRequest()
+    .then((res) => dispatch({
+      type: types.REQUEST_INGREDIENTS_SUCCESS,
+      payload: res.data,
+    }))
+    .catch((e) => _handleError(e, types.REQUEST_INGREDIENTS_FAILED, dispatch))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const postOrder = (data) => async (dispatch) => {

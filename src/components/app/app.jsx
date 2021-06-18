@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   useLocation, useHistory, Switch, Route,
 } from 'react-router-dom';
 import { Header } from '../header';
-import { getIngredients, getUser } from '../../services/actions/auth';
+import { getIngredients, getIngredientsRTK, getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
 import { FeedOrderDetailsModal } from '../feed-order-detail-modal';
@@ -32,29 +33,29 @@ const App = () => {
 
   let modalViewLocation;
   if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
-  const { ingredients } = useSelector((store) => store.content);
+  // const { ingredients } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch(getIngredientsRTK());
   }, [dispatch]);
-  useEffect(() => {
+  /*   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch]);
+  }, [dispatch]); */
 
   return (
     <div className={styles.app}>
       { apiRequestInProgress && <Loader /> }
-      { modalViewLocation
+      {/* { modalViewLocation
         && (
         <>
           <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
           <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} />
           <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
         </>
-        )}
+        )} */}
       <Header />
-      <Switch location={modalViewLocation || location}>
+      {/*       <Switch location={modalViewLocation || location}>
         <Route path="/" exact render={() => (!!ingredients.length && <HomePage />)} />
         <Route path="/login" render={() => <LoginPage />} exact />
         <Route path="/register" exact render={() => <RegisterPage />} />
@@ -67,7 +68,7 @@ const App = () => {
         <ProtectedRoute path="/profile/orders" exact children={<ProfileOrders />} />
         <ProtectedRoute path="/profile/orders/:orderId" children={<ProfileOrderDetails />} />
         <Route path="*" render={() => <NotFoundPage />} />
-      </Switch>
+      </Switch> */}
     </div>
   );
 };
