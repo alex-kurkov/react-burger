@@ -21,7 +21,7 @@ const initialState = {
 };
 
 export const formSlice = createSlice({
-  name: 'user',
+  name: 'form',
   initialState,
   reducers: {
     setLoginFormValue: (state, action) => {

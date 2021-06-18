@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
-import * as types from '../../utils/constants';
+import { API_URL } from '../../utils/constants';
 import {
   getIngredients, login, logout, register,
 } from './auth';
@@ -20,14 +20,14 @@ describe('Test async auth thunks action creators', () => {
   });
 
   it('expected actions should be dispatched on successful getIngredients request', () => {
-    fetchMock.get(`${types.API_URL}/ingredients`, {
+    fetchMock.get(`${API_URL}/ingredients`, {
       body: { data: mockData.ingredients, success: true },
       headers: { 'content-type': 'application/json' },
     });
     const expectedActions = [
-      { type: types.API_REQUEST_IN_PROGRESS },
-      { type: types.REQUEST_INGREDIENTS_SUCCESS, payload: mockData.ingredients },
-      { type: types.API_REQUEST_FINISHED },
+      { type: 'api/startRequest', payload: undefined },
+      { type: 'content/setIngredients', payload: mockData.ingredients },
+      { type: 'api/finishRequest', payload: undefined },
     ];
     const store = mockStore({});
     return store.dispatch(getIngredients()).then(() => {
@@ -36,15 +36,15 @@ describe('Test async auth thunks action creators', () => {
   });
 
   it('expected actions should be dispatched on successful register request', () => {
-    fetchMock.post(`${types.API_URL}/auth/register`, {
+    fetchMock.post(`${API_URL}/auth/register`, {
       body: { user: mockData.user, success: true },
       headers: { 'content-type': 'application/json' },
     });
     const store = mockStore({});
     const expectedActions = [
-      { type: types.API_REQUEST_IN_PROGRESS },
-      { type: types.REGISTER_SUCCESS, payload: { ...mockData.user } },
-      { type: types.API_REQUEST_FINISHED },
+      { type: 'api/startRequest', payload: undefined },
+      { type: 'user/setUser', payload: { ...mockData.user } },
+      { type: 'api/finishRequest', payload: undefined },
     ];
 
     return store.dispatch(register()).then(() => {
@@ -53,15 +53,15 @@ describe('Test async auth thunks action creators', () => {
   });
 
   it('expected actions should be dispatched on successful login request', () => {
-    fetchMock.post(`${types.API_URL}/auth/login`, {
+    fetchMock.post(`${API_URL}/auth/login`, {
       body: { user: mockData.user, success: true },
       headers: { 'content-type': 'application/json' },
     });
     const store = mockStore({});
     const expectedActions = [
-      { type: types.API_REQUEST_IN_PROGRESS },
-      { type: types.LOGIN_SUCCESS, payload: { ...mockData.user } },
-      { type: types.API_REQUEST_FINISHED },
+      { type: 'api/startRequest', payload: undefined },
+      { type: 'user/setUser', payload: { ...mockData.user } },
+      { type: 'api/finishRequest', payload: undefined },
     ];
 
     return store.dispatch(login()).then(() => {
@@ -70,16 +70,16 @@ describe('Test async auth thunks action creators', () => {
   });
 
   it('expected actions should be dispatched on successful logout request', () => {
-    fetchMock.post(`${types.API_URL}/auth/logout`, {
+    fetchMock.post(`${API_URL}/auth/logout`, {
       body: { success: true },
       headers: { 'content-type': 'application/json' },
     });
     const store = mockStore({});
     const expectedActions = [
-      { type: types.API_REQUEST_IN_PROGRESS },
-      { type: types.CLEAR_FORM_VALUES },
-      { type: types.LOGOUT_SUCCESS },
-      { type: types.API_REQUEST_FINISHED },
+      { type: 'api/startRequest', payload: undefined },
+      { type: 'user/signout', payload: undefined },
+      { type: 'form/clearForms', payload: undefined },
+      { type: 'api/finishRequest', payload: undefined },
     ];
 
     return store.dispatch(logout()).then(() => {
@@ -97,35 +97,31 @@ describe('Test FAILED async auth thunks action creators', () => {
     {
       url: '/ingredients',
       method: 'GET',
-      mainType: [{ type: types.REQUEST_INGREDIENTS_FAILED }],
       action: getIngredients,
     },
     {
       url: '/auth/register',
       method: 'POST',
-      mainType: [{ type: types.REGISTER_FAILED }],
       action: register,
     },
     {
       url: '/auth/login',
       method: 'POST',
-      mainType: [{ type: types.LOGIN_FAILED }],
       action: login,
     },
   ];
 
   requests.forEach((request) => {
     it(`expected actions should be dispatched on failed ${request.url} request`, () => {
-      fetchMock.mock(`${types.API_URL}${request.url}`, {
+      fetchMock.mock(`${API_URL}${request.url}`, {
         body: { success: false, message: undefined },
         headers: { 'content-type': 'application/json' },
         method: request.method,
       });
       const expectedActions = [
-        { type: types.API_REQUEST_IN_PROGRESS },
-        ...request.mainType,
-        { type: types.SET_CURRENT_ERROR, payload: `${mockData.error}${undefined}` },
-        { type: types.API_REQUEST_FINISHED },
+        { type: 'api/startRequest', payload: undefined },
+        { type: 'content/setCurrentError', payload: `${mockData.error}${undefined}` },
+        { type: 'api/finishRequest', payload: undefined },
       ];
       const store = mockStore({});
       return store.dispatch(request.action()).then(() => {
