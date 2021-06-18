@@ -34,7 +34,7 @@ export const formSlice = createSlice({
       state.forgot = { ...state.forgot, [action.payload.key]: action.payload.value };
     },
     setResetFormValue: (state, action) => {
-      state.forgot = { ...state.reset, [action.payload.key]: action.payload.value };
+      state.reset = { ...state.reset, [action.payload.key]: action.payload.value };
     },
     clearForms: () => initialState,
   },
