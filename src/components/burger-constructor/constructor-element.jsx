@@ -5,11 +5,12 @@ import {
   CurrencyIcon, CloseIcon, LockIcon, DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './constructor-element.module.css';
+import { sortIngredients } from '../../features/cart/cartSlice';
 
 const TargetElement = ({ index, children, type }) => {
   const dispatch = useDispatch();
   const handleIndredientSort = (positionIndex, targetIndex) => {
-    dispatch({ type: 'ELEMENT_SORTED_BY_DND', payload: { positionIndex, targetIndex } });
+    dispatch(sortIngredients({ positionIndex, targetIndex }));
   };
   const [{ hoveredTarget }, dropTarget] = useDrop({
     accept: 'sortedIngredient',

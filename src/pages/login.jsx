@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { setLoginFormValue } from '../services/actions/form';
+import { setLoginFormValue } from '../features/form/formSlice';
 import { login } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 
@@ -25,7 +25,7 @@ export const LoginPage = () => {
     dispatch(login({ email, password }));
   };
   const onFormChange = (e) => {
-    dispatch(setLoginFormValue(e.target.name, e.target.value));
+    dispatch(setLoginFormValue({ key: e.target.name, value: e.target.value }));
   };
 
   const RegisterLink = () => (

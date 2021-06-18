@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import {
   Link, Redirect, useLocation, useHistory,
 } from 'react-router-dom';
-import { setResetFormValue } from '../services/actions/form';
+import { setResetFormValue } from '../features/form/formSlice';
 import { confirmPasswordReset } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 
@@ -34,7 +34,7 @@ export const ResetPasswordPage = () => {
   };
 
   const onFormChange = (e) => {
-    dispatch(setResetFormValue(e.target.name, e.target.value));
+    dispatch(setResetFormValue({ key: e.target.name, value: e.target.value }));
   };
 
   const LoginLink = () => (

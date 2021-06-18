@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RESET_CURRENT_ORDER } from '../../utils/constants';
+import { resetCurrentOrder } from '../../features/order/orderSlice';
 import DoneIcon from '../done-icon/done-icon';
 import styles from './order-details.module.css';
 
@@ -13,7 +13,7 @@ const OrderDetails = () => {
       <p className="text text_type_main-medium mb-5 pb-2">
         Идентификатор заказа
       </p>
-      <DoneIcon onClose={() => dispatch({ type: RESET_CURRENT_ORDER })} />
+      <DoneIcon onClose={() => dispatch(resetCurrentOrder)} />
       <p className="text text_type_main-small pt-2 mb-1">
         Ваш заказ начали готовить
       </p>

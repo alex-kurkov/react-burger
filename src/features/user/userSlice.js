@@ -11,11 +11,11 @@ export const userSlice = createSlice({
     name: '',
   },
   reducers: {
-    confirmPasswordReset: (state) => {
+    confirmPasswordResetReducer: (state) => {
       state.passwordReset = false;
       state.passwordResetSuccess = true;
     },
-    resetPassword: (state) => {
+    resetPasswordReducer: (state) => {
       state.passwordReset = true;
       state.passwordResetSuccess = false;
     },
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
     },
-    logout: (state) => {
+    signout: (state) => {
       state.loggedIn = false;
       state.name = '';
       state.email = '';
@@ -33,10 +33,10 @@ export const userSlice = createSlice({
 });
 
 export const {
-  confirmPasswordReset,
-  resetPassword,
+  confirmPasswordResetReducer,
+  resetPasswordReducer,
   setUser,
-  logout,
+  signout,
 } = userSlice.actions;
 
 export default userSlice.reducer;

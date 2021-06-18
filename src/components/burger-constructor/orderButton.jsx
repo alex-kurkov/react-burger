@@ -5,8 +5,8 @@ import OrderDetails from './order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { postOrder } from '../../services/actions/auth';
-import { RESET_CURRENT_ORDER, RESET_CHOSEN_INGREDIENTS } from '../../utils/constants';
 import styles from './orderButton.module.css';
+import { resetCurrentOrder } from '../../features/order/orderSlice';
 
 const OrderButton = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,7 @@ const OrderButton = () => {
   const { apiRequestInProgress } = useSelector((state) => state.api);
 
   const closeModal = () => {
-    dispatch({ type: RESET_CURRENT_ORDER });
-    dispatch({ type: RESET_CHOSEN_INGREDIENTS });
+    dispatch(resetCurrentOrder);
   };
 
   const modal = (

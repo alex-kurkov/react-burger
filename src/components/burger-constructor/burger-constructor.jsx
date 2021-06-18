@@ -7,10 +7,9 @@ import Total from './total';
 import {
   HEIGHT_OF_CONSTRUCTOR_ITEM,
   CONSTRUCTOR_MARGIN,
-  ADD_CHOSEN_BUN,
-  ADD_CHOSEN_INGREDIENT,
 } from '../../utils/constants';
 import styles from './burger-constructor.module.css';
+import { addBun, addIngredient } from '../../features/cart/cartSlice';
 
 const BurgerConstructor = () => {
   const { chosenIngredients, chosenBun } = useSelector((store) => store.cart);
@@ -30,10 +29,11 @@ const BurgerConstructor = () => {
     container.current.style.height = `${countedSpace}px`;
   }
   const handleNewIndredientDrop = (item) => {
-    dispatch({
-      type: item.type === 'bun' ? ADD_CHOSEN_BUN : ADD_CHOSEN_INGREDIENT,
-      payload: item,
-    });
+    if (item.type === 'bun') {
+      dispatch(addBun(item));
+    } else {
+      dispatch(addIngredient(item));
+    }
   };
 
   const [{ isHover }, dropNewIngredientsTarget] = useDrop({

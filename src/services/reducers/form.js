@@ -1,11 +1,3 @@
-import {
-  LOGIN_FORM_SET_VALUE,
-  REGISTER_FORM_SET_VALUE,
-  FORGOT_FORM_SET_VALUE,
-  RESET_FORM_SET_VALUE,
-  CLEAR_FORM_VALUES,
-} from '../../utils/constants';
-
 const initialState = {
   login: {
     email: '',
@@ -27,7 +19,7 @@ const initialState = {
 
 const form = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_FORM_SET_VALUE: {
+    case 'LOGIN_FORM_SET_VALUE': {
       return {
         ...state,
         login: {
@@ -36,7 +28,7 @@ const form = (state = initialState, action) => {
         },
       };
     }
-    case REGISTER_FORM_SET_VALUE: {
+    case 'REGISTER_FORM_SET_VALUE': {
       return {
         ...state,
         register: {
@@ -45,7 +37,7 @@ const form = (state = initialState, action) => {
         },
       };
     }
-    case FORGOT_FORM_SET_VALUE: {
+    case 'FORGOT_FORM_SET_VALUE': {
       return {
         ...state,
         forgot: {
@@ -54,7 +46,7 @@ const form = (state = initialState, action) => {
         },
       };
     }
-    case RESET_FORM_SET_VALUE: {
+    case 'RESET_FORM_SET_VALUE': {
       return {
         ...state,
         reset: {
@@ -63,7 +55,7 @@ const form = (state = initialState, action) => {
         },
       };
     }
-    case CLEAR_FORM_VALUES: {
+    case 'CLEAR_FORM_VALUES': {
       return initialState;
     }
     default: {

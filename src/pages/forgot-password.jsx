@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation, Redirect } from 'react-router-dom';
-import { setForgotFormValue } from '../services/actions/form';
+import { setForgotFormValue } from '../features/form/formSlice';
 import { resetPassword } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 
@@ -31,7 +31,7 @@ export const ForgotPasswordPage = () => {
   if (loggedIn) return (<Redirect to={from} />);
 
   const onFormChange = (e) => {
-    dispatch(setForgotFormValue(e.target.name, e.target.value));
+    dispatch(setForgotFormValue({ key: e.target.name, value: e.target.value }));
   };
 
   const LoginLink = () => (
