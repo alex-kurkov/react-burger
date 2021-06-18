@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation, Redirect } from 'react-router-dom';
-import { setForgotFormValue } from '../features/form/formSlice';
+import { setForgotFormValue } from '../services/reducers/form/formSlice';
 import { resetPassword } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 

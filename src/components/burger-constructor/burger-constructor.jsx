@@ -9,7 +9,7 @@ import {
   CONSTRUCTOR_MARGIN,
 } from '../../utils/constants';
 import styles from './burger-constructor.module.css';
-import { addBun, addIngredient } from '../../features/cart/cartSlice';
+import { addBun, addIngredient } from '../../services/reducers/cart/cartSlice';
 
 const BurgerConstructor = () => {
   const { chosenIngredients, chosenBun } = useSelector((store) => store.cart);

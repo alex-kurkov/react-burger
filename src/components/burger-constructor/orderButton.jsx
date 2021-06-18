@@ -6,18 +6,18 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { postOrder } from '../../services/actions/auth';
 import styles from './orderButton.module.css';
-import { resetCurrentOrder } from '../../features/order/orderSlice';
+import { resetCurrentOrder } from '../../services/reducers/cart/cartSlice';
 
 const OrderButton = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { loggedIn } = useSelector((state) => state.user);
   const { chosenIngredients, chosenBun } = useSelector((state) => state.cart);
-  const { currentOrder } = useSelector((state) => state.order);
+  const { currentOrder } = useSelector((state) => state.cart);
   const { apiRequestInProgress } = useSelector((state) => state.api);
 
   const closeModal = () => {
-    dispatch(resetCurrentOrder);
+    dispatch(resetCurrentOrder());
   };
 
   const modal = (

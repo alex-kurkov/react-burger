@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { setLoginFormValue } from '../features/form/formSlice';
+import { setLoginFormValue } from '../services/reducers/form/formSlice';
 import { login } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 

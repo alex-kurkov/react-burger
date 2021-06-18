@@ -3,6 +3,7 @@ import reducer from './cartSlice';
 const state = {
   chosenIngredients: [],
   chosenBun: {},
+  currentOrder: {},
 };
 
 const mockIngredients = [1, 3, 'eded', undefined];
@@ -28,10 +29,19 @@ describe('cart reducer', () => {
         }),
       );
   });
+  it('should set current order', () => {
+    expect(reducer(state, { type: 'cart/setCurrentOrder', payload: 'mock' }))
+      .toEqual(expect.objectContaining({ currentOrder: 'mock' }));
+  });
+  it('should reset current order', () => {
+    expect(reducer({ currentOrder: 'exists' }, { type: 'cart/resetCurrentOrder' }))
+      .toEqual(state);
+  });
   it('should reset ingredients', () => {
     expect(reducer({
       chosenIngredients: mockIngredients,
       chosenBun: mockIngredients,
+      currentOrder: {},
     }, { type: 'cart/resetIngredients' }))
       .toStrictEqual(state);
   });

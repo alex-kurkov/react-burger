@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { resetCurrentOrder } from '../../features/order/orderSlice';
+import { resetCurrentOrder } from '../../services/reducers/cart/cartSlice';
 import DoneIcon from '../done-icon/done-icon';
 import styles from './order-details.module.css';
 
 const OrderDetails = () => {
   const dispatch = useDispatch();
-  const { currentOrder } = useSelector((store) => store.order);
+  const { currentOrder } = useSelector((store) => store.cart);
 
   return (
     <div className={styles.wrap}>
@@ -13,7 +13,7 @@ const OrderDetails = () => {
       <p className="text text_type_main-medium mb-5 pb-2">
         Идентификатор заказа
       </p>
-      <DoneIcon onClose={() => dispatch(resetCurrentOrder)} />
+      <DoneIcon onClose={() => dispatch(resetCurrentOrder())} />
       <p className="text text_type_main-small pt-2 mb-1">
         Ваш заказ начали готовить
       </p>

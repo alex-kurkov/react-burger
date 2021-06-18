@@ -5,7 +5,10 @@ import {
   CurrencyIcon, CloseIcon, LockIcon, DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './constructor-element.module.css';
-import { sortIngredients } from '../../features/cart/cartSlice';
+import {
+  sortIngredients,
+  removeIngredient,
+} from '../../services/reducers/cart/cartSlice';
 
 const TargetElement = ({ index, children, type }) => {
   const dispatch = useDispatch();
@@ -37,7 +40,7 @@ const ConstructorElement = ({
   const action = isLocked ? (
     <LockIcon type="primary" />
   ) : (
-    <CloseIcon type="primary" onClick={() => dispatch({ type: 'REMOVE_CHOSEN_INGREDIENT', payload: { positionIndex } })} />
+    <CloseIcon type="primary" onClick={() => dispatch(removeIngredient({ positionIndex }))} />
   );
 
   const text = item.type !== 'bun'

@@ -1,12 +1,12 @@
 import api from '../../utils/api';
 import { setCookie, deleteCookie } from '../../utils/common';
-import { startRequest, finishRequest } from '../../features/api/apiSlice';
-import { setCurrentError, setIngredients } from '../../features/content/contentSlice';
+import { startRequest, finishRequest } from '../reducers/api/apiSlice';
+import { setCurrentError, setIngredients } from '../reducers/content/contentSlice';
 import {
   resetPasswordReducer, confirmPasswordResetReducer, setUser, signout,
-} from '../../features/user/userSlice';
-import { clearForms } from '../../features/form/formSlice';
-import { setCurrentOrder } from '../../features/order/orderSlice';
+} from '../reducers/user/userSlice';
+import { clearForms } from '../reducers/form/formSlice';
+import { setCurrentOrder } from '../reducers/cart/cartSlice';
 
 const _setTokens = (res) => {
   const { accessToken, refreshToken } = res;

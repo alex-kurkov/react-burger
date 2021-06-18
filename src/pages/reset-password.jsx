@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import {
   Link, Redirect, useLocation, useHistory,
 } from 'react-router-dom';
-import { setResetFormValue } from '../features/form/formSlice';
+import { setResetFormValue } from '../services/reducers/form/formSlice';
 import { confirmPasswordReset } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 

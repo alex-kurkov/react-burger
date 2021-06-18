@@ -1,12 +1,15 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  chosenIngredients: [],
+  chosenBun: {},
+  currentOrder: {},
+};
+
 export const cartSlice = createSlice({
   name: 'cart',
-  initialState: {
-    chosenIngredients: [],
-    chosenBun: {},
-  },
+  initialState,
   reducers: {
     addIngredient: (state, action) => {
       state.chosenIngredients = [...state.chosenIngredients.concat(action.payload)];
@@ -20,6 +23,10 @@ export const cartSlice = createSlice({
     addBun: (state, action) => {
       state.chosenBun = action.payload;
     },
+    setCurrentOrder: (state, action) => {
+      state.currentOrder = action.payload;
+    },
+    resetCurrentOrder: () => ({ ...initialState }),
     resetIngredients: (state) => {
       state.chosenIngredients = [];
       state.chosenBun = {};
@@ -38,9 +45,14 @@ export const cartSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {
-  addIngredient, removeIngredient, addBun, resetIngredients, sortIngredients,
+  addIngredient,
+  removeIngredient,
+  addBun,
+  resetIngredients,
+  sortIngredients,
+  setCurrentOrder,
+  resetCurrentOrder,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
