@@ -33,7 +33,7 @@ const App = () => {
 
   let modalViewLocation;
   if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
-  // const { ingredients } = useSelector((store) => store.content);
+  const { ingredients } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
 
   useEffect(() => {
@@ -46,18 +46,18 @@ const App = () => {
   return (
     <div className={styles.app}>
       { apiRequestInProgress && <Loader /> }
-      {/* { modalViewLocation
+      { modalViewLocation
         && (
         <>
-          <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
-          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} />
           <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
+          {/* <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
+          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} /> */}
         </>
-        )} */}
+        )}
       <Header />
-      {/*       <Switch location={modalViewLocation || location}>
+      <Switch location={modalViewLocation || location}>
         <Route path="/" exact render={() => (!!ingredients.length && <HomePage />)} />
-        <Route path="/login" render={() => <LoginPage />} exact />
+        {/* <Route path="/login" render={() => <LoginPage />} exact />
         <Route path="/register" exact render={() => <RegisterPage />} />
         <Route path="/forgot-password" exact render={() => <ForgotPasswordPage />} />
         <Route path="/reset-password" exact render={() => <ResetPasswordPage />} />
@@ -66,9 +66,9 @@ const App = () => {
         <Route path="/feed/:orderId" render={() => <FeedOrderDetailsPage />} />
         <ProtectedRoute path="/profile" exact children={<ProfileEditPage />} />
         <ProtectedRoute path="/profile/orders" exact children={<ProfileOrders />} />
-        <ProtectedRoute path="/profile/orders/:orderId" children={<ProfileOrderDetails />} />
+        <ProtectedRoute path="/profile/orders/:orderId" children={<ProfileOrderDetails />} /> */}
         <Route path="*" render={() => <NotFoundPage />} />
-      </Switch> */}
+      </Switch>
     </div>
   );
 };

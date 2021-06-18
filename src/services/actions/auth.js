@@ -2,6 +2,7 @@ import * as types from '../../utils/constants';
 import api from '../../utils/api';
 import { setCookie, deleteCookie } from '../../utils/common';
 import { startRequest, finishRequest } from '../../features/api/apiSlice';
+import { setCurrentError, setIngredients } from '../../features/content/contentSlice';
 
 const _setTokens = (res) => {
   const { accessToken, refreshToken } = res;
@@ -37,11 +38,8 @@ const _handleError = (e, type, dispatch, func) => {
   if ((e.message === 'jwt expired' || e.message === 'jwt malformed') && func) {
     dispatch(_refreshToken(func));
   } else {
-    dispatch({ type });
-    dispatch({
-      type: types.SET_CURRENT_ERROR,
-      payload: `что-то пошло не так при запросе на сервер: ${e.message}`,
-    });
+    if (type) dispatch({ type });
+    dispatch(setCurrentError(`что-то пошло не так при запросе на сервер: ${e.message}`));
   }
 };
 
@@ -149,10 +147,9 @@ export const getIngredients = () => async (dispatch) => {
 export const getIngredientsRTK = () => async (dispatch) => {
   dispatch(startRequest());
   await api.getIngredientsRequest()
-    .then((res) => dispatch({
-      type: types.REQUEST_INGREDIENTS_SUCCESS,
-      payload: res.data,
-    }))
+    .then((res) => dispatch(
+      setIngredients(res.data),
+    ))
     .catch((e) => _handleError(e, types.REQUEST_INGREDIENTS_FAILED, dispatch))
     .finally(() => dispatch(finishRequest()));
 };
@@ -164,6 +161,6 @@ export const postOrder = (data) => async (dispatch) => {
       type: types.POST_ORDER_SUCCESS,
       payload: res,
     }))
-    .catch((e) => _handleError(e, types.POST_ORDER_FAILED, dispatch, postOrder()))
+    .catch((e) => _handleError(e, undefined, dispatch, postOrder()))
     .finally(() => dispatch(requestFinished()));
 };
