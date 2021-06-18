@@ -3,6 +3,7 @@ import api from '../../utils/api';
 import { setCookie, deleteCookie } from '../../utils/common';
 import { startRequest, finishRequest } from '../../features/api/apiSlice';
 import { setCurrentError, setIngredients } from '../../features/content/contentSlice';
+import { setUser } from '../../features/user/userSlice';
 
 const _setTokens = (res) => {
   const { accessToken, refreshToken } = res;
@@ -15,9 +16,6 @@ const _clearTokens = () => {
   localStorage.removeItem('refreshToken');
   deleteCookie('token');
 };
-
-const requestStarted = () => ({ type: types.API_REQUEST_IN_PROGRESS });
-const requestFinished = () => ({ type: types.API_REQUEST_FINISHED });
 
 const _refreshToken = (afterRefreshFunc) => (dispatch) => {
   api.refreshTokenRequest()
@@ -34,17 +32,16 @@ const _refreshToken = (afterRefreshFunc) => (dispatch) => {
       });
     });
 };
-const _handleError = (e, type, dispatch, func) => {
+const _handleError = (e, dispatch, func) => {
   if ((e.message === 'jwt expired' || e.message === 'jwt malformed') && func) {
     dispatch(_refreshToken(func));
   } else {
-    if (type) dispatch({ type });
     dispatch(setCurrentError(`что-то пошло не так при запросе на сервер: ${e.message}`));
   }
 };
 
 export const register = (data) => async (dispatch) => {
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.registerRequest(data)
     .then((res) => {
       _setTokens(res);
@@ -53,114 +50,83 @@ export const register = (data) => async (dispatch) => {
         payload: res.user,
       });
     })
-    .catch((e) => _handleError(e, types.REGISTER_FAILED, dispatch))
-    .finally(() => dispatch(requestFinished()));
+    .catch((e) => _handleError(e, dispatch))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const login = (data) => async (dispatch) => {
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.loginRequest(data)
     .then((res) => {
       _setTokens(res);
-      dispatch({
-        type: types.LOGIN_SUCCESS,
-        payload: res.user,
-      });
+      dispatch(setUser({ payload: res.user }));
     })
-    .catch((e) => _handleError(e, types.LOGIN_FAILED, dispatch))
-    .finally(() => dispatch(requestFinished()));
+    .catch((e) => _handleError(e, dispatch))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const logout = () => async (dispatch) => {
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.logoutRequest()
     .then((res) => {
       _clearTokens();
       // eslint-disable-next-line no-console
       console.log(res.message);
       dispatch({ type: types.CLEAR_FORM_VALUES });
-      dispatch({ type: types.LOGOUT_SUCCESS });
+      dispatch(logout());
     })
-    .catch((e) => _handleError(e, types.LOGOUT_FAILED, dispatch))
-    .finally(() => dispatch(requestFinished()));
+    .catch((e) => _handleError(e, dispatch))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const getUser = () => async (dispatch) => {
   if (!localStorage.getItem('refreshToken')) return;
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.getUserRequest()
-    .then((res) => dispatch({
-      type: types.GET_USER_SUCCESS,
-      payload: res.user,
-    }))
-    .catch((e) => _handleError(e, types.GET_USER_FAILED, dispatch, getUser()))
-    .finally(() => dispatch(requestFinished()));
+    .then((res) => dispatch(setUser({ payload: res.user })))
+    .catch((e) => _handleError(e, dispatch, getUser()))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const modifyUser = (data) => async (dispatch) => {
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.patchUserRequest(data)
-    .then((res) => {
-      dispatch({
-        type: types.PATCH_USER_SUCCESS,
-        payload: res.user,
-      });
-    })
-    .catch((e) => _handleError(e, types.PATCH_USER_FAILED, dispatch, modifyUser()))
-    .finally(() => dispatch(requestFinished()));
+    .then((res) => dispatch(setUser({ payload: res.user })))
+    .catch((e) => _handleError(e, dispatch, modifyUser()))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const resetPassword = (data) => async (dispatch) => {
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.resetPasswordRequest(data)
-    .then(() => {
-      dispatch({
-        type: types.PASSWORD_RESET_SUCCESS,
-        payload: data,
-      });
-    })
-    .catch((e) => _handleError(e, types.PASSWORD_RESET_FAILED, dispatch))
-    .finally(() => dispatch(requestFinished()));
+    .then(() => dispatch(resetPassword))
+    .catch((e) => _handleError(e, dispatch))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const confirmPasswordReset = (data) => async (dispatch) => {
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.confirmPasswordResetRequest(data)
-    .then((res) => dispatch({
-      type: types.PASSWORD_RESET_CONFIRMATION_SUCCESS,
-      payload: res,
-    }))
-    .catch((e) => _handleError(e, types.PASSWORD_RESET_CONFIRMATION_FAILED, dispatch))
-    .finally(() => dispatch(requestFinished()));
+    .then(() => dispatch(confirmPasswordReset))
+    .catch((e) => _handleError(e, dispatch))
+    .finally(() => dispatch(finishRequest()));
 };
 
 export const getIngredients = () => async (dispatch) => {
-  dispatch(requestStarted());
-  await api.getIngredientsRequest()
-    .then((res) => dispatch({
-      type: types.REQUEST_INGREDIENTS_SUCCESS,
-      payload: res.data,
-    }))
-    .catch((e) => _handleError(e, types.REQUEST_INGREDIENTS_FAILED, dispatch))
-    .finally(() => dispatch(requestFinished()));
-};
-export const getIngredientsRTK = () => async (dispatch) => {
   dispatch(startRequest());
   await api.getIngredientsRequest()
-    .then((res) => dispatch(
-      setIngredients(res.data),
-    ))
-    .catch((e) => _handleError(e, types.REQUEST_INGREDIENTS_FAILED, dispatch))
+    .then((res) => dispatch(setIngredients(res.data)))
+    .catch((e) => _handleError(e, dispatch))
     .finally(() => dispatch(finishRequest()));
 };
 
 export const postOrder = (data) => async (dispatch) => {
-  dispatch(requestStarted());
+  dispatch(startRequest());
   await api.postOrderRequest(data)
     .then((res) => dispatch({
       type: types.POST_ORDER_SUCCESS,
       payload: res,
     }))
-    .catch((e) => _handleError(e, undefined, dispatch, postOrder()))
-    .finally(() => dispatch(requestFinished()));
+    .catch((e) => _handleError(e, dispatch, postOrder()))
+    .finally(() => dispatch(finishRequest()));
 };
