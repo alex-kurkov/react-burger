@@ -21,10 +21,8 @@ export const Notification = ({ children, onClose, lifeTime = 3000 }) => {
     };
   }, [onClose]);
 
-  useEffect(() => {
-    setTimeout(() => setLeave(true), lifeTime - 1000);
-    setTimeout(() => onClose(), lifeTime);
-  }, []);
+  setTimeout(() => setLeave(true), lifeTime - 1000);
+  setTimeout(() => onClose(), lifeTime);
 
   return ReactDOM.createPortal(
     (
