@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -67,8 +66,8 @@ OrderCard.propTypes = {
     order: PropTypes.shape({
       number: PropTypes.number,
       cost: PropTypes.number,
-      orderedAt: PropTypes.object,
-      ingredients: PropTypes.array,
+      orderedAt: PropTypes.shape({}),
+      ingredients: PropTypes.arrayOf(PropTypes.shape({})),
     }),
   }),
 };

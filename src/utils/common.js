@@ -10,8 +10,8 @@ export const setCookie = (name, value, props = {}) => {
   if (typeof exp === 'number' && exp) {
     const d = new Date();
     d.setTime(d.getTime() + exp * 1000);
-    // eslint-disable-next-line no-multi-assign
-    exp = props.expires = d;
+    exp = d;
+    props.expires = d;
   }
   if (exp && exp.toUTCString) {
     props.expires = exp.toUTCString();

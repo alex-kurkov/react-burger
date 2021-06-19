@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
@@ -28,8 +27,8 @@ IngredientBorderedImage.propTypes = {
     order: PropTypes.shape({
       number: PropTypes.number,
       cost: PropTypes.number,
-      orderedAt: PropTypes.object,
-      ingredients: PropTypes.array,
+      orderedAt: PropTypes.shape({}),
+      ingredients: PropTypes.arrayOf(PropTypes.shape({})),
     }),
   }),
   extrasCount: PropTypes.number,
