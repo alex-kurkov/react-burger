@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styles from './notification.module.css';
@@ -21,8 +24,14 @@ export const Notification = ({ children, onClose, lifeTime = 3000 }) => {
     };
   }, [onClose]);
 
-  setTimeout(() => setLeave(true), lifeTime - 1000);
-  setTimeout(() => onClose(), lifeTime);
+  useEffect(() => {
+    const leaveId = setTimeout(() => setLeave(true), lifeTime - 1000);
+    const fadeId = setTimeout(() => onClose(), lifeTime);
+    return () => {
+      clearTimeout(leaveId);
+      clearTimeout(fadeId);
+    };
+  }, []);
 
   return ReactDOM.createPortal(
     (
