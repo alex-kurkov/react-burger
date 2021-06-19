@@ -26,14 +26,14 @@ const _refreshToken = (afterRefreshFunc) => (dispatch) => {
       _setTokens(res);
       dispatch(afterRefreshFunc);
     })
-    .catch((e) => dispatch(setCurrentError(`что-то пошло не так при запросе на сервер: ${e.message}`)));
+    .catch((e) => dispatch(setCurrentError(e.message)));
 };
 
 const _handleError = (e, dispatch, func) => {
   if ((e.message === 'jwt expired' || e.message === 'jwt malformed') && func) {
     dispatch(_refreshToken(func));
   } else {
-    dispatch(setCurrentError(`что-то пошло не так при запросе на сервер: ${e.message}`));
+    dispatch(setCurrentError(e.message));
   }
 };
 

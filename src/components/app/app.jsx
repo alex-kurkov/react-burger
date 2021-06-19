@@ -9,6 +9,9 @@ import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
 import { FeedOrderDetailsModal } from '../feed-order-detail-modal';
 import { IngredientDetailsModal } from '../ingredient-details-modal';
+import { resetCurrentError } from '../../services/reducers/content/contentSlice';
+import { Notification } from '../notification';
+
 import {
   HomePage,
   FeedPage,
@@ -32,7 +35,7 @@ const App = () => {
 
   let modalViewLocation;
   if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
-  const { ingredients } = useSelector((store) => store.content);
+  const { ingredients, hasError, currentError } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
 
   useEffect(() => {
@@ -45,6 +48,11 @@ const App = () => {
   return (
     <div className={styles.app}>
       { apiRequestInProgress && <Loader /> }
+      { hasError && (
+      <Notification onClose={() => dispatch(resetCurrentError())}>
+        {currentError}
+      </Notification>
+      )}
       { modalViewLocation
         && (
         <>
