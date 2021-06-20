@@ -5,20 +5,19 @@ import OrderDetails from './order-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { postOrder } from '../../services/actions/auth';
-import { RESET_CURRENT_ORDER, RESET_CHOSEN_INGREDIENTS } from '../../utils/constants';
 import styles from './orderButton.module.css';
+import { resetCurrentOrder } from '../../services/reducers/cart/cartSlice';
 
 const OrderButton = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { loggedIn } = useSelector((state) => state.user);
   const { chosenIngredients, chosenBun } = useSelector((state) => state.cart);
-  const { currentOrder } = useSelector((state) => state.order);
+  const { currentOrder } = useSelector((state) => state.cart);
   const { apiRequestInProgress } = useSelector((state) => state.api);
 
   const closeModal = () => {
-    dispatch({ type: RESET_CURRENT_ORDER });
-    dispatch({ type: RESET_CHOSEN_INGREDIENTS });
+    dispatch(resetCurrentOrder());
   };
 
   const modal = (
@@ -39,7 +38,7 @@ const OrderButton = () => {
     }
   };
   return (
-    <div className={chosenBun.name && !apiRequestInProgress ? '' : styles.disabled}>
+    <div data-cy="order-button" className={chosenBun.name && !apiRequestInProgress ? '' : styles.disabled}>
       { currentOrder.success && modal }
       <Button type="primary" size="large" onClick={placeOrder}>
         Оформить заказ

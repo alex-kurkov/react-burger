@@ -7,10 +7,9 @@ import Total from './total';
 import {
   HEIGHT_OF_CONSTRUCTOR_ITEM,
   CONSTRUCTOR_MARGIN,
-  ADD_CHOSEN_BUN,
-  ADD_CHOSEN_INGREDIENT,
 } from '../../utils/constants';
 import styles from './burger-constructor.module.css';
+import { addBun, addIngredient } from '../../services/reducers/cart/cartSlice';
 
 const BurgerConstructor = () => {
   const { chosenIngredients, chosenBun } = useSelector((store) => store.cart);
@@ -30,10 +29,11 @@ const BurgerConstructor = () => {
     container.current.style.height = `${countedSpace}px`;
   }
   const handleNewIndredientDrop = (item) => {
-    dispatch({
-      type: item.type === 'bun' ? ADD_CHOSEN_BUN : ADD_CHOSEN_INGREDIENT,
-      payload: item,
-    });
+    if (item.type === 'bun') {
+      dispatch(addBun(item));
+    } else {
+      dispatch(addIngredient(item));
+    }
   };
 
   const [{ isHover }, dropNewIngredientsTarget] = useDrop({
@@ -54,24 +54,25 @@ const BurgerConstructor = () => {
   // **********************
 
   return (
-    <section ref={dropNewIngredientsTarget} className={`${styles.section} ${isHover && styles.hovered}`}>
+    <section data-cy="drop-ingredients-target" ref={dropNewIngredientsTarget} className={`${styles.section} ${isHover && styles.hovered}`}>
       <div ref={content} className={`${styles.content} mb-5`}>
         {
           !chosenIngredients.length && !chosenBun._id
           && <p className={`${styles.dragInfo} text text_type_main-medium`}>Перетащите в эту область ингредиенты для Вашего бургера</p>
         }
-        <ul className={`${styles.bunContainer}`}>
+        <ul data-cy="bun-container" className={`${styles.bunContainer}`}>
           {chosenBun.name && (
             <ConstructorElement
               item={chosenBun}
               type="top"
               isLocked
               key={chosenBun._id}
+              data-cy="chosen-bun"
             />
           )}
         </ul>
         <div ref={container} className={`${styles.container} mb-2 mt-2`}>
-          <ul className={styles.list}>
+          <ul data-cy="main-container" className={styles.list}>
             { chosenIngredients
               .map((item, index) => (
                 <ConstructorElement
@@ -80,6 +81,7 @@ const BurgerConstructor = () => {
                   item={item}
                   isLocked={false}
                   positionIndex={index}
+                  data-cy="chosen-ingredient"
                 />
               ))}
           </ul>

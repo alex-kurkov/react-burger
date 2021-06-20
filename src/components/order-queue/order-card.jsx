@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -18,7 +17,7 @@ export const OrderCard = ({ data }) => {
 
   return (
     <article className={`${styles.card} p-6`}>
-      <Link className={styles.link} to={{ pathname: `${match.url}/${data._id}`, state: { modalViewLocation: location } }}>
+      <Link data-cy="order-card" className={styles.link} to={{ pathname: `${match.url}/${data._id}`, state: { modalViewLocation: location } }}>
         <div className={`${styles.cardInfo} mb-6`}>
           <span className="text text_type_digits-default">
             #
@@ -67,8 +66,8 @@ OrderCard.propTypes = {
     order: PropTypes.shape({
       number: PropTypes.number,
       cost: PropTypes.number,
-      orderedAt: PropTypes.object,
-      ingredients: PropTypes.array,
+      orderedAt: PropTypes.shape({}),
+      ingredients: PropTypes.arrayOf(PropTypes.shape({})),
     }),
   }),
 };

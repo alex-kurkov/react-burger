@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.5.1",
+    "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
@@ -28,7 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress:open": "./node_modules/.bin/cypress open"
+    "wslcy:open": "export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 | ./node_modules/.bin/cypress open",
+    "cy:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +65,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "fetch-mock": "^9.11.0",
+    "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^16.14.0",
     "redux-mock-store": "^1.5.4"

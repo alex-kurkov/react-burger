@@ -1,14 +1,17 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-param-reassign */
-export const setCookie = (name, value, props) => {
-  props = props || {};
+export const setCookie = (name, value, props = {}) => {
+  props = {
+    path: '/',
+    ...props,
+  };
   let exp = props.expires;
   if (typeof exp === 'number' && exp) {
     const d = new Date();
     d.setTime(d.getTime() + exp * 1000);
-    // eslint-disable-next-line no-multi-assign
-    exp = props.expires = d;
+    exp = d;
+    props.expires = d;
   }
   if (exp && exp.toUTCString) {
     props.expires = exp.toUTCString();

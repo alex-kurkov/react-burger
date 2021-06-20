@@ -1,13 +1,17 @@
-/* eslint-disable react/prop-types */
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, Switch, Route } from 'react-router-dom';
+import {
+  useLocation, useHistory, Switch, Route,
+} from 'react-router-dom';
 import { Header } from '../header';
 import { getIngredients, getUser } from '../../services/actions/auth';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
 import { FeedOrderDetailsModal } from '../feed-order-detail-modal';
 import { IngredientDetailsModal } from '../ingredient-details-modal';
+import { resetCurrentError } from '../../services/reducers/content/contentSlice';
+import { Notification } from '../notification';
+
 import {
   HomePage,
   FeedPage,
@@ -27,8 +31,11 @@ import styles from './app.module.css';
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const modalViewLocation = location.state?.modalViewLocation;
-  const { ingredients } = useSelector((store) => store.content);
+  const history = useHistory();
+
+  let modalViewLocation;
+  if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
+  const { ingredients, hasError, currentError } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
 
   useEffect(() => {
@@ -41,17 +48,22 @@ const App = () => {
   return (
     <div className={styles.app}>
       { apiRequestInProgress && <Loader /> }
+      { hasError && (
+      <Notification onClose={() => dispatch(resetCurrentError())}>
+        {currentError}
+      </Notification>
+      )}
       { modalViewLocation
         && (
         <>
+          <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
           <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
           <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} />
-          <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
         </>
         )}
       <Header />
       <Switch location={modalViewLocation || location}>
-        <Route path="/" exact render={() => (ingredients.length && <HomePage />)} />
+        <Route path="/" exact render={() => (!!ingredients.length && <HomePage />)} />
         <Route path="/login" render={() => <LoginPage />} exact />
         <Route path="/register" exact render={() => <RegisterPage />} />
         <Route path="/forgot-password" exact render={() => <ForgotPasswordPage />} />

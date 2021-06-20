@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { setRegisterFormValue } from '../services/actions/form';
+import { setRegisterFormValue } from '../services/reducers/form/formSlice';
 import { register } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form';
 
@@ -25,7 +25,7 @@ export const RegisterPage = () => {
     dispatch(register({ name, email, password }));
   };
   const onFormChange = (e) => {
-    dispatch(setRegisterFormValue(e.target.name, e.target.value));
+    dispatch(setRegisterFormValue({ key: e.target.name, value: e.target.value }));
   };
 
   const LoginLink = () => (
