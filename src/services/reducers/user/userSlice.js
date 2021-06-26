@@ -8,6 +8,10 @@ export const userSlice = createSlice({
     email: '',
     loggedIn: false,
     name: '',
+    orders: [],
+    socketConnected: false,
+    total: null,
+    totalToday: null,
   },
   reducers: {
     confirmPasswordResetReducer: (state) => {
@@ -28,6 +32,22 @@ export const userSlice = createSlice({
       state.name = '';
       state.email = '';
     },
+    openAuthSocket: (state) => {
+      state.socketConnected = true;
+    },
+    closeAuthSocket: (state) => {
+      state.socketConnected = false;
+    },
+    setAuthSocketError: (state, action) => {
+      state.socketConnected = false;
+      state.currentError = action.payload;
+    },
+    getAuthSocketMessage: (state, action) => {
+      state = { ...state, ...action.payload };
+      // state.orders = action.payload.orders;
+      // state.total = action.payload.total;
+      // state.totalToday = action.payload.totalToday;
+    },
   },
 });
 
@@ -36,6 +56,10 @@ export const {
   resetPasswordReducer,
   setUser,
   signout,
+  openAuthSocket,
+  closeAuthSocket,
+  setAuthSocketError,
+  getAuthSocketMessage,
 } = userSlice.actions;
 
 export default userSlice.reducer;
