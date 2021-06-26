@@ -50,7 +50,7 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
       };
 
       if (type === wsSendMessage.toString()) {
-        const message = { ...payload };
+        const message = token ? { ...payload, token } : { ...payload };
         socket.send(JSON.stringify(message));
       }
     }
