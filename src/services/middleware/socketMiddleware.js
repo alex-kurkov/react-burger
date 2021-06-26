@@ -1,17 +1,23 @@
-export const socketMiddleware = (wsUrl, wsActions) => (store) => {
+import { getCookie } from '../../utils/common';
+
+export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
   let socket = null;
 
   return (next) => (action) => {
     const { dispatch } = store;
     const { type, payload } = action;
-
     const {
       wsInit, wsSendMessage, onOpen, onClose, onError, onMessage,
     } = wsActions;
 
+    const token = withAuth ? getCookie('token') : null;
+
     if (type === wsInit.toString()) {
-      socket = new WebSocket(`${wsUrl}`);
+      socket = token
+        ? new WebSocket(`${wsUrl}?token=${token}`)
+        : new WebSocket(`${wsUrl}`);
     }
+
     if (socket) {
       socket.onopen = (event) => {
         // eslint-disable-next-line no-console
