@@ -1,3 +1,6 @@
+import { templateIngredient } from './data';
+
+/* eslint-disable no-unreachable */
 export const getNearestTab = () => {
   const [container, bunsList, saucesList, mainsList] = ['ingredients', 'bun', 'sauce', 'main'].map((type) => document.getElementById(type));
 
@@ -46,20 +49,26 @@ const daysAgoToString = (days) => (days < 0
         : 'Ошибка в вычислении времени');
 
 export const orderDateAgoToString = (date) => {
+  const ago = new Date(date);
   const today = new Date();
   today.setHours(0);
   today.setMinutes(0);
   today.setSeconds(0);
 
-  const daysAgo = Math.ceil((today - date) / (60 * 60 * 24 * 1000));
+  const daysAgo = Math.ceil((today - ago) / (60 * 60 * 24 * 1000));
 
   const days = daysAgoToString(daysAgo);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const timeShift = `i-GMT${date.getTimezoneOffset() / 60}`;
+  const hours = ago.getHours();
+  const minutes = ago.getMinutes();
+  const timeShift = `i-GMT${ago.getTimezoneOffset() / 60}`;
 
   return `${days}, ${hours}:${minutes} ${timeShift}`;
 };
+export const populateIngredients = (ingredients, sourceArray) => ingredients.map((id) => {
+  const ingredient = sourceArray.find((item) => item._id === id);
+  if (ingredient) return ingredient;
+  return templateIngredient;
+});
 
 export const countIngredients = (ingredients) => ingredients
   .reduce((acc, item) => {
@@ -71,3 +80,13 @@ export const countIngredients = (ingredients) => ingredients
 
     return acc;
   }, []);
+
+export const countCost = (ingredients) => ingredients
+  .reduce((acc, item) => {
+    if (item.type === 'bun') {
+      acc += (item.price * 2);
+    } else {
+      acc += item.price;
+    }
+    return acc;
+  }, 0);

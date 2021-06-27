@@ -36,10 +36,9 @@ export const contentSlice = createSlice({
       state.currentError = action.payload;
     },
     getSocketMessage: (state, action) => {
-      state = { ...state, ...action.payload };
-      // state.orders = action.payload.orders;
-      // state.total = action.payload.total;
-      // state.totalToday = action.payload.totalToday;
+      state.orders = action.payload.orders;
+      state.total = action.payload.total;
+      state.totalToday = action.payload.totalToday;
     },
   },
 });

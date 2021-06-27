@@ -36,7 +36,9 @@ const App = () => {
 
   let modalViewLocation;
   if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
-  const { ingredients, hasError, currentError } = useSelector((store) => store.content);
+  const {
+    ingredients, hasError, currentError,
+  } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
   const { loggedIn } = useSelector((store) => store.user);
 
@@ -66,7 +68,7 @@ const App = () => {
         <>
           <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
           <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
-          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} />
+          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal searchUserOrders />} />
         </>
         )}
       <Header />
