@@ -5,3 +5,4 @@ export const HEIGHT_OF_CONSTRUCTOR_ITEM = 80;
 export const CONSTRUCTOR_MARGIN = 4;
 export const IN_PROGRESS = 'in progress';
 export const COMPLETED = 'done';
+export const CANCELLED = 'cancelled';

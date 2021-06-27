@@ -10,7 +10,7 @@ export const OrderInfo = () => {
   const localizedNumber = (n) => Number(n).toLocaleString();
 
   return (
-    <section className={styles.section}>
+    <>
       <div className={`${styles.ordersIds} mb-15`}>
         <div className={styles.idsBlock}>
           <p className="text text_type_main-medium">Готовы:</p>
@@ -18,7 +18,7 @@ export const OrderInfo = () => {
             {readyOrders.map((item) => (
               <li
                 className={`${styles.ready} ${styles.listItem} text text_type_digits-default`}
-                key={item.number}
+                key={item._id}
               >
                 {item.number}
               </li>
@@ -28,7 +28,7 @@ export const OrderInfo = () => {
         <div className={styles.idsBlock}>
           <p className="text text_type_main-medium">В работе:</p>
           <ul className={styles.list}>
-            {preparingOrders.map((item) => (<li className={`${styles.listItem} text text_type_digits-default`} key={item.number}>{item.number}</li>))}
+            {preparingOrders.map((item) => (<li className={`${styles.listItem} text text_type_digits-default`} key={item._id}>{item.number}</li>))}
           </ul>
         </div>
       </div>
@@ -41,6 +41,6 @@ export const OrderInfo = () => {
         <span className="text text_type_digits-large">{localizedNumber(totalToday)}</span>
       </div>
 
-    </section>
+    </>
   );
 };

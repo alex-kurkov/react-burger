@@ -3,9 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientBorderedImage } from '../ingredient-bordered-image';
-import { COMPLETED } from '../../utils/constants';
 import {
-  orderDateAgoToString, countIngredients, populateIngredients, countCost,
+  orderDateAgoToString, countIngredients, populateIngredients, countCost, getStatus,
 } from '../../utils/helpers';
 import styles from './styles.module.css';
 
@@ -33,6 +32,7 @@ export const OrderDetails = ({ sourceArray }) => {
   const {
     status, number, name, createdAt,
   } = foundOrder;
+  const statusContent = getStatus(status);
   const date = orderDateAgoToString(createdAt);
   const populatedIngredients = populateIngredients(foundOrder.ingredients, ingredients);
   const countedIngredients = countIngredients(populatedIngredients);
@@ -45,8 +45,11 @@ export const OrderDetails = ({ sourceArray }) => {
         {number}
       </p>
       <h4 className="text text_type_main-large mb-3 mt-10">{name}</h4>
-      <p className={`${styles.status} text text_type_main-medium mb-15`}>
-        {status === COMPLETED ? 'Выполнен' : 'Готовится'}
+      <p
+        className={`${styles.status} text text_type_main-medium mb-15`}
+        color={statusContent.color}
+      >
+        {statusContent.text}
       </p>
       <p className="text text_type_main-large mb-6">Состав:</p>
       <ul className={`${styles.ingredients} mb-10`}>

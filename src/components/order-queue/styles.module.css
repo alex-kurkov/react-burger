@@ -46,6 +46,15 @@
   word-spacing: -10px;
   letter-spacing: 0px;
 }
+.cardStatus[color='red'] {
+  color: var(--colors-interface-error);
+}
+.cardStatus[color='green'] {
+  color: var(--colors-interface-success);
+}
+.cardStatus[color='white'] {
+  color: var(--text-primary-color);
+}
 .cardOrderInfo {
   padding: 0;
   display: flex;

@@ -1,5 +1,5 @@
 import { templateIngredient } from './data';
-
+import { CANCELLED, IN_PROGRESS, COMPLETED } from './constants';
 /* eslint-disable no-unreachable */
 export const getNearestTab = () => {
   const [container, bunsList, saucesList, mainsList] = ['ingredients', 'bun', 'sauce', 'main'].map((type) => document.getElementById(type));
@@ -90,3 +90,11 @@ export const countCost = (ingredients) => ingredients
     }
     return acc;
   }, 0);
+
+export const getStatus = (status) => (status === CANCELLED
+  ? { text: 'отменен', color: 'red' }
+  : status === IN_PROGRESS
+    ? { text: 'готовится', color: 'green' }
+    : status === COMPLETED
+      ? { text: 'выполнен', color: 'white' }
+      : { text: null, color: null });

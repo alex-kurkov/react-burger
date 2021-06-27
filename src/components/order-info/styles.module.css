@@ -9,14 +9,36 @@
   flex-wrap: nowrap;
 }
 .idsBlock {
+  flex-basis: 50%;
   width: 50%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.idsBlock::-webkit-scrollbar {
+  width: 12px;
+  scrollbar-width: thin;
+}
+.idsBlock::-webkit-scrollbar-track {
+	background: var(--background-element);
+  border-radius: 6px;
+}
+.idsBlock::-webkit-scrollbar-thumb {
+	background: #8585AD;
+	border: 3px solid var(--background-element);
+	border-radius: 6px;
 }
 .list {
   padding: 0;
   list-style-type: none;
+  max-height: 240px;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 .listItem {
   letter-spacing: 4px;
+  display: inline;
 }
 .ready {
   color: var(--colors-interface-success);
