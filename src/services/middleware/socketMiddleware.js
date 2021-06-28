@@ -19,23 +19,15 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
     }
 
     if (socket) {
-      socket.onopen = (event) => {
-        // eslint-disable-next-line no-console
-        console.log('onopen: ', event);
-        // eslint-disable-next-line no-console
-        console.log('socket: ', socket);
+      socket.onopen = () => {
         dispatch(onOpen());
       };
 
       socket.onerror = (event) => {
-        // eslint-disable-next-line no-console
-        console.log('onerror: ', event);
         dispatch(onError(event));
       };
 
       socket.onmessage = (event) => {
-        // eslint-disable-next-line no-console
-        console.log('onmessage: ', event);
         const { data } = event;
         const parsedData = JSON.parse(data);
         const { success, ...restParsedData } = parsedData;
@@ -43,9 +35,7 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
         dispatch(onMessage(restParsedData));
       };
 
-      socket.onclose = (event) => {
-        // eslint-disable-next-line no-console
-        console.log('onclose: ', event);
+      socket.onclose = () => {
         dispatch(onClose());
       };
 
