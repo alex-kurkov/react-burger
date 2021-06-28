@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 import styles from './styles.module.css';
-import { COMPLETED, IN_PROGRESS } from '../../utils/constants';
+import { DONE, PENDING } from '../../utils/constants';
 
 export const OrderInfo = () => {
   const { orders, total, totalToday } = useSelector((state) => state.content);
 
-  const readyOrders = orders.filter((i) => i.status === COMPLETED);
-  const preparingOrders = orders.filter((i) => i.status === IN_PROGRESS);
+  const readyOrders = orders.filter((i) => i.status === DONE);
+  const preparingOrders = orders.filter((i) => i.status === PENDING);
   const localizedNumber = (n) => Number(n).toLocaleString();
 
   return (
@@ -40,7 +40,6 @@ export const OrderInfo = () => {
         <p className="text text_type_main-medium">Выполнено за сегодня:</p>
         <span className="text text_type_digits-large">{localizedNumber(totalToday)}</span>
       </div>
-
     </>
   );
 };

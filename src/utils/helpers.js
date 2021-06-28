@@ -1,6 +1,6 @@
 import { templateIngredient } from './data';
-import { CANCELLED, IN_PROGRESS, COMPLETED } from './constants';
-/* eslint-disable no-unreachable */
+import { CREATED, PENDING, DONE } from './constants';
+
 export const getNearestTab = () => {
   const [container, bunsList, saucesList, mainsList] = ['ingredients', 'bun', 'sauce', 'main'].map((type) => document.getElementById(type));
 
@@ -59,7 +59,7 @@ export const orderDateAgoToString = (date) => {
 
   const days = daysAgoToString(daysAgo);
   const hours = ago.getHours();
-  const minutes = ago.getMinutes();
+  const minutes = ago.getMinutes().toString().padStart(2, '0');
   const timeShift = `i-GMT${ago.getTimezoneOffset() / 60}`;
 
   return `${days}, ${hours}:${minutes} ${timeShift}`;
@@ -91,10 +91,10 @@ export const countCost = (ingredients) => ingredients
     return acc;
   }, 0);
 
-export const getStatus = (status) => (status === CANCELLED
-  ? { text: 'отменен', color: 'red' }
-  : status === IN_PROGRESS
+export const getStatus = (status) => (status === CREATED
+  ? { text: 'создан', color: 'red' }
+  : status === PENDING
     ? { text: 'готовится', color: 'green' }
-    : status === COMPLETED
+    : status === DONE
       ? { text: 'выполнен', color: 'white' }
       : { text: null, color: null });
