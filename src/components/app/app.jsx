@@ -4,7 +4,6 @@ import {
   useLocation, useHistory, Switch, Route,
 } from 'react-router-dom';
 import { getIngredients, getUser } from '../../services/actions/auth';
-import { wsAuthInit } from '../../services/actions/ws';
 import { resetCurrentError } from '../../services/reducers/content/contentSlice';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
@@ -40,7 +39,6 @@ const App = () => {
     ingredients, hasError, currentError,
   } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
-  const { loggedIn } = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -48,9 +46,6 @@ const App = () => {
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
-  useEffect(() => {
-    if (loggedIn) dispatch(wsAuthInit());
-  }, [dispatch, loggedIn]);
 
   return (
     <div className={styles.app}>
