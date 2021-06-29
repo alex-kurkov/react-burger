@@ -38,8 +38,9 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
         dispatch(onMessage(restParsedData));
       };
 
-      socket.onclose = () => {
-        dispatch(onClose());
+      socket.onclose = (e) => {
+        // eslint-disable-next-line no-console
+        console.log('socket closed with code: ', e.code);
       };
 
       if (type === wsSendMessage.toString()) {
