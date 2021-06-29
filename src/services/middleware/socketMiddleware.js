@@ -17,6 +17,9 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
         ? new WebSocket(`${wsUrl}?token=${token}`)
         : new WebSocket(`${wsUrl}`);
     }
+    if (socket && type === onClose.toString()) {
+      socket.close();
+    }
 
     if (socket) {
       socket.onopen = () => {

@@ -4,7 +4,7 @@ import {
   useLocation, useHistory, Switch, Route,
 } from 'react-router-dom';
 import { getIngredients, getUser } from '../../services/actions/auth';
-import { wsInit, wsAuthInit } from '../../services/actions/ws';
+import { wsAuthInit } from '../../services/actions/ws';
 import { resetCurrentError } from '../../services/reducers/content/contentSlice';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
@@ -47,9 +47,6 @@ const App = () => {
   }, [dispatch]);
   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(wsInit());
   }, [dispatch]);
   useEffect(() => {
     if (loggedIn) dispatch(wsAuthInit());
