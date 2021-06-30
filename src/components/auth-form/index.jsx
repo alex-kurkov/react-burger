@@ -13,6 +13,6 @@ export const AuthForm = ({ title, children }) => (
 );
 
 AuthForm.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   title: PropTypes.string,
 };

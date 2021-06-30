@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import OrderDetails from './order-details';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { postOrder } from '../../services/actions/auth';
 import styles from './orderButton.module.css';
@@ -21,11 +20,9 @@ const OrderButton = () => {
   };
 
   const modal = (
-    <ModalOverlay onClose={closeModal}>
-      <Modal onClose={closeModal}>
-        <OrderDetails />
-      </Modal>
-    </ModalOverlay>
+    <Modal onClose={closeModal}>
+      <OrderDetails />
+    </Modal>
   );
 
   const placeOrder = (e) => {

@@ -23,5 +23,5 @@ export const ProtectedRoute = ({ children, ...rest }) => {
 };
 
 ProtectedRoute.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };

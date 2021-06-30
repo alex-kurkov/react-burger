@@ -57,5 +57,5 @@ IngredientCard.propTypes = {
     carbohydrates: PropTypes.number,
     calories: PropTypes.number,
     price: PropTypes.number,
-  }),
+  }).isRequired,
 };

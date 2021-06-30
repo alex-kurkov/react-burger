@@ -15,6 +15,6 @@ const DoneIcon = ({ onClose }) => (
   </div>
 );
 DoneIcon.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
 };
 export default DoneIcon;

@@ -26,8 +26,8 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
         dispatch(onOpen());
       };
 
-      socket.onerror = (event) => {
-        dispatch(onError(event));
+      socket.onerror = () => {
+        dispatch(onError('socket connection error!!!'));
       };
 
       socket.onmessage = (event) => {

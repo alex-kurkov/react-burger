@@ -90,15 +90,15 @@ ConstructorElement.propTypes = {
     name: PropTypes.string,
     image: PropTypes.string,
     price: PropTypes.number,
-  }),
+  }).isRequired,
   positionIndex: PropTypes.number,
-  type: PropTypes.string,
-  isLocked: PropTypes.bool,
+  type: PropTypes.string.isRequired,
+  isLocked: PropTypes.bool.isRequired,
 };
 TargetElement.propTypes = {
   index: PropTypes.number,
-  children: PropTypes.node,
-  type: PropTypes.oneOf(['bun', 'sauce', 'main']),
+  children: PropTypes.node.isRequired,
+  type: PropTypes.oneOf(['bun', 'sauce', 'main']).isRequired,
 };
 
 export default ConstructorElement;

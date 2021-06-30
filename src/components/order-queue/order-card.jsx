@@ -76,5 +76,5 @@ OrderCard.propTypes = {
     createdAt: PropTypes.string,
     ingredients: PropTypes.arrayOf(PropTypes.string),
     status: PropTypes.string,
-  }),
+  }).isRequired,
 };

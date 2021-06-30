@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 
 export const OrderQueue = ({ orders }) => (
   <div className={`${styles.queue} pr-4`}>
-    { !!orders.length
+    { !!orders?.length
           && orders.map((item) => (
             <OrderCard
               data={item}

@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import Modal from '../modal/modal';
 import { OrderDetails } from '../order-details';
 
@@ -15,11 +14,9 @@ export const FeedOrderDetailsModal = ({ searchUserOrders }) => {
   };
 
   return (
-    <ModalOverlay onClose={back}>
-      <Modal onClose={back}>
-        <OrderDetails sourceArray={searchUserOrders ? userOrders : orders} />
-      </Modal>
-    </ModalOverlay>
+    <Modal onClose={back}>
+      <OrderDetails sourceArray={searchUserOrders ? userOrders : orders} />
+    </Modal>
   );
 };
 

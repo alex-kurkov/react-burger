@@ -30,6 +30,6 @@ IngredientBorderedImage.propTypes = {
       orderedAt: PropTypes.shape({}),
       ingredients: PropTypes.arrayOf(PropTypes.shape({})),
     }),
-  }),
+  }).isRequired,
   extrasCount: PropTypes.number,
 };

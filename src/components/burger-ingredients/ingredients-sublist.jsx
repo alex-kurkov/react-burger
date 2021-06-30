@@ -24,7 +24,7 @@ const IngredientsSublist = ({ type, name }) => {
 
 IngredientsSublist.propTypes = {
   type: PropTypes.oneOf(['bun', 'sauce', 'main']).isRequired,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
 };
 
 export default IngredientsSublist;
