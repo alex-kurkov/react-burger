@@ -6,10 +6,9 @@ import styles from './modal.module.css';
 const modalRoot: Element | null = document.getElementById('modals');
 
 const Modal: FC<{
-  title: string;
+  title?: string;
   onClose: () => void;
 }> = ({ title = '', onClose, children }) => {
-  if (!modalRoot) return null;
   const handleOverlayClick = (e: SyntheticEvent) => {
     if (e.target !== e.currentTarget) return;
     onClose();
@@ -24,7 +23,7 @@ const Modal: FC<{
     return () => window.removeEventListener('keydown', closeByEscape);
   }, [onClose]);
 
-  return ReactDOM.createPortal(
+  return modalRoot && ReactDOM.createPortal(
     (
       <div data-cy="modal-overlay" onClick={(handleOverlayClick)} className={styles.overlay}>
         <div className={`${styles.modal} p-5 pb-10`} data-cy="modal">

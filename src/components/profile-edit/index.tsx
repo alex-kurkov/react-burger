@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, FC, SyntheticEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { modifyUser } from '../../services/actions/auth';
 import styles from './styles.module.css';
+import { IStore } from '../../types';
 
-export const ProfileEdit = () => {
+export const ProfileEdit: FC = () => {
   const dispatch = useDispatch();
-  const { name, email } = useSelector((state) => state.user);
+  const { name, email } = useSelector((state: IStore) => state.user);
   const [values, setValues] = useState({
     name,
     email,
@@ -18,14 +19,17 @@ export const ProfileEdit = () => {
     password: true,
   });
 
-  const onFormChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+  const onFormChange = (e: SyntheticEvent<HTMLInputElement>) => {
+    let target = e.target as HTMLInputElement;
+    const { name, value } = target;
+    if (name && value ) setValues({ ...values, name: value });
   };
-  const toggleInputDisability = (field) => {
+
+  const toggleInputDisability = (field: 'name' | 'email' | 'password') => {
     setDisabled({ ...disabled, [field]: !disabled[field] });
   };
-  const resetForm = (e) => {
-    e.preventDefault();
+
+  const resetForm = () => {
     setValues({
       name,
       email,
@@ -37,9 +41,9 @@ export const ProfileEdit = () => {
       password: true,
     });
   };
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const data = {};
+    const data = {name: '', email: '', password: ''};
     if (values.name && values.name !== name) data.name = values.name;
     if (values.email && values.email !== email) data.email = values.email;
     if (values.password) data.password = values.password;
@@ -91,8 +95,8 @@ export const ProfileEdit = () => {
         <Button type="secondary" size="large" onClick={resetForm}>
           Отмена
         </Button>
-        <Button type="primary" size="large" onClick={onFormSubmit}>
-          Сохранить
+        <Button type="primary" size="large" >
+          <span onClick={onFormSubmit}>Сохранить</span>
         </Button>
       </div>
     </form>

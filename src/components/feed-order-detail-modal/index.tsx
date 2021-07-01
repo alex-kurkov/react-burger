@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent } from 'react';
+import { FC } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Modal from '../modal/modal';
@@ -9,8 +9,7 @@ export const FeedOrderDetailsModal: FC<{ searchUserOrders?: boolean }> = ({ sear
   const { orders } = useSelector((state: IStore) => state.content);
   const { userOrders } = useSelector((state: IStore) => state.user);
   const history = useHistory();
-  const back = (e: SyntheticEvent): void => {
-    e.stopPropagation();
+  const back = (): void => {
     history.goBack();
   };
 

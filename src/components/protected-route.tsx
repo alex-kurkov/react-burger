@@ -1,12 +1,17 @@
+import { FC, ReactNode } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { IStore } from '../types';
 
-export const ProtectedRoute = ({ children, ...rest }) => {
-  const { loggedIn } = useSelector((state) => state.user);
+export const ProtectedRoute: FC<{
+  path: string;
+  exact?: boolean; 
+  children: Element | ReactNode;
+}> = ({ path, children, ...rest }) => {
+  const { loggedIn } = useSelector((state: IStore) => state.user);
   return (
     <Route
-      // eslint-disable-next-line react/jsx-props-no-spreading
+      path={path}
       {...rest}
       render={({ location }) => (loggedIn ? (
         children
@@ -20,8 +25,4 @@ export const ProtectedRoute = ({ children, ...rest }) => {
       ))}
     />
   );
-};
-
-ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired,
 };

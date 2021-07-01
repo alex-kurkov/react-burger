@@ -1,17 +1,18 @@
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientBorderedImage } from '../ingredient-bordered-image';
 import {
   orderDateAgoToString, countIngredients, populateIngredients, countCost, getStatus,
 } from '../../utils/helpers';
 import styles from './styles.module.css';
+import { IIngredient, IOrder, IStore, TOrderStatus } from '../../types';
 
-export const OrderDetails = ({ sourceArray }) => {
-  const { orderId } = useParams();
+export const OrderDetails: FC<{sourceArray: Array<IOrder>}> = ({ sourceArray }) => {
+  const { orderId } = useParams<{ orderId?: string }>();
   const history = useHistory();
-  const { ingredients } = useSelector((state) => state.content);
+  const { ingredients } = useSelector((state: IStore) => state.content);
 
   const foundOrder = sourceArray.find((i) => i._id === orderId);
   if (!foundOrder) {
@@ -32,11 +33,11 @@ export const OrderDetails = ({ sourceArray }) => {
   const {
     status, number, name, createdAt,
   } = foundOrder;
-  const statusContent = getStatus(status);
-  const date = orderDateAgoToString(createdAt);
-  const populatedIngredients = populateIngredients(foundOrder.ingredients, ingredients);
-  const countedIngredients = countIngredients(populatedIngredients);
-  const cost = countCost(populatedIngredients);
+  const statusContent: TOrderStatus = getStatus(status);
+  const date: string = orderDateAgoToString(createdAt);
+  const populatedIngredients: IIngredient[] = populateIngredients(foundOrder.ingredients, ingredients);
+  const countedIngredients: IIngredient[] = countIngredients(populatedIngredients);
+  const cost: number = countCost(populatedIngredients);
 
   return (
     <section className={styles.section}>
@@ -47,13 +48,13 @@ export const OrderDetails = ({ sourceArray }) => {
       <h4 className="text text_type_main-large mb-3 mt-10">{name}</h4>
       <p
         className={`${styles.status} text text_type_main-medium mb-15`}
-        color={statusContent.color}
+        color={statusContent.color || 'inherit'}
       >
         {statusContent.text}
       </p>
       <p className="text text_type_main-large mb-6">Состав:</p>
       <ul className={`${styles.ingredients} mb-10`}>
-        { countedIngredients.map((item) => (
+        { countedIngredients.map((item: IIngredient) => (
           <li key={`${item._id}`} className={styles.listItem}>
             <article className={styles.card}>
               <IngredientBorderedImage item={item} />
@@ -66,7 +67,7 @@ export const OrderDetails = ({ sourceArray }) => {
                   {' '}
                 </span>
                 <span className="text text_type_digits-default">{item.price}</span>
-                <CurrencyIcon />
+                <CurrencyIcon type="primary" />
               </div>
             </article>
           </li>
@@ -76,20 +77,9 @@ export const OrderDetails = ({ sourceArray }) => {
         <p className="text text_type_main-default text_color_inactive">{date}</p>
         <div className={styles.cost}>
           <span className="text text_type_digits-default">{cost}</span>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary" />
         </div>
       </div>
     </section>
   );
-};
-
-OrderDetails.propTypes = {
-  sourceArray: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    number: PropTypes.number,
-    createdAt: PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.string),
-    status: PropTypes.string,
-  })).isRequired,
 };

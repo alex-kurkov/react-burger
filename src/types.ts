@@ -25,6 +25,7 @@ export interface IIngredient {
   image_large: string;
   description?: string;
   __v: number;
+  count?: number;
 }
 
 export interface IOrder {
@@ -79,3 +80,8 @@ export interface IStore {
     totalToday: null | number;
   }
 }
+
+export type TOrderStatus = {
+  text: string | null;
+  color: string | null;
+};

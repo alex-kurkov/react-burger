@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../../services/actions/auth';
 import styles from './styles.module.css';
 
-export const ProfileMenu = () => {
+export const ProfileMenu: FC = () => {
   const dispatch = useDispatch();
   return (
     <aside>

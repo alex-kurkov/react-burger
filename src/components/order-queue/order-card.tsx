@@ -1,27 +1,28 @@
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientBorderedImage } from '../ingredient-bordered-image';
 import {
   orderDateAgoToString, countCost, populateIngredients, getStatus,
 } from '../../utils/helpers';
 import styles from './styles.module.css';
+import { IIngredient, IOrder, IStore, TOrderStatus } from '../../types';
 
-export const OrderCard = ({ data }) => {
+export const OrderCard: FC<{ data: IOrder }> = ({ data }) => {
   const match = useRouteMatch();
   const location = useLocation();
-  const { content } = useSelector((state) => state);
+  const { content } = useSelector((state: IStore) => state);
   const {
     number, createdAt, ingredients, name, status,
   } = data;
-  const date = orderDateAgoToString(createdAt);
-  const statusContent = getStatus(status);
+  const date: string = orderDateAgoToString(createdAt);
+  const statusContent: TOrderStatus = getStatus(status);
 
-  const populatedIngredients = populateIngredients(ingredients, content.ingredients);
-  const visibleIngredients = populatedIngredients.slice(0, 5).reverse();
-  const hiddenIngredients = populatedIngredients.slice(5);
-  const cost = countCost(populatedIngredients);
+  const populatedIngredients: Array<IIngredient> = populateIngredients(ingredients, content.ingredients);
+  const visibleIngredients: Array<IIngredient> = populatedIngredients.slice(0, 5).reverse();
+  const hiddenIngredients: Array<IIngredient> = populatedIngredients.slice(5);
+  const cost: number = countCost(populatedIngredients);
 
   return (
     <article className={`${styles.card} p-6`}>
@@ -36,7 +37,7 @@ export const OrderCard = ({ data }) => {
         <div className={`${styles.cardName} text text_type_main-large`}>
           { name }
         </div>
-        <p className={`${styles.cardStatus} text text_type_main-small mb-4`} color={statusContent.color}>{statusContent.text}</p>
+        <p className={`${styles.cardStatus} text text_type_main-small mb-4`} color={statusContent.color || 'white'}>{statusContent.text}</p>
         <div className={`${styles.cardOrderInfo} p-6`}>
           <ul className={styles.ingredients}>
             { !!hiddenIngredients.length
@@ -48,11 +49,11 @@ export const OrderCard = ({ data }) => {
               />
             </li>
             )}
-            { visibleIngredients.map((item, idx) => (
+            { visibleIngredients.map((item: IIngredient, idx: number) => (
               <li className={styles.listItem} key={`${item._id}-${idx}`}>
                 <IngredientBorderedImage
                   item={item}
-                  extrasCount={null}
+                  extrasCount={undefined}
                 />
               </li>
             ))}
@@ -60,21 +61,10 @@ export const OrderCard = ({ data }) => {
           <span className={`${styles.cost} text text_type_digits-default`}>
             {cost}
             {' '}
-            <CurrencyIcon />
+            <CurrencyIcon type="primary"/>
           </span>
         </div>
       </Link>
     </article>
   );
-};
-
-OrderCard.propTypes = {
-  data: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    number: PropTypes.number,
-    createdAt: PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.string),
-    status: PropTypes.string,
-  }).isRequired,
 };
