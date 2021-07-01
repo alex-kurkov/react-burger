@@ -78,6 +78,24 @@ export interface IStore {
     socketConnected: boolean;
     total: null | number;
     totalToday: null | number;
+  };
+  form: {
+    login: {
+      email: string;
+      password: string;
+    },
+    register: {
+      name: string;
+      email: string;
+      password: string;
+    },
+    forgot: {
+      email: string;
+    },
+    reset: {
+      password: string;
+      code: string;
+    },
   }
 }
 
@@ -85,3 +103,9 @@ export type TOrderStatus = {
   text: string | null;
   color: string | null;
 };
+
+export type TLocationState = {
+  from: {
+    pathname: string;
+  };
+}

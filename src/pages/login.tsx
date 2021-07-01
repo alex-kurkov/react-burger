@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useState, FC, SyntheticEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { setLoginFormValue } from '../services/reducers/form/formSlice';
 import { login } from '../services/actions/auth';
-import { AuthForm } from '../components/auth-form/index.tsx';
+import { AuthForm } from '../components/auth-form/index';
+import { IStore, TLocationState } from '../types';
 
-export const LoginPage = () => {
-  const [passwordShown, setPasswordShown] = useState(false);
-  const { email, password } = useSelector((state) => state.form.login);
-  const { loggedIn } = useSelector((state) => state.user);
+export const LoginPage: FC = () => {
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
+  const { email, password } = useSelector((state: IStore) => state.form.login);
+  const { loggedIn } = useSelector((state: IStore) => state.user);
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<TLocationState>();
 
   if (loggedIn) {
     const { from } = location.state || { from: { pathname: '/' } };
@@ -20,12 +21,14 @@ export const LoginPage = () => {
     );
   }
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
-  const onFormChange = (e) => {
-    dispatch(setLoginFormValue({ key: e.target.name, value: e.target.value }));
+  const onFormChange = (e: SyntheticEvent) => {
+    let target = e.target as HTMLInputElement;
+    const { name, value } = target;
+    dispatch(setLoginFormValue({ key: name, value }));
   };
 
   const RegisterLink = () => (
@@ -65,8 +68,8 @@ export const LoginPage = () => {
         errorText="Ошибка"
         size="default"
       />
-      <Button type="primary" size="large" onClick={onFormSubmit}>
-        Войти
+      <Button type="primary" size="large">
+        <span onClick={onFormSubmit}>Войти</span>
       </Button>
       <RegisterLink />
       <ResetLink />

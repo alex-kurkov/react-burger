@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC, SyntheticEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
@@ -6,14 +6,15 @@ import {
 } from 'react-router-dom';
 import { setResetFormValue } from '../services/reducers/form/formSlice';
 import { confirmPasswordReset } from '../services/actions/auth';
-import { AuthForm } from '../components/auth-form/index.tsx';
+import { AuthForm } from '../components/auth-form/index';
+import { IStore, TLocationState } from '../types';
 
-export const ResetPasswordPage = () => {
+export const ResetPasswordPage: FC = () => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const { loggedIn, passwordReset, passwordResetSuccess } = useSelector((state) => state.user);
-  const { password, code } = useSelector((state) => state.form.reset);
+  const { loggedIn, passwordReset, passwordResetSuccess } = useSelector((state: IStore) => state.user);
+  const { password, code } = useSelector((state: IStore) => state.form.reset);
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<TLocationState>();
   const history = useHistory();
   const { from } = location.state || { from: { pathname: '/' } };
 
@@ -28,13 +29,15 @@ export const ResetPasswordPage = () => {
   }
   if (!passwordReset && !loggedIn) return (<Redirect to="/forgot-password" />);
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(confirmPasswordReset({ password, token: code }));
   };
 
-  const onFormChange = (e) => {
-    dispatch(setResetFormValue({ key: e.target.name, value: e.target.value }));
+  const onFormChange = (e: SyntheticEvent) => {
+    let target = e.target as HTMLInputElement;
+    const { name, value } = target;
+    dispatch(setResetFormValue({ key: name, value }));
   };
 
   const LoginLink = () => (
@@ -68,8 +71,8 @@ export const ResetPasswordPage = () => {
         error={false}
         errorText=""
       />
-      <Button type="primary" size="large" onClick={onFormSubmit}>
-        Сохранить
+      <Button type="primary" size="large">
+        <span onClick={onFormSubmit}>Сохранить</span>
       </Button>
       <LoginLink />
     </AuthForm>

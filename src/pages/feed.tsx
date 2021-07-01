@@ -1,17 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { OrderQueue } from '../components/order-queue';
 import { OrderInfo } from '../components/order-info';
 import styles from './feed.module.css';
 import { wsInit } from '../services/actions/ws';
 import { closeSocket } from '../services/reducers/content/contentSlice';
+import { IStore } from '../types';
 
-export const FeedPage = () => {
+export const FeedPage: FC = () => {
   const dispatch = useDispatch();
-  const { orders } = useSelector((state) => state.content);
+  const { orders } = useSelector((state: IStore) => state.content);
   useEffect(() => {
     dispatch(wsInit());
-    return () => dispatch(closeSocket());
+    return () => {
+      dispatch(closeSocket())
+      return;
+    };
   }, [dispatch]);
 
   return (

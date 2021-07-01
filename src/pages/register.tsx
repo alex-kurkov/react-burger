@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useState, FC, SyntheticEvent } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { setRegisterFormValue } from '../services/reducers/form/formSlice';
 import { register } from '../services/actions/auth';
-import { AuthForm } from '../components/auth-form/index.tsx';
+import { AuthForm } from '../components/auth-form/index';
+import { IStore, TLocationState } from '../types';
 
-export const RegisterPage = () => {
-  const [passwordShown, setPasswordShown] = useState(false);
-  const { name, email, password } = useSelector((state) => state.form.register);
-  const { loggedIn } = useSelector((state) => state.user);
+export const RegisterPage: FC = () => {
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
+  const { name, email, password } = useSelector((state: IStore) => state.form.register);
+  const { loggedIn } = useSelector((state: IStore) => state.user);
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<TLocationState>();
 
   if (loggedIn) {
     const { from } = location.state || { from: { pathname: '/' } };
@@ -20,12 +21,14 @@ export const RegisterPage = () => {
     );
   }
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(register({ name, email, password }));
   };
-  const onFormChange = (e) => {
-    dispatch(setRegisterFormValue({ key: e.target.name, value: e.target.value }));
+  const onFormChange = (e: SyntheticEvent) => {
+    let target = e.target as HTMLInputElement;
+    const { name, value } = target;
+    dispatch(setRegisterFormValue({ key: name, value }));
   };
 
   const LoginLink = () => (
@@ -69,8 +72,8 @@ export const RegisterPage = () => {
         errorText="Ошибка"
         size="default"
       />
-      <Button type="primary" size="large" onClick={onFormSubmit}>
-        Зарегистрироваться
+      <Button type="primary" size="large">
+        <span onClick={onFormSubmit}>Зарегистрироваться</span>
       </Button>
       <LoginLink />
     </AuthForm>
