@@ -25,6 +25,8 @@ form .input_size_default {
 
 .constructor-element {
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 .constructor-element__text {
   flex-basis: 70%;
