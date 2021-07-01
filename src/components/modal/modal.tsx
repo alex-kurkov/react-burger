@@ -1,21 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, FC, SyntheticEvent } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './modal.module.css';
 
-const modalRoot = document.getElementById('modals');
+const modalRoot: Element | null = document.getElementById('modals');
 
-const Modal = ({ title = '', onClose, children = null }) => {
-  const handleOverlayClick = (e) => {
+const Modal: FC<{
+  title: string;
+  onClose: () => void;
+}> = ({ title = '', onClose, children }) => {
+  if (!modalRoot) return null;
+  const handleOverlayClick = (e: SyntheticEvent) => {
     if (e.target !== e.currentTarget) return;
-    onClose(e);
+    onClose();
   };
 
   useEffect(() => {
-    const closeByEscape = (e) => {
+    const closeByEscape = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return;
-      onClose(e);
+      onClose();
     };
     window.addEventListener('keydown', closeByEscape);
     return () => window.removeEventListener('keydown', closeByEscape);
@@ -35,12 +38,6 @@ const Modal = ({ title = '', onClose, children = null }) => {
     ),
     modalRoot,
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired,
-  title: PropTypes.string,
 };
 
 export default Modal;

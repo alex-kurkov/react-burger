@@ -1,14 +1,15 @@
+import { FC, SyntheticEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import Modal from '../modal/modal';
 import { OrderDetails } from '../order-details';
+import { IStore } from '../../types';
 
-export const FeedOrderDetailsModal = ({ searchUserOrders }) => {
-  const { orders } = useSelector((state) => state.content);
-  const { userOrders } = useSelector((state) => state.user);
+export const FeedOrderDetailsModal: FC<{ searchUserOrders?: boolean }> = ({ searchUserOrders }) => {
+  const { orders } = useSelector((state: IStore) => state.content);
+  const { userOrders } = useSelector((state: IStore) => state.user);
   const history = useHistory();
-  const back = (e) => {
+  const back = (e: SyntheticEvent): void => {
     e.stopPropagation();
     history.goBack();
   };
@@ -18,8 +19,4 @@ export const FeedOrderDetailsModal = ({ searchUserOrders }) => {
       <OrderDetails sourceArray={searchUserOrders ? userOrders : orders} />
     </Modal>
   );
-};
-
-FeedOrderDetailsModal.propTypes = {
-  searchUserOrders: PropTypes.bool,
 };

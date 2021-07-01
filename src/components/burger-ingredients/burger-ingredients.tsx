@@ -1,24 +1,40 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Tab,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
-import { tabs } from '../../utils/data';
 import IngredientsSublist from './ingredients-sublist';
 import { getNearestTab, throttle } from '../../utils/helpers';
 import styles from './burger-ingredients.module.css';
+import { IStore, TTabs } from '../../types';
 
-const BurgerIngredients = () => {
-  const [currentTab, setCurrentTab] = useState('bun');
+const tabs: TTabs = [
+  {
+    name: 'Булки',
+    type: 'bun',
+  },
+  {
+    name: 'Соусы',
+    type: 'sauce',
+  },
+  {
+    name: 'Начинки',
+    type: 'main',
+  },
+];
 
-  const { ingredients } = useSelector((store) => store.content);
+const BurgerIngredients: FC = () => {
+  const [currentTab, setCurrentTab] = useState<string>('bun');
+
+  const { ingredients } = useSelector((store: IStore) => store.content);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const container = document.getElementById('ingredients');
+    const container: HTMLElement | null = document.getElementById('ingredients');
     const calculateNearestTab = () => {
       setCurrentTab(getNearestTab());
     };
+    if (!container) return;
     container.addEventListener('scroll', throttle(calculateNearestTab, 100));
     return () => container.removeEventListener('scroll', throttle(calculateNearestTab, 100));
   }, [dispatch]);
@@ -30,8 +46,9 @@ const BurgerIngredients = () => {
   );
 
   const tabsContainer = useMemo(() => {
-    const handleTabClick = (type) => {
-      document.getElementById(type).scrollIntoView({ behavior: 'smooth' });
+    const handleTabClick = (type: string): void => {
+      const el: HTMLElement | null = document.getElementById(type);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
       setCurrentTab(type);
     };
     return (
@@ -44,13 +61,12 @@ const BurgerIngredients = () => {
             onClick={handleTabClick}
           >
             {' '}
-            {/* value transferred by default */}
             {name}
           </Tab>
         ))}
       </div>
     );
-  }, [currentTab, dispatch]);
+  }, [currentTab]);
 
   const ingredientsContainer = useMemo(() => (
     <div id="ingredients" className={`${styles.ingredients} pt-3 pb-3`}>

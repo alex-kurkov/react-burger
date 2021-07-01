@@ -27,18 +27,19 @@ import {
   IngredientDetailsPage,
 } from '../../pages';
 import styles from './app.module.css';
+import { IStore } from '../../types';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const history = useHistory();
+  const dispatch: any = useDispatch();
+  const location: any = useLocation();
+  const history: any = useHistory();
 
-  let modalViewLocation;
+  let modalViewLocation: any;
   if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
   const {
     ingredients, hasError, currentError,
-  } = useSelector((store) => store.content);
-  const { apiRequestInProgress } = useSelector((store) => store.api);
+  } = useSelector((store: IStore) => store.content);
+  const { apiRequestInProgress } = useSelector((store: IStore) => store.api);
 
   useEffect(() => {
     dispatch(getIngredients());

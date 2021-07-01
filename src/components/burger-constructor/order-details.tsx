@@ -1,11 +1,13 @@
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { IStore } from '../../types';
 import { resetCurrentOrder } from '../../services/reducers/cart/cartSlice';
 import DoneIcon from '../done-icon/done-icon';
 import styles from './order-details.module.css';
 
-const OrderDetails = () => {
+const OrderDetails: FC = () => {
   const dispatch = useDispatch();
-  const { currentOrder } = useSelector((store) => store.cart);
+  const { currentOrder } = useSelector((store: IStore) => store.cart);
 
   return (
     <div className={styles.wrap}>

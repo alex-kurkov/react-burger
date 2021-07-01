@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { IStore, TBunType } from '../../types';
 import IngredientCard from './ingredient-card';
 import styles from './ingredients-sublist.module.css';
 
-const IngredientsSublist = ({ type, name }) => {
-  const { ingredients } = useSelector((store) => store.content);
+const IngredientsSublist: FC<{ type: TBunType, name: string}> = ({ type, name }) => {
+  const { ingredients } = useSelector((store: IStore) => store.content);
   const ingredientsSublist = ingredients.filter((i) => i.type === type);
 
   return (
@@ -20,11 +21,6 @@ const IngredientsSublist = ({ type, name }) => {
       </ul>
     </>
   );
-};
-
-IngredientsSublist.propTypes = {
-  type: PropTypes.oneOf(['bun', 'sauce', 'main']).isRequired,
-  name: PropTypes.string.isRequired,
 };
 
 export default IngredientsSublist;

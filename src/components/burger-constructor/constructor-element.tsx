@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
-import PropTypes from 'prop-types';
 import {
   DragIcon, ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
@@ -10,16 +9,17 @@ import {
   sortIngredients,
   removeIngredient,
 } from '../../services/reducers/cart/cartSlice';
+import { IIngredient } from '../../types';
 
-const TargetElement = ({ index, children, type }) => {
+const TargetElement: FC<{ index: number, type: string }> = ({ index, children, type }) => {
   const dispatch = useDispatch();
-  const handleIndredientSort = (positionIndex, targetIndex) => {
+  const handleIndredientSort = (positionIndex: number, targetIndex: number) => {
     dispatch(sortIngredients({ positionIndex, targetIndex }));
   };
   const [{ hoveredTarget }, dropTarget] = useDrop({
     accept: 'sortedIngredient',
-    drop({ graggedIndex }) {
-      handleIndredientSort(graggedIndex, index);
+    drop(item: any) {
+      handleIndredientSort(item.graggedIndex, index);
     },
     collect: (monitor) => ({
       hoveredTarget: monitor.isOver(),
@@ -32,17 +32,19 @@ const TargetElement = ({ index, children, type }) => {
   );
 };
 
-const Constructor = ({
-  item, positionIndex, type, isLocked,
+const Constructor: FC<{
+  item: IIngredient, positionIndex: number, position?: 'top' | 'bottom', isLocked: boolean,
+}> = ({
+  item, positionIndex, position, isLocked,
 }) => {
   const text = item.type !== 'bun'
     ? item.name
-    : type === 'top'
+    : position === 'top'
       ? `${item.name} (верх)`
       : `${item.name} (низ)`;
 
   // eslint-disable-next-line no-shadow
-  const DraggableElement = ({ item }) => {
+  const DraggableElement: FC<{item: IIngredient}> = ({ item }) => {
     const dispatch = useDispatch();
     const [{ dragged }, dragRef] = useDrag({
       type: 'sortedIngredient',
@@ -54,12 +56,12 @@ const Constructor = ({
     return (
       <div ref={item.type !== 'bun' ? dragRef : null} className={`${styles.element} ${dragged ? styles.dragged : ''}`}>
         <div className={styles.drag}>
-          { type === 'center'
+          { !position
             && <DragIcon type="primary" />}
         </div>
         <ConstructorElement
           handleClose={() => dispatch(removeIngredient({ positionIndex }))}
-          type={type}
+          type={position}
           isLocked={isLocked}
           text={text}
           price={item.price}
@@ -74,23 +76,6 @@ const Constructor = ({
       <DraggableElement item={item} />
     </TargetElement>
   );
-};
-
-Constructor.propTypes = {
-  item: PropTypes.shape({
-    type: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-  }).isRequired,
-  positionIndex: PropTypes.number,
-  type: PropTypes.string.isRequired,
-  isLocked: PropTypes.bool.isRequired,
-};
-TargetElement.propTypes = {
-  index: PropTypes.number,
-  children: PropTypes.node.isRequired,
-  type: PropTypes.oneOf(['bun', 'sauce', 'main']).isRequired,
 };
 
 export default Constructor;

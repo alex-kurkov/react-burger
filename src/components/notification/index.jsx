@@ -22,7 +22,7 @@ export const Notification = ({ children, onClose, lifeTime = 3000 }) => {
       window.removeEventListener('keydown', closeByEscape);
       window.removeEventListener('click', onClose);
     };
-  }, [onClose]);
+  }, [onClose, lifeTime]);
 
   useEffect(() => {
     const leaveId = setTimeout(() => setLeave(true), lifeTime - 1000);
@@ -31,7 +31,7 @@ export const Notification = ({ children, onClose, lifeTime = 3000 }) => {
       clearTimeout(leaveId);
       clearTimeout(fadeId);
     };
-  }, []);
+  }, [lifeTime, onClose]);
 
   return ReactDOM.createPortal(
     (

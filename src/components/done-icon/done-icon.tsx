@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import {
   CheckMarkIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './done-icon.module.css';
 
-const DoneIcon = ({ onClose }) => (
+const DoneIcon: FC<{ onClose?: () => void }> = ({ onClose }) => (
   <div className={`${styles.done} mb-5`} onClick={onClose}>
     <CheckMarkIcon type="primary" />
     <div className={`${styles.vector_1} ${styles.vector}`}>
@@ -14,7 +14,5 @@ const DoneIcon = ({ onClose }) => (
     </div>
   </div>
 );
-DoneIcon.propTypes = {
-  onClose: PropTypes.func.isRequired,
-};
+
 export default DoneIcon;

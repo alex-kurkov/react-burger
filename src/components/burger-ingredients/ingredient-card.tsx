@@ -1,17 +1,18 @@
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
-import PropTypes from 'prop-types';
 import {
   Counter, CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './ingredient-card.module.css';
+import { IIngredient, IStore } from '../../types';
 
-const IngredientCard = ({ item }) => {
+const IngredientCard: FC<{ item: IIngredient }> = ({ item }) => {
   const location = useLocation();
   const { name, price, image } = item;
-  const { chosenIngredients, chosenBun } = useSelector((store) => store.cart);
-  const count = item.type !== 'bun'
+  const { chosenIngredients, chosenBun } = useSelector((store: IStore) => store.cart);
+  const count: number = item.type !== 'bun'
     ? chosenIngredients.filter((i) => i._id === item._id).length
     : chosenBun._id === item._id
       ? 1
@@ -45,17 +46,3 @@ const IngredientCard = ({ item }) => {
 };
 
 export default IngredientCard;
-
-IngredientCard.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    image: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-  }).isRequired,
-};

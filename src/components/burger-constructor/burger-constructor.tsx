@@ -66,8 +66,9 @@ const BurgerConstructor: FC = () => {
         <ul data-cy="bun-container" className={`${styles.bunContainer}`}>
           {chosenBun.name && (
             <ConstructorElement
+              positionIndex={-1}
               item={chosenBun}
-              type="top"
+              position="top"
               isLocked
               key={chosenBun._id}
               data-cy="chosen-bun"
@@ -80,7 +81,6 @@ const BurgerConstructor: FC = () => {
               .map((item: IIngredient, index: number) => (
                 <ConstructorElement
                   key={`${item._id}-${index}`}
-                  type="center"
                   item={item}
                   isLocked={false}
                   positionIndex={index}
@@ -92,8 +92,9 @@ const BurgerConstructor: FC = () => {
         <ul className={styles.bunContainer}>
           {chosenBun.name && (
             <ConstructorElement
+              positionIndex={-1}
               item={chosenBun}
-              type="bottom"
+              position="bottom"
               isLocked
               key={chosenBun._id}
             />

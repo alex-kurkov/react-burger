@@ -1,12 +1,14 @@
 /* eslint-disable camelcase */
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
+import { IStore, TNutrients } from '../../types';
 
-export const IngredientDetails = () => {
-  const { ingredientId } = useParams();
-  const { ingredients } = useSelector((store) => store.content);
+export const IngredientDetails: FC = () => {
+  const { ingredientId } = useParams<{ingredientId?: string}>();
+  const { ingredients } = useSelector((store: IStore) => store.content);
   const activeIngredient = ingredients.find((i) => i._id === ingredientId);
   const history = useHistory();
 
@@ -29,7 +31,7 @@ export const IngredientDetails = () => {
     name, proteins, fat, carbohydrates, calories, image_large, description = 'описание ингредиента, которого пока что еще нет',
   } = activeIngredient;
 
-  const nutrients = [
+  const nutrients: TNutrients = [
     {
       id: 'calories',
       name: 'Калории, ккал',
