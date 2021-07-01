@@ -11,7 +11,7 @@ describe('burger constructor works correctly', () => {
     cy.getByDataCy('main-container')
       .children()
       .eq(index)
-      .find('[data-cy=action-icon] > svg')
+      .find('.constructor-element__action')
       .click();
   };
 
@@ -51,7 +51,7 @@ describe('burger constructor works correctly', () => {
     cy.getByDataCy('main-container').children().should(($children) => {
       expect($children).to.have.length(1);
     });
-    cy.getByDataCy('bun-container').find('[data-cy=action-icon] > svg').click();
+    cy.getByDataCy('bun-container').find('.constructor-element__action').click();
     cy.getByDataCy('bun-container').children().should(($children) => {
       expect($children).to.have.length(1);
     });

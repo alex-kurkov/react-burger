@@ -24,7 +24,7 @@ const Modal = ({ title = '', onClose, children = null }) => {
   return ReactDOM.createPortal(
     (
       <div data-cy="modal-overlay" onClick={(handleOverlayClick)} className={styles.overlay}>
-        <div className={`${styles.modal} p-5`} data-cy="modal">
+        <div className={`${styles.modal} p-5 pb-10`} data-cy="modal">
           <div className={`${styles.title_icon_wrap}`}>
             <h3 className="text text_type_main-large mr-4">{title}</h3>
             <CloseIcon type="primary" onClick={onClose} data-cy="modal-closeBtn" />
