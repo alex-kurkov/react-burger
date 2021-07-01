@@ -1,69 +1,21 @@
 .element {
-  width: 95%;
   box-sizing: content-box;
-  height: 80px;
-  display: flex;
+  position: relative;
 }
 
-.content {
-  padding: 20px 35px;
-  box-sizing: border-box;
-  height: 80px;
-  background: var(--background);
-  display: grid;
+.element.constructor-element {
   width: 100%;
-  grid-template-columns: 1fr 7fr 2fr 1fr;
-  gap: 20px;
+  display: block !important;
 }
+
 .drag {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: -32px;
+  transform: translateY(-16px);
   width: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.position_top {
-  max-width: calc((100% - 8px) *0.95);
-}
-
-.position_bottom {
-  max-width: calc((100% - 8px) * 0.95);
-}
-.position_center {
-  border-radius: 40px;
-}
-.border_style_top {
-  border-radius: var(--top-constructor-item-border-radius);
-}
-.border_style_bottom {
-  border-radius: var(--bottom-constructor-item-border-radius);
-}
-.border_style_center {
-  border-radius: 40px;
-}
-
-.image {
-  width: 40px;
-  height: 40px;
-}
-
-.text {
-  width: 230px;
-  display: inline-flex;
-  align-items: center;
-  line-height: 24px;
-  text-align: left;
-}
-
-.price {
-  width: 60px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.price svg {
-  margin-left: 8px;
+  height: 32px;
 }
 
 .action {
@@ -73,7 +25,6 @@
 }
 
 .listItem {
-  max-height: 80px;
   list-style-type: none;
   padding: 0;
   scroll-snap-align: start;
@@ -81,6 +32,7 @@
 .listItem:last-of-type {
   margin-bottom: 0;
 }
+
 .hovered {
   background: linear-gradient(to bottom, transparent 0%, rgba(76, 76, 255, 0.2) 10%, transparent 50%);
   padding-top: 40px;

@@ -1,16 +1,19 @@
+import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientBorderedImage } from '../ingredient-bordered-image';
-import { orders } from '../../utils/hardcoded-data';
-import { COMPLETED } from '../../utils/constants';
-import { orderDateAgoToString, countIngredients } from '../../utils/helpers';
+import {
+  orderDateAgoToString, countIngredients, populateIngredients, countCost, getStatus,
+} from '../../utils/helpers';
 import styles from './styles.module.css';
 
-export const OrderDetails = () => {
+export const OrderDetails = ({ sourceArray }) => {
   const { orderId } = useParams();
   const history = useHistory();
+  const { ingredients } = useSelector((state) => state.content);
 
-  const foundOrder = orders.find((i) => i._id === orderId);
+  const foundOrder = sourceArray.find((i) => i._id === orderId);
   if (!foundOrder) {
     return (
       <div className={styles.notFound}>
@@ -26,19 +29,27 @@ export const OrderDetails = () => {
     );
   }
 
-  const { status, order, name } = foundOrder;
-  const date = orderDateAgoToString(order.orderedAt);
-  const countedIngredients = countIngredients(order.ingredients);
+  const {
+    status, number, name, createdAt,
+  } = foundOrder;
+  const statusContent = getStatus(status);
+  const date = orderDateAgoToString(createdAt);
+  const populatedIngredients = populateIngredients(foundOrder.ingredients, ingredients);
+  const countedIngredients = countIngredients(populatedIngredients);
+  const cost = countCost(populatedIngredients);
 
   return (
     <section className={styles.section}>
       <p className={`${styles.number} text text_type_digits-default`}>
         #
-        {order.number}
+        {number}
       </p>
       <h4 className="text text_type_main-large mb-3 mt-10">{name}</h4>
-      <p className={`${styles.status} text text_type_main-medium mb-15`}>
-        {status === COMPLETED ? 'Выполнен' : 'Готовится'}
+      <p
+        className={`${styles.status} text text_type_main-medium mb-15`}
+        color={statusContent.color}
+      >
+        {statusContent.text}
       </p>
       <p className="text text_type_main-large mb-6">Состав:</p>
       <ul className={`${styles.ingredients} mb-10`}>
@@ -64,10 +75,21 @@ export const OrderDetails = () => {
       <div className={styles.timeAndTotalWrap}>
         <p className="text text_type_main-default text_color_inactive">{date}</p>
         <div className={styles.cost}>
-          <span className="text text_type_digits-default">{order.cost}</span>
+          <span className="text text_type_digits-default">{cost}</span>
           <CurrencyIcon />
         </div>
       </div>
     </section>
   );
+};
+
+OrderDetails.propTypes = {
+  sourceArray: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    number: PropTypes.number,
+    createdAt: PropTypes.string,
+    ingredients: PropTypes.arrayOf(PropTypes.string),
+    status: PropTypes.string,
+  })).isRequired,
 };

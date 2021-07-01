@@ -20,8 +20,14 @@
 .number {
   text-align: center;
 }
-.status {
+.status[color='red'] {
+  color: var(--colors-interface-error);
+}
+.status[color='green'] {
   color: var(--colors-interface-success);
+}
+.status[color='white'] {
+  color: var(--text-primary-color);
 }
 .ingredients {
   box-sizing: border-box;

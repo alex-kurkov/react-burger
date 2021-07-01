@@ -1,33 +1,42 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './styles.module.css';
-import { orderDateAgoToString } from '../../utils/helpers';
 import { IngredientBorderedImage } from '../ingredient-bordered-image';
+import {
+  orderDateAgoToString, countCost, populateIngredients, getStatus,
+} from '../../utils/helpers';
+import styles from './styles.module.css';
 
 export const OrderCard = ({ data }) => {
   const match = useRouteMatch();
-  const {
-    number, cost, orderedAt, ingredients,
-  } = data.order;
-  const date = orderDateAgoToString(orderedAt);
   const location = useLocation();
-  const visibleIngredients = ingredients.slice(0, 5).reverse();
-  const hiddenIngredients = ingredients.slice(5);
+  const { content } = useSelector((state) => state);
+  const {
+    number, createdAt, ingredients, name, status,
+  } = data;
+  const date = orderDateAgoToString(createdAt);
+  const statusContent = getStatus(status);
+
+  const populatedIngredients = populateIngredients(ingredients, content.ingredients);
+  const visibleIngredients = populatedIngredients.slice(0, 5).reverse();
+  const hiddenIngredients = populatedIngredients.slice(5);
+  const cost = countCost(populatedIngredients);
 
   return (
     <article className={`${styles.card} p-6`}>
       <Link data-cy="order-card" className={styles.link} to={{ pathname: `${match.url}/${data._id}`, state: { modalViewLocation: location } }}>
-        <div className={`${styles.cardInfo} mb-6`}>
+        <div className={`${styles.cardInfo} mb-5`}>
           <span className="text text_type_digits-default">
             #
             {number}
           </span>
           <span className="text text_type_main-default text_color_inactive">{date}</span>
         </div>
-        <div className={`${styles.cardName} text text_type_main-large mb-6`}>
-          { data.name }
+        <div className={`${styles.cardName} text text_type_main-large`}>
+          { name }
         </div>
+        <p className={`${styles.cardStatus} text text_type_main-small mb-4`} color={statusContent.color}>{statusContent.text}</p>
         <div className={`${styles.cardOrderInfo} p-6`}>
           <ul className={styles.ingredients}>
             { !!hiddenIngredients.length
@@ -63,11 +72,9 @@ OrderCard.propTypes = {
   data: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
-    order: PropTypes.shape({
-      number: PropTypes.number,
-      cost: PropTypes.number,
-      orderedAt: PropTypes.shape({}),
-      ingredients: PropTypes.arrayOf(PropTypes.shape({})),
-    }),
-  }),
+    number: PropTypes.number,
+    createdAt: PropTypes.string,
+    ingredients: PropTypes.arrayOf(PropTypes.string),
+    status: PropTypes.string,
+  }).isRequired,
 };

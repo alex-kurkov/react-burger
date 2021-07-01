@@ -7,6 +7,10 @@ export const contentSlice = createSlice({
     hasError: false,
     errors: [],
     currentError: null,
+    orders: [],
+    socketConnected: false,
+    total: null,
+    totalToday: null,
   },
   reducers: {
     setIngredients: (state, action) => {
@@ -21,11 +25,32 @@ export const contentSlice = createSlice({
       state.hasError = false;
       state.currentError = null;
     },
+    openSocket: (state) => {
+      state.socketConnected = true;
+    },
+    closeSocket: (state) => {
+      state.socketConnected = false;
+    },
+    setSocketError: (state, action) => {
+      state.socketConnected = false;
+      state.currentError = action.payload;
+    },
+    getSocketMessage: (state, action) => {
+      state.orders = action.payload.orders;
+      state.total = action.payload.total;
+      state.totalToday = action.payload.totalToday;
+    },
   },
 });
 
 export const {
-  setIngredients, setCurrentError, resetCurrentError,
+  setIngredients,
+  setCurrentError,
+  resetCurrentError,
+  openSocket,
+  closeSocket,
+  setSocketError,
+  getSocketMessage,
 } = contentSlice.actions;
 
 export default contentSlice.reducer;

@@ -1,14 +1,16 @@
+import { useSelector } from 'react-redux';
 import styles from './styles.module.css';
-import { orders } from '../../utils/hardcoded-data';
-import { COMPLETED, IN_PROGRESS } from '../../utils/constants';
+import { DONE, PENDING } from '../../utils/constants';
 
 export const OrderInfo = () => {
-  const readyOrders = orders.filter((i) => i.status === COMPLETED);
-  const preparingOrders = orders.filter((i) => i.status === IN_PROGRESS);
-  const hardCodedOrderCount = (n) => Number(n).toLocaleString();
+  const { orders, total, totalToday } = useSelector((state) => state.content);
+
+  const readyOrders = orders.filter((i) => i.status === DONE);
+  const preparingOrders = orders.filter((i) => i.status === PENDING);
+  const localizedNumber = (n) => Number(n).toLocaleString();
 
   return (
-    <section className={styles.section}>
+    <>
       <div className={`${styles.ordersIds} mb-15`}>
         <div className={styles.idsBlock}>
           <p className="text text_type_main-medium">Готовы:</p>
@@ -16,9 +18,9 @@ export const OrderInfo = () => {
             {readyOrders.map((item) => (
               <li
                 className={`${styles.ready} ${styles.listItem} text text_type_digits-default`}
-                key={item.order.number}
+                key={item._id}
               >
-                {item.order.number}
+                {item.number}
               </li>
             ))}
           </ul>
@@ -26,19 +28,18 @@ export const OrderInfo = () => {
         <div className={styles.idsBlock}>
           <p className="text text_type_main-medium">В работе:</p>
           <ul className={styles.list}>
-            {preparingOrders.map((item) => (<li className={`${styles.listItem} text text_type_digits-default`} key={item.order.number}>{item.order.number}</li>))}
+            {preparingOrders.map((item) => (<li className={`${styles.listItem} text text_type_digits-default`} key={item._id}>{item.number}</li>))}
           </ul>
         </div>
       </div>
       <div className="mb-15">
         <p className="text text_type_main-medium">Выполнено за все время:</p>
-        <span className="text text_type_digits-large">{hardCodedOrderCount(43588)}</span>
+        <span className="text text_type_digits-large">{localizedNumber(total)}</span>
       </div>
       <div className="mb-15">
         <p className="text text_type_main-medium">Выполнено за сегодня:</p>
-        <span className="text text_type_digits-large">{hardCodedOrderCount(2349)}</span>
+        <span className="text text_type_digits-large">{localizedNumber(totalToday)}</span>
       </div>
-
-    </section>
+    </>
   );
 };

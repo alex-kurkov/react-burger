@@ -2304,7 +2304,7 @@
   "resolved" "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   "version" "4.2.2"
 
-"@ya.praktikum/react-developer-burger-ui-components@^1.4.2":
+"@ya.praktikum/react-developer-burger-ui-components@^1.5.0":
   "integrity" "sha512-JyipfMa1UTNFv7dQg9j3fUfI8nFUjx7OjPRG73aV5ktkuX7xdePnocwQbTSSzAzHK5+zbPT8/l0gB1gCxv191w=="
   "resolved" "https://registry.npmjs.org/@ya.praktikum/react-developer-burger-ui-components/-/react-developer-burger-ui-components-1.5.0.tgz"
   "version" "1.5.0"

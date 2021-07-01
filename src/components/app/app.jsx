@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   useLocation, useHistory, Switch, Route,
 } from 'react-router-dom';
-import { Header } from '../header';
 import { getIngredients, getUser } from '../../services/actions/auth';
+import { resetCurrentError } from '../../services/reducers/content/contentSlice';
 import { Loader } from '../loader';
 import { ProtectedRoute } from '../protected-route';
+import { Header } from '../header';
 import { FeedOrderDetailsModal } from '../feed-order-detail-modal';
 import { IngredientDetailsModal } from '../ingredient-details-modal';
-import { resetCurrentError } from '../../services/reducers/content/contentSlice';
 import { Notification } from '../notification';
 
 import {
@@ -35,7 +35,9 @@ const App = () => {
 
   let modalViewLocation;
   if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
-  const { ingredients, hasError, currentError } = useSelector((store) => store.content);
+  const {
+    ingredients, hasError, currentError,
+  } = useSelector((store) => store.content);
   const { apiRequestInProgress } = useSelector((store) => store.api);
 
   useEffect(() => {
@@ -58,7 +60,7 @@ const App = () => {
         <>
           <Route path="/ingredients/:ingredientId" render={() => <IngredientDetailsModal />} />
           <Route path="/feed/:orderId" render={() => <FeedOrderDetailsModal />} />
-          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal />} />
+          <Route path="/profile/orders/:orderId" render={() => <FeedOrderDetailsModal searchUserOrders />} />
         </>
         )}
       <Header />

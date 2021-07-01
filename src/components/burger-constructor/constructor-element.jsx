@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
 import {
-  CurrencyIcon, CloseIcon, LockIcon, DragIcon,
+  DragIcon, ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './constructor-element.module.css';
 import {
@@ -31,18 +32,9 @@ const TargetElement = ({ index, children, type }) => {
   );
 };
 
-const ConstructorElement = ({
+const Constructor = ({
   item, positionIndex, type, isLocked,
 }) => {
-  const dispatch = useDispatch();
-  const positionStyle = styles[`position_${type}`];
-  const positionBorderStyle = styles[`border_style_${type}`];
-  const action = isLocked ? (
-    <LockIcon type="primary" />
-  ) : (
-    <CloseIcon type="primary" onClick={() => dispatch(removeIngredient({ positionIndex }))} />
-  );
-
   const text = item.type !== 'bun'
     ? item.name
     : type === 'top'
@@ -51,6 +43,7 @@ const ConstructorElement = ({
 
   // eslint-disable-next-line no-shadow
   const DraggableElement = ({ item }) => {
+    const dispatch = useDispatch();
     const [{ dragged }, dragRef] = useDrag({
       type: 'sortedIngredient',
       item: { graggedIndex: positionIndex },
@@ -59,20 +52,19 @@ const ConstructorElement = ({
       }),
     });
     return (
-      <div ref={item.type !== 'bun' ? dragRef : null} className={`${styles.element} ${positionStyle} ${dragged ? styles.dragged : ''}`}>
+      <div ref={item.type !== 'bun' ? dragRef : null} className={`${styles.element} ${dragged ? styles.dragged : ''}`}>
         <div className={styles.drag}>
           { type === 'center'
             && <DragIcon type="primary" />}
         </div>
-        <div className={`${styles.content} ${positionBorderStyle}`}>
-          <img className={styles.image} src={item.image} alt={item.name} />
-          <span className={`${styles.text} text`}>{text}</span>
-          <span className={styles.price}>
-            {item.price}
-            <CurrencyIcon type="primary" />
-          </span>
-          <span data-cy="action-icon" className={styles.action}>{action}</span>
-        </div>
+        <ConstructorElement
+          handleClose={() => dispatch(removeIngredient({ positionIndex }))}
+          type={type}
+          isLocked={isLocked}
+          text={text}
+          price={item.price}
+          thumbnail={item.image}
+        />
       </div>
     );
   };
@@ -84,21 +76,21 @@ const ConstructorElement = ({
   );
 };
 
-ConstructorElement.propTypes = {
+Constructor.propTypes = {
   item: PropTypes.shape({
     type: PropTypes.string,
     name: PropTypes.string,
     image: PropTypes.string,
     price: PropTypes.number,
-  }),
+  }).isRequired,
   positionIndex: PropTypes.number,
-  type: PropTypes.string,
-  isLocked: PropTypes.bool,
+  type: PropTypes.string.isRequired,
+  isLocked: PropTypes.bool.isRequired,
 };
 TargetElement.propTypes = {
   index: PropTypes.number,
-  children: PropTypes.node,
-  type: PropTypes.oneOf(['bun', 'sauce', 'main']),
+  children: PropTypes.node.isRequired,
+  type: PropTypes.oneOf(['bun', 'sauce', 'main']).isRequired,
 };
 
-export default ConstructorElement;
+export default Constructor;

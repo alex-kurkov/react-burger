@@ -9,14 +9,36 @@
   flex-wrap: nowrap;
 }
 .idsBlock {
+  flex-basis: 50%;
   width: 50%;
 }
 .list {
   padding: 0;
   list-style-type: none;
+  max-height: 260px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  column-gap: 24px;
+  row-gap: 0;
+}
+.list::-webkit-scrollbar {
+  height: 12px;
+}
+.list::-webkit-scrollbar-track {
+  background: var(--background-element);
+  border-radius: 6px;
+}
+.list::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid var(--background-element);
+  border-radius: 6px;
 }
 .listItem {
   letter-spacing: 4px;
+  display: inline;
 }
 .ready {
   color: var(--colors-interface-success);

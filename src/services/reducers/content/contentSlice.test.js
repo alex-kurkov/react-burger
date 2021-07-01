@@ -5,6 +5,10 @@ const state = {
   hasError: false,
   errors: [],
   currentError: null,
+  orders: [],
+  socketConnected: false,
+  total: null,
+  totalToday: null,
 };
 const mockIngredients = [1, 3, 'eded', undefined];
 const mockError = 'some critical error';

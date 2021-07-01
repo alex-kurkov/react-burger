@@ -44,7 +44,7 @@ export const Notification = ({ children, onClose, lifeTime = 3000 }) => {
 };
 
 Notification.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
   lifeTime: PropTypes.number,
 };
