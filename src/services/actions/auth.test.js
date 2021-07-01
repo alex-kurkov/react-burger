@@ -120,7 +120,7 @@ describe('Test FAILED async auth thunks action creators', () => {
       });
       const expectedActions = [
         { type: 'api/startRequest', payload: undefined },
-        { type: 'content/setCurrentError', payload: `${mockData.error}${undefined}` },
+        { type: 'content/setCurrentError', payload: undefined },
         { type: 'api/finishRequest', payload: undefined },
       ];
       const store = mockStore({});

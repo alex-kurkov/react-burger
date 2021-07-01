@@ -22,3 +22,10 @@ form .input__container {
 form .input_size_default {
   width: 100%;
 }
+
+.constructor-element {
+  width: 100%;
+}
+.constructor-element__text {
+  flex-basis: 70%;
+}
