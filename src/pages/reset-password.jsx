@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { setResetFormValue } from '../services/reducers/form/formSlice';
 import { confirmPasswordReset } from '../services/actions/auth';
-import { AuthForm } from '../components/auth-form';
+import { AuthForm } from '../components/auth-form/index.tsx';
 
 export const ResetPasswordPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);

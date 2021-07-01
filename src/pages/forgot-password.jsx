@@ -3,7 +3,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import { setForgotFormValue } from '../services/reducers/form/formSlice';
 import { resetPassword } from '../services/actions/auth';
-import { AuthForm } from '../components/auth-form';
+import { AuthForm } from '../components/auth-form/index.tsx';
 
 export const ForgotPasswordPage = () => {
   const { email } = useSelector((state) => state.form.forgot);

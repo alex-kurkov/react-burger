@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { setLoginFormValue } from '../services/reducers/form/formSlice';
 import { login } from '../services/actions/auth';
-import { AuthForm } from '../components/auth-form';
+import { AuthForm } from '../components/auth-form/index.tsx';
 
 export const LoginPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);

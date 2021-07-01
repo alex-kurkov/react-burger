@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styles from './styles.module.css';
 
-export const AuthForm = ({ title, children }) => (
+export const AuthForm: FC< { title?: string } > = ({ title, children }) => (
   <main className={styles.main}>
     <div className={styles.wrapper}>
       <h2 className={`${styles.heading} mb-6`}>{title}</h2>
@@ -11,8 +11,3 @@ export const AuthForm = ({ title, children }) => (
     </div>
   </main>
 );
-
-AuthForm.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string,
-};

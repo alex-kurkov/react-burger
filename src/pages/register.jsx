@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { setRegisterFormValue } from '../services/reducers/form/formSlice';
 import { register } from '../services/actions/auth';
-import { AuthForm } from '../components/auth-form';
+import { AuthForm } from '../components/auth-form/index.tsx';
 
 export const RegisterPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
