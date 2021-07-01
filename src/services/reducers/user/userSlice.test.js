@@ -6,6 +6,10 @@ const state = {
   email: '',
   loggedIn: false,
   name: '',
+  userOrders: [],
+  socketConnected: false,
+  total: null,
+  totalToday: null,
 };
 
 const mockData = {
