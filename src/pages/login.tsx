@@ -21,11 +21,8 @@ export const LoginPage: FC = () => {
     );
   }
 
-  const onFormSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch(login({ email, password }));
-  };
+  const onFormSubmit = () => dispatch(login({ email, password }));
+
   const onFormChange = (e: SyntheticEvent) => {
     let target = e.target as HTMLInputElement;
     const { name, value } = target;

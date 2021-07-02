@@ -29,10 +29,7 @@ export const ResetPasswordPage: FC = () => {
   }
   if (!passwordReset && !loggedIn) return (<Redirect to="/forgot-password" />);
 
-  const onFormSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    dispatch(confirmPasswordReset({ password, token: code }));
-  };
+  const onFormSubmit = () => dispatch(confirmPasswordReset({ password, token: code }));
 
   const onFormChange = (e: SyntheticEvent) => {
     let target = e.target as HTMLInputElement;
@@ -71,9 +68,11 @@ export const ResetPasswordPage: FC = () => {
         error={false}
         errorText=""
       />
-      <Button type="primary" size="large">
-        <span onClick={onFormSubmit}>Сохранить</span>
-      </Button>
+      <div onClick={onFormSubmit}>
+        <Button type="primary" size="large">
+          Сохранить
+        </Button>
+      </div>
       <LoginLink />
     </AuthForm>
   );

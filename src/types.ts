@@ -1,4 +1,5 @@
 export type TBunType = 'bun' | 'sauce' | 'main';
+export type TProfileInputs = 'name' | 'email' | 'password';
 
 export type TTabs = Array<{
   name: string;

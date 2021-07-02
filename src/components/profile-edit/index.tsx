@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { modifyUser } from '../../services/actions/auth';
 import styles from './styles.module.css';
-import { IStore } from '../../types';
+import { IStore, TProfileInputs } from '../../types';
 
 export const ProfileEdit: FC = () => {
   const dispatch = useDispatch();
@@ -22,10 +22,10 @@ export const ProfileEdit: FC = () => {
   const onFormChange = (e: SyntheticEvent<HTMLInputElement>) => {
     let target = e.target as HTMLInputElement;
     const { name, value } = target;
-    if (name && value ) setValues({ ...values, name: value });
+    if (name && value ) setValues({ ...values, [name]: value });
   };
 
-  const toggleInputDisability = (field: 'name' | 'email' | 'password') => {
+  const toggleInputDisability = (field: TProfileInputs) => {
     setDisabled({ ...disabled, [field]: !disabled[field] });
   };
 
@@ -41,9 +41,10 @@ export const ProfileEdit: FC = () => {
       password: true,
     });
   };
-  const onFormSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    const data = {name: '', email: '', password: ''};
+  const onFormSubmit = () => {
+    const data: {
+      name?: string, email?: string, password?: string
+    } = {};
     if (values.name && values.name !== name) data.name = values.name;
     if (values.email && values.email !== email) data.email = values.email;
     if (values.password) data.password = values.password;
@@ -51,7 +52,7 @@ export const ProfileEdit: FC = () => {
   };
 
   return (
-    <form className={styles.form}>
+    <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
       <Input
         disabled={disabled.name}
         type="text"
@@ -64,6 +65,7 @@ export const ProfileEdit: FC = () => {
         onIconClick={() => toggleInputDisability('name')}
         errorText="Ошибка"
         size="default"
+        onBlur={() => toggleInputDisability('name')}
       />
       <Input
         disabled={disabled.email}
@@ -77,6 +79,7 @@ export const ProfileEdit: FC = () => {
         onIconClick={() => toggleInputDisability('email')}
         errorText="Ошибка"
         size="default"
+        onBlur={() => toggleInputDisability('email')}
       />
       <Input
         disabled={disabled.password}
@@ -90,6 +93,7 @@ export const ProfileEdit: FC = () => {
         onIconClick={() => toggleInputDisability('password')}
         errorText="Ошибка"
         size="default"
+        onBlur={() => toggleInputDisability('password')}
       />
       <div className={styles.buttonsWrap}>
         <Button type="secondary" size="large" onClick={resetForm}>

@@ -16,10 +16,7 @@ export const ForgotPasswordPage: FC = () => {
   
   const { from } = location.state || { from: { pathname: '/' } };
 
-  const onFormSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    dispatch(resetPassword({ email }));
-  };
+  const onFormSubmit = () => dispatch(resetPassword({ email }));
 
   if (passwordReset) {
     return (

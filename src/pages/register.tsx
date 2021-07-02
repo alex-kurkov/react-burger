@@ -21,10 +21,8 @@ export const RegisterPage: FC = () => {
     );
   }
 
-  const onFormSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
-    dispatch(register({ name, email, password }));
-  };
+  const onFormSubmit = () => dispatch(register({ name, email, password }));
+
   const onFormChange = (e: SyntheticEvent) => {
     let target = e.target as HTMLInputElement;
     const { name, value } = target;
