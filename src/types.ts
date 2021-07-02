@@ -25,7 +25,9 @@ export interface IIngredient {
   image_large: string;
   description?: string;
   __v: number;
-  count?: number;
+}
+export interface IIngredientWithCount extends IIngredient {
+  count: number;
 }
 
 export interface IOrder {
@@ -36,7 +38,7 @@ export interface IOrder {
   price?: number;
   _id: string;
   status: string;
-  ingredients?: Array<IIngredient>;
+  ingredients: Array<string> | Array<IIngredient>;
   owner?: {
     name: string;
     email: string;

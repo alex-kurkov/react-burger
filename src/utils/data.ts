@@ -1,4 +1,6 @@
-export const templateIngredient = {
+import { IIngredient } from "../types";
+
+export const templateIngredient: IIngredient = {
   _id: '60666c42ccaa410027a1a9bf',
   name: 'UNKNOWN INGREDIENT',
   type: 'main',

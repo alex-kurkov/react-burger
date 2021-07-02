@@ -7,7 +7,7 @@ import {
   orderDateAgoToString, countIngredients, populateIngredients, countCost, getStatus,
 } from '../../utils/helpers';
 import styles from './styles.module.css';
-import { IIngredient, IOrder, IStore, TOrderStatus } from '../../types';
+import { IIngredient, IOrder, IStore, TOrderStatus, IIngredientWithCount } from '../../types';
 
 export const OrderDetails: FC<{sourceArray: Array<IOrder>}> = ({ sourceArray }) => {
   const { orderId } = useParams<{ orderId?: string }>();
@@ -36,7 +36,7 @@ export const OrderDetails: FC<{sourceArray: Array<IOrder>}> = ({ sourceArray }) 
   const statusContent: TOrderStatus = getStatus(status);
   const date: string = orderDateAgoToString(createdAt);
   const populatedIngredients: IIngredient[] = populateIngredients(foundOrder.ingredients, ingredients);
-  const countedIngredients: IIngredient[] = countIngredients(populatedIngredients);
+  const countedIngredients: IIngredientWithCount[] = countIngredients(populatedIngredients);
   const cost: number = countCost(populatedIngredients);
 
   return (
@@ -54,8 +54,8 @@ export const OrderDetails: FC<{sourceArray: Array<IOrder>}> = ({ sourceArray }) 
       </p>
       <p className="text text_type_main-large mb-6">Состав:</p>
       <ul className={`${styles.ingredients} mb-10`}>
-        { countedIngredients.map((item: IIngredient) => (
-          <li key={`${item._id}`} className={styles.listItem}>
+        { countedIngredients.map((item, idx) => (
+          <li key={`${item._id}${idx}`} className={styles.listItem}>
             <article className={styles.card}>
               <IngredientBorderedImage item={item} />
               <p className={`${styles.gridCenteredItem} text text_type_main-small`}>{item.name}</p>

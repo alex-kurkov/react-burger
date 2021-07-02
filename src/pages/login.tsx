@@ -23,6 +23,7 @@ export const LoginPage: FC = () => {
 
   const onFormSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     dispatch(login({ email, password }));
   };
   const onFormChange = (e: SyntheticEvent) => {
