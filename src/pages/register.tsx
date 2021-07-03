@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { setRegisterFormValue } from '../services/reducers/form/formSlice';
 import { register } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form/index';
-import { TLocationState } from '../types';
+import { TLocationTemplate } from '../types';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const RegisterPage: FC = () => {
@@ -12,7 +12,7 @@ export const RegisterPage: FC = () => {
   const { name, email, password } = useAppSelector((state) => state.form.register);
   const { loggedIn } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const location = useLocation<TLocationState>();
+  const location = useLocation<TLocationTemplate>();
 
   if (loggedIn) {
     const { from } = location.state || { from: { pathname: '/' } };

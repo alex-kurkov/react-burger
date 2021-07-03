@@ -6,7 +6,7 @@ import {
 import { setResetFormValue } from '../services/reducers/form/formSlice';
 import { confirmPasswordReset } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form/index';
-import { TLocationState } from '../types';
+import { TLocationTemplate } from '../types';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const ResetPasswordPage: FC = () => {
@@ -14,7 +14,7 @@ export const ResetPasswordPage: FC = () => {
   const { loggedIn, passwordReset, passwordResetSuccess } = useAppSelector((state)=> state.user);
   const { password, code } = useAppSelector((state) => state.form.reset);
   const dispatch = useAppDispatch();
-  const location = useLocation<TLocationState>();
+  const location = useLocation<TLocationTemplate>();
   const history = useHistory();
   const { from } = location.state || { from: { pathname: '/' } };
 

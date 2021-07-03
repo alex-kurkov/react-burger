@@ -1,6 +1,3 @@
-import store from './store';
-export type RootState = ReturnType<typeof store.getState>;
-
 export type TBunType = 'bun' | 'sauce' | 'main';
 export type TProfileInputs = 'name' | 'email' | 'password';
 
@@ -103,20 +100,12 @@ export type TFormState = {
   },
 };
 
-export interface IStore {
-  cart: TCartState;
-  api: TApiState;
-  content: TContentState;
-  user:TUserState;
-  form: TFormState;
-}
-
 export type TOrderStatus = {
   text: string | null;
   color: string | null;
 };
 
-export type TLocationState = {
+export type TLocationTemplate = {
   from: {
     pathname: string;
   };

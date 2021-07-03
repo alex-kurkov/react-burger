@@ -4,7 +4,7 @@ import { Link, Redirect, useLocation } from 'react-router-dom';
 import { setLoginFormValue } from '../services/reducers/form/formSlice';
 import { login } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form/index';
-import { TLocationState } from '../types';
+import { TLocationTemplate } from '../types';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const LoginPage: FC = () => {
@@ -12,7 +12,7 @@ export const LoginPage: FC = () => {
   const { email, password } = useAppSelector((state) => state.form.login);
   const { loggedIn } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const location = useLocation<TLocationState>();
+  const location = useLocation<TLocationTemplate>();
 
   if (loggedIn) {
     const { from } = location.state || { from: { pathname: '/' } };

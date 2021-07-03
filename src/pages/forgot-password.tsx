@@ -4,7 +4,7 @@ import { Link, useLocation, Redirect } from 'react-router-dom';
 import { setForgotFormValue } from '../services/reducers/form/formSlice';
 import { resetPassword } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form/index';
-import { TLocationState } from '../types';
+import { TLocationTemplate } from '../types';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const ForgotPasswordPage: FC = () => {
@@ -12,7 +12,7 @@ export const ForgotPasswordPage: FC = () => {
   const { passwordReset } = useAppSelector((state) => state.user);
   const { loggedIn } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const location = useLocation<TLocationState>();
+  const location = useLocation<TLocationTemplate>();
   
   const { from } = location.state || { from: { pathname: '/' } };
 
