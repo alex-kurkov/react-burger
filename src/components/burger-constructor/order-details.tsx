@@ -11,7 +11,7 @@ const OrderDetails: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <div className="text text_type_digits-large mb-4">{currentOrder.order.number}</div>
+      <div className="text text_type_digits-large mb-4">{currentOrder && currentOrder.order.number}</div>
       <p className="text text_type_main-medium mb-5 pb-2">
         Идентификатор заказа
       </p>

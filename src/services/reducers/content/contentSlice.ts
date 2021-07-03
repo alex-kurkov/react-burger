@@ -1,17 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TContentState } from '../../../types';
+
+const initialState: TContentState = {
+  ingredients: [],
+  hasError: false,
+  errors: [],
+  currentError: null,
+  orders: [],
+  socketConnected: false,
+  total: null,
+  totalToday: null,
+}
 
 export const contentSlice = createSlice({
   name: 'content',
-  initialState: {
-    ingredients: [],
-    hasError: false,
-    errors: [],
-    currentError: null,
-    orders: [],
-    socketConnected: false,
-    total: null,
-    totalToday: null,
-  },
+  initialState,
   reducers: {
     setIngredients: (state, action) => {
       state.ingredients = [...action.payload];

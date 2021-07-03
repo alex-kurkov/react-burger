@@ -60,11 +60,11 @@ const BurgerConstructor: FC = () => {
     <section data-cy="drop-ingredients-target" ref={dropNewIngredientsTarget} className={`${styles.section} ${isHover && styles.hovered}`}>
       <div ref={content} className={`${styles.content} mb-5`}>
         {
-          !chosenIngredients.length && !chosenBun._id
+          !chosenIngredients.length && !chosenBun
           && <p className={`${styles.dragInfo} text text_type_main-medium`}>Перетащите в эту область ингредиенты для Вашего бургера</p>
         }
         <ul data-cy="bun-container" className={`${styles.bunContainer}`}>
-          {chosenBun.name && (
+          {chosenBun && (
             <ConstructorElement
               positionIndex={-1}
               item={chosenBun}
@@ -90,7 +90,7 @@ const BurgerConstructor: FC = () => {
           </ul>
         </div>
         <ul className={styles.bunContainer}>
-          {chosenBun.name && (
+          {chosenBun && (
             <ConstructorElement
               positionIndex={-1}
               item={chosenBun}

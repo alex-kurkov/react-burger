@@ -14,7 +14,7 @@ const IngredientCard: FC<{ item: IIngredient }> = ({ item }) => {
   const { chosenIngredients, chosenBun } = useSelector((store: IStore) => store.cart);
   const count: number = item.type !== 'bun'
     ? chosenIngredients.filter((i) => i._id === item._id).length
-    : chosenBun._id === item._id
+    : (chosenBun && chosenBun._id === item._id)
       ? 1
       : 0;
 

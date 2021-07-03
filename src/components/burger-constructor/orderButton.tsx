@@ -31,13 +31,16 @@ const OrderButton: FC = () => {
     if (!loggedIn) {
       history.replace('/login');
     } else {
-      const ingredientsIds = chosenIngredients.map(({ _id }) => _id).concat(chosenBun._id);
+      const ingredientsIds = [
+        ...chosenIngredients.map(({ _id }) => _id),
+        chosenBun?._id
+      ];
       dispatch(postOrder({ ingredients: ingredientsIds }));
     }
   };
   return (
-    <div data-cy="order-button" className={chosenBun.name && !apiRequestInProgress ? '' : styles.disabled}>
-      { currentOrder.success && modal }
+    <div data-cy="order-button" className={chosenBun && !apiRequestInProgress ? '' : styles.disabled}>
+      { currentOrder && currentOrder.success && modal }
       <Button type="primary" size="large" onClick={placeOrder}>
         Оформить заказ
       </Button>

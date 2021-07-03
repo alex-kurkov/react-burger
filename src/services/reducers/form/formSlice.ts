@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TFormState } from '../../../types';
 
-const initialState = {
+const initialState: TFormState = {
   login: {
     email: '',
     password: '',

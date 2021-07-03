@@ -1,18 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { TUserState } from '../../../types';
+
+const initialState: TUserState = {
+  passwordReset: false,
+  passwordResetSuccess: false,
+  email: '',
+  loggedIn: false,
+  name: '',
+  userOrders: [],
+  socketConnected: false,
+  total: null,
+  totalToday: null,
+};
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    passwordReset: false,
-    passwordResetSuccess: false,
-    email: '',
-    loggedIn: false,
-    name: '',
-    userOrders: [],
-    socketConnected: false,
-    total: null,
-    totalToday: null,
-  },
+  initialState,
   reducers: {
     confirmPasswordResetReducer: (state) => {
       state.passwordReset = false;
@@ -38,9 +41,8 @@ export const userSlice = createSlice({
     closeAuthSocket: (state) => {
       state.socketConnected = false;
     },
-    setAuthSocketError: (state, action) => {
+    setAuthSocketError: (state) => {
       state.socketConnected = false;
-      state.currentError = action.payload;
     },
     getAuthSocketMessage: (state, action) => {
       state.userOrders = action.payload.orders;

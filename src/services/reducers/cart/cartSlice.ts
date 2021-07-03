@@ -1,9 +1,8 @@
+import { TCartState } from '../../../types';
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialState: TCartState = {
   chosenIngredients: [],
-  chosenBun: {},
-  currentOrder: {},
 };
 
 export const cartSlice = createSlice({
@@ -28,7 +27,7 @@ export const cartSlice = createSlice({
     resetCurrentOrder: () => ({ ...initialState }),
     resetIngredients: (state) => {
       state.chosenIngredients = [];
-      state.chosenBun = {};
+      delete state.chosenBun;
     },
     sortIngredients: (state, action) => {
       const ingredientsWithoutSorted = [

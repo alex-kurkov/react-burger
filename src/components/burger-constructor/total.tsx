@@ -11,7 +11,7 @@ const Total: FC = () => {
   useEffect(() => {
     const sum = chosenIngredients
       .reduce((acc: number, item: IIngredient) => acc + item.price, 0);
-    const bunCost = chosenBun._id ? chosenBun.price * 2 : 0;
+    const bunCost = chosenBun ? chosenBun.price * 2 : 0;
     setTotal(sum + bunCost);
   }, [chosenIngredients, chosenBun]);
 

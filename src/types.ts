@@ -4,9 +4,6 @@ export type RootState = ReturnType<typeof store.getState>;
 export type TBunType = 'bun' | 'sauce' | 'main';
 export type TProfileInputs = 'name' | 'email' | 'password';
 
-export type TApiState = {
-  apiRequestInProgress: boolean;
-}
 export type TTabs = Array<{
   name: string;
   type: TBunType;
@@ -54,58 +51,64 @@ export interface IOrder {
   }
 }
 
+export type TApiState = {
+  readonly apiRequestInProgress: boolean;
+};
+export type TCartState = {
+  readonly chosenIngredients: Array<IIngredient>;
+  readonly chosenBun?: IIngredient;
+  readonly currentOrder?: {
+    readonly success: boolean;
+    readonly name: string;
+    readonly order: IOrder;
+  };
+};
+export type TContentState = {
+  readonly ingredients: Array<IIngredient>,
+  readonly hasError: boolean,
+  readonly errors: Array<string>,
+  readonly currentError: string | null,
+  readonly orders: Array<IOrder>,
+  readonly socketConnected: boolean,
+  readonly total: number | null,
+  readonly totalToday: null | number,
+};
+export type TUserState = {
+  readonly passwordReset: boolean;
+  readonly passwordResetSuccess: boolean;
+  readonly email: string;
+  readonly loggedIn: boolean;
+  readonly name: string;
+  readonly userOrders: IOrder[];
+  readonly socketConnected: boolean;
+  readonly total: null | number;
+  readonly totalToday: null | number;
+};
+export type TFormState = {
+  login: {
+    readonly email: string;
+    readonly password: string;
+  },
+  register: {
+    readonly name: string;
+    readonly email: string;
+    readonly password: string;
+  },
+  forgot: {
+    readonly email: string;
+  },
+  reset: {
+    readonly password: string;
+    readonly code: string;
+  },
+};
+
 export interface IStore {
-  cart: {
-    chosenIngredients: Array<IIngredient>;
-    chosenBun: IIngredient;
-    currentOrder: {
-      success: boolean;
-      name: string;
-      order: IOrder;
-    }
-  };
-  api: {
-    apiRequestInProgress: boolean;
-  };
-  content: {
-    ingredients: Array<IIngredient>,
-    hasError: boolean,
-    errors: Array<string>,
-    currentError: string,
-    orders: Array<any>,
-    socketConnected: boolean,
-    total: number | null,
-    totalToday: null | number,
-  };
-  user: {
-    passwordReset: boolean;
-    passwordResetSuccess: boolean;
-    email: string;
-    loggedIn: boolean;
-    name: string;
-    userOrders: IOrder[];
-    socketConnected: boolean;
-    total: null | number;
-    totalToday: null | number;
-  };
-  form: {
-    login: {
-      email: string;
-      password: string;
-    },
-    register: {
-      name: string;
-      email: string;
-      password: string;
-    },
-    forgot: {
-      email: string;
-    },
-    reset: {
-      password: string;
-      code: string;
-    },
-  }
+  cart: TCartState;
+  api: TApiState;
+  content: TContentState;
+  user:TUserState;
+  form: TFormState;
 }
 
 export type TOrderStatus = {
