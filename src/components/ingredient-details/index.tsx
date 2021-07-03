@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-details.module.css';
-import { IStore, TNutrients } from '../../types';
+import { TNutrients } from '../../types';
+import { useAppSelector } from '../../hooks';
 
 export const IngredientDetails: FC = () => {
   const { ingredientId } = useParams<{ingredientId?: string}>();
-  const { ingredients } = useSelector((store: IStore) => store.content);
+  const { ingredients } = useAppSelector((store) => store.content);
   const activeIngredient = ingredients.find((i) => i._id === ingredientId);
   const history = useHistory();
 

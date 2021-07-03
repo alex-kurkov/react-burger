@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState, FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   Tab,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import IngredientsSublist from './ingredients-sublist';
 import { getNearestTab, throttle } from '../../utils/helpers';
 import styles from './burger-ingredients.module.css';
-import { IStore, TTabs } from '../../types';
+import { TTabs } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const tabs: TTabs = [
   {
@@ -26,8 +26,8 @@ const tabs: TTabs = [
 const BurgerIngredients: FC = () => {
   const [currentTab, setCurrentTab] = useState<string>('bun');
 
-  const { ingredients } = useSelector((store: IStore) => store.content);
-  const dispatch = useDispatch();
+  const { ingredients } = useAppSelector((store) => store.content);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const container: HTMLElement | null = document.getElementById('ingredients');

@@ -1,5 +1,4 @@
 import { useEffect, useRef, FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import OrderButton from './orderButton';
 import ConstructorElement from './constructor-element';
@@ -10,11 +9,12 @@ import {
 } from '../../utils/constants';
 import { addBun, addIngredient } from '../../services/reducers/cart/cartSlice';
 import styles from './burger-constructor.module.css';
-import { IIngredient, IStore } from '../../types';
+import { IIngredient } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const BurgerConstructor: FC = () => {
-  const { chosenIngredients, chosenBun } = useSelector((store: IStore) => store.cart);
-  const dispatch = useDispatch();
+  const { chosenIngredients, chosenBun } = useAppSelector((store) => store.cart);
+  const dispatch = useAppDispatch();
   // *********************
   // block to calculate and set height of constructor list parent for neat display
   const content = useRef<HTMLDivElement>(null);

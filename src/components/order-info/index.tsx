@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './styles.module.css';
 import { DONE, PENDING } from '../../utils/constants';
-import { IOrder, IStore } from '../../types';
+import { IOrder } from '../../types';
+import { useAppSelector } from '../../hooks';
 
 export const OrderInfo: FC = () => {
-  const { orders, total, totalToday } = useSelector((state: IStore) => state.content);
+  const { orders, total, totalToday } = useAppSelector((state) => state.content);
 
   const readyOrders: Array<IOrder> = orders.filter((i) => i.status === DONE);
   const preparingOrders: Array<IOrder> = orders.filter((i) => i.status === PENDING);

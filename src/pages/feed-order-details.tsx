@@ -1,14 +1,13 @@
 import { useEffect, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { OrderDetails } from '../components/order-details';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { wsInit } from '../services/actions/ws';
 import { closeSocket } from '../services/reducers/content/contentSlice';
-import { IStore } from '../types';
 import styles from './feed-order-details.module.css';
 
 export const FeedOrderDetailsPage: FC = () => {
-  const dispatch = useDispatch();
-  const { orders } = useSelector((state: IStore) => state.content);
+  const dispatch = useAppDispatch();
+  const { orders } = useAppSelector((state) => state.content);
   
   useEffect(() => {
     dispatch(wsInit());

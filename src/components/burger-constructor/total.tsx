@@ -1,12 +1,12 @@
 import { useState, useEffect, FC } from 'react';
-import { useSelector } from 'react-redux';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './total.module.css';
-import { IIngredient, IStore } from '../../types';
+import { IIngredient } from '../../types';
+import { useAppSelector } from '../../hooks';
 
 const Total: FC = () => {
   const [total, setTotal] = useState<number>(0);
-  const { chosenIngredients, chosenBun } = useSelector((store: IStore) => store.cart);
+  const { chosenIngredients, chosenBun } = useAppSelector((store) => store.cart);
 
   useEffect(() => {
     const sum = chosenIngredients

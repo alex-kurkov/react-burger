@@ -1,13 +1,13 @@
 import { useState, FC, SyntheticEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { modifyUser } from '../../services/actions/auth';
 import styles from './styles.module.css';
-import { IStore, TProfileInputs } from '../../types';
+import { TProfileInputs } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export const ProfileEdit: FC = () => {
-  const dispatch = useDispatch();
-  const { name, email } = useSelector((state: IStore) => state.user);
+  const dispatch = useAppDispatch();
+  const { name, email } = useAppSelector((state) => state.user);
   const [values, setValues] = useState({
     name,
     email,

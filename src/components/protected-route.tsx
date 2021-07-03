@@ -1,14 +1,13 @@
 import { FC, ReactNode } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { IStore } from '../types';
+import { useAppSelector } from '../hooks';
 
 export const ProtectedRoute: FC<{
   path: string;
   exact?: boolean; 
   children: Element | ReactNode;
 }> = ({ path, children, ...rest }) => {
-  const { loggedIn } = useSelector((state: IStore) => state.user);
+  const { loggedIn } = useAppSelector((state) => state.user);
   return (
     <Route
       path={path}

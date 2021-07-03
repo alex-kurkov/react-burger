@@ -1,5 +1,4 @@
 import { useEffect, useState, FC, SyntheticEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
   Link, Redirect, useLocation, useHistory,
@@ -7,13 +6,14 @@ import {
 import { setResetFormValue } from '../services/reducers/form/formSlice';
 import { confirmPasswordReset } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form/index';
-import { IStore, TLocationState } from '../types';
+import { TLocationState } from '../types';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const ResetPasswordPage: FC = () => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const { loggedIn, passwordReset, passwordResetSuccess } = useSelector((state: IStore) => state.user);
-  const { password, code } = useSelector((state: IStore) => state.form.reset);
-  const dispatch = useDispatch();
+  const { loggedIn, passwordReset, passwordResetSuccess } = useAppSelector((state)=> state.user);
+  const { password, code } = useAppSelector((state) => state.form.reset);
+  const dispatch = useAppDispatch();
   const location = useLocation<TLocationState>();
   const history = useHistory();
   const { from } = location.state || { from: { pathname: '/' } };

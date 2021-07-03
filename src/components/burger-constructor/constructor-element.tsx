@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import {
   DragIcon, ConstructorElement,
@@ -10,9 +9,10 @@ import {
   removeIngredient,
 } from '../../services/reducers/cart/cartSlice';
 import { IIngredient } from '../../types';
+import { useAppDispatch } from '../../hooks';
 
 const TargetElement: FC<{ index: number, type: string }> = ({ index, children, type }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleIndredientSort = (positionIndex: number, targetIndex: number) => {
     dispatch(sortIngredients({ positionIndex, targetIndex }));
   };
@@ -45,7 +45,7 @@ const Constructor: FC<{
 
   // eslint-disable-next-line no-shadow
   const DraggableElement: FC<{item: IIngredient}> = ({ item }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [{ dragged }, dragRef] = useDrag({
       type: 'sortedIngredient',
       item: { graggedIndex: positionIndex },

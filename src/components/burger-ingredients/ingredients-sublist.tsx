@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { IStore, TBunType } from '../../types';
+import { useAppSelector } from '../../hooks';
+import { TBunType } from '../../types';
 import IngredientCard from './ingredient-card';
 import styles from './ingredients-sublist.module.css';
 
 const IngredientsSublist: FC<{ type: TBunType, name: string}> = ({ type, name }) => {
-  const { ingredients } = useSelector((store: IStore) => store.content);
+  const { ingredients } = useAppSelector((store) => store.content);
   const ingredientsSublist = ingredients.filter((i) => i.type === type);
 
   return (

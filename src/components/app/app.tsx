@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   useLocation, useHistory, Switch, Route,
 } from 'react-router-dom';
@@ -27,10 +26,10 @@ import {
   IngredientDetailsPage,
 } from '../../pages';
 import styles from './app.module.css';
-import { IStore } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const App = () => {
-  const dispatch: any = useDispatch();
+  const dispatch = useAppDispatch();
   const location: any = useLocation();
   const history: any = useHistory();
 
@@ -38,8 +37,8 @@ const App = () => {
   if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
   const {
     ingredients, hasError, currentError,
-  } = useSelector((store: IStore) => store.content);
-  const { apiRequestInProgress } = useSelector((store: IStore) => store.api);
+  } = useAppSelector((store) => store.content);
+  const { apiRequestInProgress } = useAppSelector((store) => store.api);
 
   useEffect(() => {
     dispatch(getIngredients());

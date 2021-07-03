@@ -1,18 +1,18 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientBorderedImage } from '../ingredient-bordered-image';
 import {
   orderDateAgoToString, countIngredients, populateIngredients, countCost, getStatus,
 } from '../../utils/helpers';
+import { IIngredient, IOrder, TOrderStatus, IIngredientWithCount } from '../../types';
+import { useAppSelector } from '../../hooks';
 import styles from './styles.module.css';
-import { IIngredient, IOrder, IStore, TOrderStatus, IIngredientWithCount } from '../../types';
 
 export const OrderDetails: FC<{sourceArray: Array<IOrder>}> = ({ sourceArray }) => {
   const { orderId } = useParams<{ orderId?: string }>();
   const history = useHistory();
-  const { ingredients } = useSelector((state: IStore) => state.content);
+  const { ingredients } = useAppSelector((state) => state.content);
 
   const foundOrder = sourceArray.find((i) => i._id === orderId);
   if (!foundOrder) {

@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
 import { logout } from '../../services/actions/auth';
 import styles from './styles.module.css';
 
 export const ProfileMenu: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <aside>
       <nav className={styles.navigation}>

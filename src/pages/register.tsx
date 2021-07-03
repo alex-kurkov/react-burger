@@ -1,17 +1,17 @@
 import { useState, FC, SyntheticEvent } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { setRegisterFormValue } from '../services/reducers/form/formSlice';
 import { register } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form/index';
-import { IStore, TLocationState } from '../types';
+import { TLocationState } from '../types';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const RegisterPage: FC = () => {
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
-  const { name, email, password } = useSelector((state: IStore) => state.form.register);
-  const { loggedIn } = useSelector((state: IStore) => state.user);
-  const dispatch = useDispatch();
+  const { name, email, password } = useAppSelector((state) => state.form.register);
+  const { loggedIn } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const location = useLocation<TLocationState>();
 
   if (loggedIn) {

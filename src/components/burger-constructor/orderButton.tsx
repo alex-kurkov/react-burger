@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import OrderDetails from './order-details';
@@ -7,15 +6,15 @@ import Modal from '../modal/modal';
 import { postOrder } from '../../services/actions/auth';
 import styles from './orderButton.module.css';
 import { resetCurrentOrder } from '../../services/reducers/cart/cartSlice';
-import { IStore } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const OrderButton: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const { loggedIn } = useSelector((state: IStore) => state.user);
-  const { chosenIngredients, chosenBun } = useSelector((state: IStore) => state.cart);
-  const { currentOrder } = useSelector((state: IStore) => state.cart);
-  const { apiRequestInProgress } = useSelector((state: IStore) => state.api);
+  const { loggedIn } = useAppSelector((state) => state.user);
+  const { chosenIngredients, chosenBun } = useAppSelector((state) => state.cart);
+  const { currentOrder } = useAppSelector((state) => state.cart);
+  const { apiRequestInProgress } = useAppSelector((state) => state.api);
 
   const closeModal = () => {
     dispatch(resetCurrentOrder());

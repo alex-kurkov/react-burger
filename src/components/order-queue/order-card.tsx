@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientBorderedImage } from '../ingredient-bordered-image';
@@ -7,12 +6,13 @@ import {
   orderDateAgoToString, countCost, populateIngredients, getStatus,
 } from '../../utils/helpers';
 import styles from './styles.module.css';
-import { IIngredient, IOrder, IStore, TOrderStatus } from '../../types';
+import { IIngredient, IOrder, TOrderStatus } from '../../types';
+import { useAppSelector } from '../../hooks';
 
 export const OrderCard: FC<{ data: IOrder }> = ({ data }) => {
   const match = useRouteMatch();
   const location = useLocation();
-  const { content } = useSelector((state: IStore) => state);
+  const { content } = useAppSelector((state) => state);
   const {
     number, createdAt, ingredients, name, status,
   } = data;

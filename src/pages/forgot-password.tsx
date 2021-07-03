@@ -1,17 +1,17 @@
 import { FC, SyntheticEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation, Redirect } from 'react-router-dom';
 import { setForgotFormValue } from '../services/reducers/form/formSlice';
 import { resetPassword } from '../services/actions/auth';
 import { AuthForm } from '../components/auth-form/index';
-import { IStore, TLocationState } from '../types';
+import { TLocationState } from '../types';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 export const ForgotPasswordPage: FC = () => {
-  const { email } = useSelector((state: IStore) => state.form.forgot);
-  const { passwordReset } = useSelector((state: IStore) => state.user);
-  const { loggedIn } = useSelector((state: IStore) => state.user);
-  const dispatch = useDispatch();
+  const { email } = useAppSelector((state) => state.form.forgot);
+  const { passwordReset } = useAppSelector((state) => state.user);
+  const { loggedIn } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const location = useLocation<TLocationState>();
   
   const { from } = location.state || { from: { pathname: '/' } };

@@ -1,17 +1,17 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
 import {
   Counter, CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
 import styles from './ingredient-card.module.css';
-import { IIngredient, IStore } from '../../types';
+import { IIngredient } from '../../types';
+import { useAppSelector } from '../../hooks';
 
 const IngredientCard: FC<{ item: IIngredient }> = ({ item }) => {
   const location = useLocation();
   const { name, price, image } = item;
-  const { chosenIngredients, chosenBun } = useSelector((store: IStore) => store.cart);
+  const { chosenIngredients, chosenBun } = useAppSelector((store) => store.cart);
   const count: number = item.type !== 'bun'
     ? chosenIngredients.filter((i) => i._id === item._id).length
     : (chosenBun && chosenBun._id === item._id)
