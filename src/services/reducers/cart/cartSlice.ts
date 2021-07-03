@@ -19,7 +19,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addIngredient: (state, action: PayloadAction<IIngredient[]>) => {
+    addIngredient: (state, action: PayloadAction<IIngredient>) => {
       state.chosenIngredients = [...state.chosenIngredients.concat(action.payload)];
     },
     removeIngredient: (state, action: PayloadAction<{positionIndex: number}>) => {
