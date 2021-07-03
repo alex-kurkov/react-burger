@@ -7,7 +7,15 @@ import {
 } from '../reducers/user/userSlice';
 import { clearForms } from '../reducers/form/formSlice';
 import { setCurrentOrder } from '../reducers/cart/cartSlice';
-import { AppDispatch } from '../../store';
+import { AppDispatch, AppThunk } from '../../store';
+import { 
+  TRegisterRequest,
+  TLoginRequest,
+  TConfirmPasswordRequest,
+  TPatchUserRequest,
+  TPostOrderRequest,
+  TResetPasswordRequest
+} from '../../utils/api'
 
 const _setTokens = (res: {
   accessToken: string; refreshToken: string
@@ -40,7 +48,7 @@ const _handleError = (e: {message: string }, dispatch: AppDispatch, func?: any) 
   }
 };
 
-export const register: any = (data: any) => async (dispatch: AppDispatch) => {
+export const register: AppThunk = (data: TRegisterRequest) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.registerRequest(data)
     .then((res) => {
@@ -51,7 +59,7 @@ export const register: any = (data: any) => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const login: any = (data: any) => async (dispatch: AppDispatch) => {
+export const login: AppThunk = (data: TLoginRequest) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.loginRequest(data)
     .then((res) => {
@@ -62,7 +70,7 @@ export const login: any = (data: any) => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const logout: any = () => async (dispatch: AppDispatch) => {
+export const logout: AppThunk = () => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.logoutRequest()
     .then((res) => {
@@ -76,7 +84,7 @@ export const logout: any = () => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const getUser: any = () => async (dispatch: AppDispatch) => {
+export const getUser: AppThunk = () => async (dispatch: AppDispatch) => {
   if (!localStorage.getItem('refreshToken')) return;
   dispatch(startRequest());
   await api.getUserRequest()
@@ -85,7 +93,7 @@ export const getUser: any = () => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const modifyUser: any = (data: any) => async (dispatch: AppDispatch) => {
+export const modifyUser: AppThunk = (data: TPatchUserRequest) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.patchUserRequest(data)
     .then((res) => dispatch(setUser(res.user)))
@@ -93,7 +101,7 @@ export const modifyUser: any = (data: any) => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const resetPassword: any = (data: any) => async (dispatch: AppDispatch) => {
+export const resetPassword: AppThunk = (data: TResetPasswordRequest) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.resetPasswordRequest(data)
     .then(() => dispatch(resetPasswordReducer()))
@@ -101,7 +109,7 @@ export const resetPassword: any = (data: any) => async (dispatch: AppDispatch) =
     .finally(() => dispatch(finishRequest()));
 };
 
-export const confirmPasswordReset: any = (data: any) => async (dispatch: AppDispatch) => {
+export const confirmPasswordReset: AppThunk = (data: TConfirmPasswordRequest) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.confirmPasswordResetRequest(data)
     .then(() => dispatch(confirmPasswordResetReducer()))
@@ -109,7 +117,7 @@ export const confirmPasswordReset: any = (data: any) => async (dispatch: AppDisp
     .finally(() => dispatch(finishRequest()));
 };
 
-export const getIngredients: any = () => async (dispatch: AppDispatch) => {
+export const getIngredients: AppThunk = () => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.getIngredientsRequest()
     .then((res) => dispatch(setIngredients(res.data)))
@@ -117,7 +125,7 @@ export const getIngredients: any = () => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const postOrder: any = (data: any) => async (dispatch: AppDispatch) => {
+export const postOrder: AppThunk = (data: TPostOrderRequest) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.postOrderRequest(data)
     .then((res) => dispatch(setCurrentOrder(res)))

@@ -3,25 +3,25 @@ import {
 } from './constants';
 import { getCookie } from './common';
 
-type TResetPasswordRequest = {
+export type TResetPasswordRequest = {
   email: string;
 };
-type TLoginRequest = {
+export type TLoginRequest = {
   password: string;
   email: string;
 };
-type TRegisterRequest = TLoginRequest & {
+export type TRegisterRequest = TLoginRequest & {
   name: string;
 };
-type TPostOrderRequest = TLoginRequest & {
+export type TPostOrderRequest = TLoginRequest & {
   ingredients: string[];
 };
-type TPatchUserRequest = {
+export type TPatchUserRequest = {
   password?: string;
   email?: string;
   name?: string;
 };
-type TConfirmPasswordRequest = {
+export type TConfirmPasswordRequest = {
   password: string;
   code: string;
 };

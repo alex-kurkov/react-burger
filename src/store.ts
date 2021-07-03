@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
-import { Action } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { socketMiddleware } from './services/middleware/index';
 import { SOCKET_ORDERS_URL, SOCKET_ORDERS_URL_WITH_AUTH } from './utils/constants';
 import { wsActions, wsActionsAuth } from './services/actions/ws';
@@ -16,5 +16,5 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, Action, RootState, Action>;
+export type AppThunk<DATA = any> = ActionCreator<ThunkAction<Promise<any> | Action<any>, RootState, DATA, Action>>;
 export default store;
