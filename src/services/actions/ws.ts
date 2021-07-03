@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+import { WS_INIT, WS_AUTH_INIT, WS_SEND_MESSAGE, WS_SEND_AUTH_MESSAGE } from '../constants'
 import {
   openSocket,
   closeSocket,
@@ -12,10 +13,10 @@ import {
   getAuthSocketMessage,
 } from '../reducers/user/userSlice';
 
-export const wsInit = createAction('WS_INIT');
-export const wsAuthInit = createAction('WS_AUTH_INIT');
-export const wsSendMessage = createAction('WS_SEND_MESSAGE', (message) => ({ payload: message }));
-export const wsSendAuthMessage = createAction('WS_SEND_AUTH_MESSAGE', (message) => ({ payload: message }));
+export const wsInit = createAction<void>(WS_INIT);
+export const wsAuthInit = createAction<void>(WS_AUTH_INIT);
+export const wsSendMessage = createAction<string>(WS_SEND_MESSAGE);
+export const wsSendAuthMessage = createAction<string>(WS_SEND_AUTH_MESSAGE);
 
 export const wsActions = {
   wsInit,

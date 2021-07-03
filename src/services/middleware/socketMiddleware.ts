@@ -1,9 +1,9 @@
 import { getCookie } from '../../utils/common';
 
-export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
-  let socket = null;
+export const socketMiddleware = (wsUrl: string, wsActions: any, withAuth: boolean) => (store: any) => {
+  let socket: any = null;
 
-  return (next) => (action) => {
+  return (next: any) => (action: any) => {
     const { dispatch } = store;
     const { type, payload } = action;
     const {
@@ -30,7 +30,7 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
         dispatch(onError('socket connection error!!!'));
       };
 
-      socket.onmessage = (event) => {
+      socket.onmessage = (event: any) => {
         const { data } = event;
         const parsedData = JSON.parse(data);
         const { success, ...restParsedData } = parsedData;
@@ -38,7 +38,7 @@ export const socketMiddleware = (wsUrl, wsActions, withAuth) => (store) => {
         dispatch(onMessage(restParsedData));
       };
 
-      socket.onclose = (e) => {
+      socket.onclose = (e: any) => {
         // eslint-disable-next-line no-console
         console.log('socket closed with code: ', e.code);
       };

@@ -4,11 +4,12 @@ import contentReducer from './content/contentSlice';
 import userReducer from './user/userSlice';
 import formReducer from './form/formSlice';
 
-// eslint-disable-next-line
-export default {
+const reducer = {
   cart: cartReducer,
   api: apiReducer,
   content: contentReducer,
   user: userReducer,
   form: formReducer,
 };
+
+export default reducer;
