@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface TFormState {
   login: {
@@ -17,6 +17,10 @@ interface TFormState {
     readonly password: string;
     readonly code: string;
   },
+}
+type TFormPayload = {
+  key: string;
+  value: string;
 }
 
 const initialState: TFormState = {
@@ -42,16 +46,16 @@ export const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    setLoginFormValue: (state, action) => {
+    setLoginFormValue: (state, action: PayloadAction<TFormPayload>) => {
       state.login = { ...state.login, [action.payload.key]: action.payload.value };
     },
-    setRegisterFormValue: (state, action) => {
+    setRegisterFormValue: (state, action: PayloadAction<TFormPayload>) => {
       state.register = { ...state.register, [action.payload.key]: action.payload.value };
     },
-    setForgotFormValue: (state, action) => {
+    setForgotFormValue: (state, action: PayloadAction<TFormPayload>) => {
       state.forgot = { ...state.forgot, [action.payload.key]: action.payload.value };
     },
-    setResetFormValue: (state, action) => {
+    setResetFormValue: (state, action: PayloadAction<TFormPayload>) => {
       state.reset = { ...state.reset, [action.payload.key]: action.payload.value };
     },
     clearForms: () => initialState,

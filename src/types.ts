@@ -48,6 +48,12 @@ export interface IOrder {
   }
 }
 
+export interface IOrderDoneResponse {
+  success: true;
+  name: string;
+  order: IOrder;
+}
+
 export type TOrderStatus = {
   text: string | null;
   color: string | null;

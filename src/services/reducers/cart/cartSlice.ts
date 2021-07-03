@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { IIngredient, IOrder } from '../../../types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IIngredient, IOrder, IOrderDoneResponse } from '../../../types';
 
 interface TCartState {
   readonly chosenIngredients: Array<IIngredient>;
@@ -19,19 +19,19 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addIngredient: (state, action) => {
+    addIngredient: (state, action: PayloadAction<IIngredient[]>) => {
       state.chosenIngredients = [...state.chosenIngredients.concat(action.payload)];
     },
-    removeIngredient: (state, action) => {
+    removeIngredient: (state, action: PayloadAction<{positionIndex: number}>) => {
       state.chosenIngredients = [
         ...state.chosenIngredients.slice(0, action.payload.positionIndex),
         ...state.chosenIngredients.slice(action.payload.positionIndex + 1),
       ];
     },
-    addBun: (state, action) => {
+    addBun: (state, action: PayloadAction<IIngredient>) => {
       state.chosenBun = action.payload;
     },
-    setCurrentOrder: (state, action) => {
+    setCurrentOrder: (state, action: PayloadAction<IOrderDoneResponse>) => {
       state.currentOrder = action.payload;
     },
     resetCurrentOrder: () => ({ ...initialState }),
@@ -39,7 +39,7 @@ export const cartSlice = createSlice({
       state.chosenIngredients = [];
       delete state.chosenBun;
     },
-    sortIngredients: (state, action) => {
+    sortIngredients: (state, action: PayloadAction<{positionIndex: number; targetIndex: number}>) => {
       const ingredientsWithoutSorted = [
         ...state.chosenIngredients.slice(0, action.payload.positionIndex),
         ...state.chosenIngredients.slice(action.payload.positionIndex + 1),

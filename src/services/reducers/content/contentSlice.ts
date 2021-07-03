@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IIngredient, IOrder } from '../../../types';
 
 interface TContentState {
@@ -27,10 +27,10 @@ export const contentSlice = createSlice({
   name: 'content',
   initialState,
   reducers: {
-    setIngredients: (state, action) => {
+    setIngredients: (state, action: PayloadAction<IIngredient[]>) => {
       state.ingredients = [...action.payload];
     },
-    setCurrentError: (state, action) => {
+    setCurrentError: (state, action: PayloadAction<string>) => {
       state.hasError = true;
       state.currentError = action.payload;
       state.errors = [...state.errors, action.payload];
@@ -45,11 +45,11 @@ export const contentSlice = createSlice({
     closeSocket: (state) => {
       state.socketConnected = false;
     },
-    setSocketError: (state, action) => {
+    setSocketError: (state, action: PayloadAction<string>) => {
       state.socketConnected = false;
       state.currentError = action.payload;
     },
-    getSocketMessage: (state, action) => {
+    getSocketMessage: (state, action: PayloadAction<{orders: IOrder[]; total: number; totalToday: number}>) => {
       state.orders = action.payload.orders;
       state.total = action.payload.total;
       state.totalToday = action.payload.totalToday;
