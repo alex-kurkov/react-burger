@@ -7,8 +7,11 @@ import {
 } from '../reducers/user/userSlice';
 import { clearForms } from '../reducers/form/formSlice';
 import { setCurrentOrder } from '../reducers/cart/cartSlice';
+import { AppDispatch } from '../../store';
 
-const _setTokens = (res) => {
+const _setTokens = (res: {
+  accessToken: string; refreshToken: string
+}) => {
   const { accessToken, refreshToken } = res;
   const authToken = accessToken?.split('Bearer ')[1];
   if (authToken) setCookie('token', authToken);
@@ -20,7 +23,7 @@ const _clearTokens = () => {
   deleteCookie('token');
 };
 
-const _refreshToken = (afterRefreshFunc) => (dispatch) => {
+const _refreshToken = (afterRefreshFunc: any) => (dispatch: AppDispatch) => {
   api.refreshTokenRequest()
     .then((res) => {
       _setTokens(res);
@@ -29,7 +32,7 @@ const _refreshToken = (afterRefreshFunc) => (dispatch) => {
     .catch((e) => dispatch(setCurrentError(e.message)));
 };
 
-const _handleError = (e, dispatch, func) => {
+const _handleError = (e: {message: string }, dispatch: AppDispatch, func?: any) => {
   if ((e.message === 'jwt expired' || e.message === 'jwt malformed') && func) {
     dispatch(_refreshToken(func));
   } else {
@@ -37,7 +40,7 @@ const _handleError = (e, dispatch, func) => {
   }
 };
 
-export const register = (data) => async (dispatch) => {
+export const register: any = (data: any) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.registerRequest(data)
     .then((res) => {
@@ -48,7 +51,7 @@ export const register = (data) => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const login = (data) => async (dispatch) => {
+export const login: any = (data: any) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.loginRequest(data)
     .then((res) => {
@@ -59,7 +62,7 @@ export const login = (data) => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const logout = () => async (dispatch) => {
+export const logout: any = () => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.logoutRequest()
     .then((res) => {
@@ -73,7 +76,7 @@ export const logout = () => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const getUser = () => async (dispatch) => {
+export const getUser: any = () => async (dispatch: AppDispatch) => {
   if (!localStorage.getItem('refreshToken')) return;
   dispatch(startRequest());
   await api.getUserRequest()
@@ -82,7 +85,7 @@ export const getUser = () => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const modifyUser = (data) => async (dispatch) => {
+export const modifyUser: any = (data: any) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.patchUserRequest(data)
     .then((res) => dispatch(setUser(res.user)))
@@ -90,7 +93,7 @@ export const modifyUser = (data) => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const resetPassword = (data) => async (dispatch) => {
+export const resetPassword: any = (data: any) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.resetPasswordRequest(data)
     .then(() => dispatch(resetPasswordReducer()))
@@ -98,7 +101,7 @@ export const resetPassword = (data) => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const confirmPasswordReset = (data) => async (dispatch) => {
+export const confirmPasswordReset: any = (data: any) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.confirmPasswordResetRequest(data)
     .then(() => dispatch(confirmPasswordResetReducer()))
@@ -106,7 +109,7 @@ export const confirmPasswordReset = (data) => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const getIngredients = () => async (dispatch) => {
+export const getIngredients: any = () => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.getIngredientsRequest()
     .then((res) => dispatch(setIngredients(res.data)))
@@ -114,7 +117,7 @@ export const getIngredients = () => async (dispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const postOrder = (data) => async (dispatch) => {
+export const postOrder: any = (data: any) => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.postOrderRequest(data)
     .then((res) => dispatch(setCurrentOrder(res)))
