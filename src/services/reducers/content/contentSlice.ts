@@ -1,5 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TContentState } from '../../../types';
+import { IIngredient, IOrder } from '../../../types';
+
+interface TContentState {
+  readonly ingredients: Array<IIngredient>,
+  readonly hasError: boolean,
+  readonly errors: Array<string>,
+  readonly currentError: string | null,
+  readonly orders: Array<IOrder>,
+  readonly socketConnected: boolean,
+  readonly total: number | null,
+  readonly totalToday: null | number,
+}
 
 const initialState: TContentState = {
   ingredients: [],

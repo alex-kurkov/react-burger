@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import{ TApiState } from '../../../types';
+
+interface TApiState {
+  readonly apiRequestInProgress: boolean;
+};
 
 const initialState: TApiState = {
   apiRequestInProgress: false,

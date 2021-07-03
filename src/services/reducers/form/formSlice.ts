@@ -1,5 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TFormState } from '../../../types';
+
+interface TFormState {
+  login: {
+    readonly email: string;
+    readonly password: string;
+  },
+  register: {
+    readonly name: string;
+    readonly email: string;
+    readonly password: string;
+  },
+  forgot: {
+    readonly email: string;
+  },
+  reset: {
+    readonly password: string;
+    readonly code: string;
+  },
+}
 
 const initialState: TFormState = {
   login: {

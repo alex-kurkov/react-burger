@@ -1,5 +1,15 @@
-import { TCartState } from '../../../types';
 import { createSlice } from '@reduxjs/toolkit';
+import { IIngredient, IOrder } from '../../../types';
+
+interface TCartState {
+  readonly chosenIngredients: Array<IIngredient>;
+  readonly chosenBun?: IIngredient;
+  readonly currentOrder?: {
+    readonly success: boolean;
+    readonly name: string;
+    readonly order: IOrder;
+  };
+}
 
 const initialState: TCartState = {
   chosenIngredients: [],

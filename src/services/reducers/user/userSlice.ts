@@ -1,5 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TUserState } from '../../../types';
+import { IOrder } from '../../../types';
+
+interface TUserState {
+  readonly passwordReset: boolean;
+  readonly passwordResetSuccess: boolean;
+  readonly email: string;
+  readonly loggedIn: boolean;
+  readonly name: string;
+  readonly userOrders: IOrder[];
+  readonly socketConnected: boolean;
+  readonly total: null | number;
+  readonly totalToday: null | number;
+}
 
 const initialState: TUserState = {
   passwordReset: false,
