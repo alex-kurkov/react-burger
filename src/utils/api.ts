@@ -3,12 +3,36 @@ import {
 } from './constants';
 import { getCookie } from './common';
 
-const getResponseData = (res) => res.json()
-  .then((resp) => (resp.success
+type TResetPasswordRequest = {
+  email: string;
+};
+type TLoginRequest = {
+  password: string;
+  email: string;
+};
+type TRegisterRequest = TLoginRequest & {
+  name: string;
+};
+type TPostOrderRequest = TLoginRequest & {
+  ingredients: string[];
+};
+type TPatchUserRequest = {
+  password?: string;
+  email?: string;
+  name?: string;
+};
+type TConfirmPasswordRequest = {
+  password: string;
+  code: string;
+};
+
+
+const getResponseData = (res: any): Promise<any> => res.json()
+  .then((resp: { success?: boolean } & any ) => (resp.success
     ? Promise.resolve(resp)
     : Promise.reject(resp)));
 
-const registerRequest = (data) => fetch(
+const registerRequest = (data: TRegisterRequest): Promise<any> => fetch(
   `${API_URL}/auth/register`,
   {
     method: 'POST',
@@ -19,7 +43,7 @@ const registerRequest = (data) => fetch(
   },
 ).then(getResponseData);
 
-const loginRequest = (data) => fetch(
+const loginRequest = (data: TLoginRequest) => fetch(
   `${API_URL}/auth/login`,
   {
     method: 'POST',
@@ -52,7 +76,7 @@ const logoutRequest = () => fetch(
   },
 ).then(getResponseData);
 
-const resetPasswordRequest = (data) => fetch(
+const resetPasswordRequest = (data: TResetPasswordRequest) => fetch(
   `${API_URL}/password-reset`,
   {
     method: 'POST',
@@ -68,7 +92,7 @@ const getIngredientsRequest = () => fetch(
   {},
 ).then(getResponseData);
 
-const postOrderRequest = (data) => fetch(
+const postOrderRequest = (data: TPostOrderRequest) => fetch(
   `${API_URL}/orders`,
   {
     method: 'POST',
@@ -91,7 +115,7 @@ const getUserRequest = () => fetch(
   },
 ).then(getResponseData);
 
-const patchUserRequest = (data) => fetch(
+const patchUserRequest = (data: TPatchUserRequest) => fetch(
   `${API_URL}/auth/user`,
   {
     method: 'PATCH',
@@ -108,7 +132,7 @@ const patchUserRequest = (data) => fetch(
   },
 ).then(getResponseData);
 
-const confirmPasswordResetRequest = (data) => fetch(
+const confirmPasswordResetRequest = (data: TConfirmPasswordRequest) => fetch(
   `${API_URL}/password-reset/reset`,
   {
     method: 'POST',

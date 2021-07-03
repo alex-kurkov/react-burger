@@ -64,3 +64,4 @@ export type TLocationTemplate = {
     pathname: string;
   };
 }
+
