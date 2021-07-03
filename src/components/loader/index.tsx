@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import styles from './styles.module.css';
 
-export const Loader = () => (
+export const Loader: FC = () => (
   <div className={styles.overlay}>
     <div className={`${styles.wrap}`}>
       <div className={`${styles.vector_1} ${styles.vector}`}>

@@ -1,6 +1,12 @@
+import store from './store';
+export type RootState = ReturnType<typeof store.getState>;
+
 export type TBunType = 'bun' | 'sauce' | 'main';
 export type TProfileInputs = 'name' | 'email' | 'password';
 
+export type TApiState = {
+  apiRequestInProgress: boolean;
+}
 export type TTabs = Array<{
   name: string;
   type: TBunType;

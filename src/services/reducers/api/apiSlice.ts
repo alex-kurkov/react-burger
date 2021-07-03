@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
+import{ TApiState } from '../../../types';
+
+const initialState: TApiState = {
+  apiRequestInProgress: false,
+}
 
 export const apiSlice = createSlice({
   name: 'api',
-  initialState: {
-    apiRequestInProgress: false,
-  },
+  initialState,
   reducers: {
     startRequest: (state) => {
       state.apiRequestInProgress = true;
