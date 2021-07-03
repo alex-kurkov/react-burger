@@ -1,4 +1,4 @@
-import { createAction } from '@reduxjs/toolkit';
+import { ActionCreatorWithoutPayload, ActionCreatorWithPayload, createAction } from '@reduxjs/toolkit';
 import { WS_INIT, WS_AUTH_INIT, WS_SEND_MESSAGE, WS_SEND_AUTH_MESSAGE } from '../constants'
 import {
   openSocket,
@@ -18,7 +18,16 @@ export const wsAuthInit = createAction<void>(WS_AUTH_INIT);
 export const wsSendMessage = createAction<string>(WS_SEND_MESSAGE);
 export const wsSendAuthMessage = createAction<string>(WS_SEND_AUTH_MESSAGE);
 
-export const wsActions = {
+export interface ISocketActions {
+  wsInit: ActionCreatorWithoutPayload<string>;
+  wsSendMessage: ActionCreatorWithPayload<string, string>;
+  onOpen: ActionCreatorWithoutPayload<string>;
+  onClose: ActionCreatorWithoutPayload<string>;
+  onError: ActionCreatorWithPayload<string, string> | ActionCreatorWithoutPayload<string>;
+  onMessage: ActionCreatorWithPayload<any, string>;
+}
+
+export const wsActions: ISocketActions = {
   wsInit,
   wsSendMessage,
   onOpen: openSocket,
@@ -26,7 +35,7 @@ export const wsActions = {
   onError: setSocketError,
   onMessage: getSocketMessage,
 };
-export const wsActionsAuth = {
+export const wsActionsAuth: ISocketActions = {
   wsInit: wsAuthInit,
   wsSendMessage: wsSendAuthMessage,
   onOpen: openAuthSocket,
