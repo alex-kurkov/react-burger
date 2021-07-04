@@ -42,7 +42,7 @@ const _refreshToken = (afterRefreshFunc: any) => (dispatch: AppDispatch) => {
 
 const _handleError = (e: {message: string }, dispatch: AppDispatch, func?: any) => {
   if ((e.message === 'jwt expired' || e.message === 'jwt malformed') && func) {
-    dispatch(_refreshToken(func));
+    dispatch(_refreshToken(func()));
   } else {
     dispatch(setCurrentError(e.message));
   }
@@ -89,7 +89,7 @@ export const getUser = (): AppThunk => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.getUserRequest()
     .then((res) => dispatch(setUser(res.user)))
-    .catch((e) => _handleError(e, dispatch, getUser()))
+    .catch((e) => _handleError(e, dispatch, getUser))
     .finally(() => dispatch(finishRequest()));
 };
 
