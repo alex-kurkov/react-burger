@@ -84,7 +84,7 @@ export const logout = (): AppThunk => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const getUser = (): AppThunk => async (dispatch: AppDispatch) => {
+export const getUser = (): AppThunk<Promise<any>> => async (dispatch: AppDispatch) => {
   if (!localStorage.getItem('refreshToken')) return;
   dispatch(startRequest());
   await api.getUserRequest()
@@ -93,7 +93,7 @@ export const getUser = (): AppThunk => async (dispatch: AppDispatch) => {
     .finally(() => dispatch(finishRequest()));
 };
 
-export const modifyUser = (data: TPatchUserRequest): AppThunk => async (dispatch: AppDispatch) => {
+export const modifyUser = (data: TPatchUserRequest): AppThunk<Promise<any>> => async (dispatch: AppDispatch) => {
   dispatch(startRequest());
   await api.patchUserRequest(data)
     .then((res) => dispatch(setUser(res.user)))
