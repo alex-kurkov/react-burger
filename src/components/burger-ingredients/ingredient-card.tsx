@@ -4,8 +4,8 @@ import { useDrag } from 'react-dnd';
 import {
   Counter, CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components/dist/index';
-import styles from './ingredient-card.module.css';
 import { IIngredient } from '../../types';
+import styles from './ingredient-card.module.css';
 
 const IngredientCard: FC<{ item: IIngredient }> = React.memo(({ item }) => {
   const location = useLocation();
