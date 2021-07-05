@@ -30,6 +30,24 @@ export const contentSlice = createSlice({
     setIngredients: (state, action: PayloadAction<IIngredient[]>) => {
       state.ingredients = [...action.payload];
     },
+    countIngredientsInCart: (state, action: PayloadAction<
+      { isAdd?: boolean; isDel?: boolean; id: string; isBun?: boolean }
+      >) => {
+        const { isAdd, id, isBun, isDel } = action.payload;
+        const countedIngredients: IIngredient[] = state.ingredients.map((i) => {
+          if (isDel) {
+            return (i._id !== id) ? i : {...i, countInCart: i.countInCart ? i.countInCart -= 1 : 0};
+          }
+          if (isBun && isAdd) {
+            return i.type === 'bun' ? {...i, countInCart: i._id === id ? 1 : 0} : i;
+          }
+          if (!isBun && isAdd) {
+            return i._id === id ? {...i, countInCart: i.countInCart? i.countInCart += 1 : 1} : i;
+          }
+          return i;
+        })
+        state.ingredients = countedIngredients;
+    },
     setCurrentError: (state, action: PayloadAction<string>) => {
       state.hasError = true;
       state.currentError = action.payload;
@@ -65,6 +83,7 @@ export const {
   closeSocket,
   setSocketError,
   getSocketMessage,
+  countIngredientsInCart
 } = contentSlice.actions;
 
 export default contentSlice.reducer;

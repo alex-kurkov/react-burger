@@ -26,6 +26,7 @@ export interface IIngredient {
   image_large: string;
   description?: string;
   __v: number;
+  countInCart?: number;
 }
 export interface IIngredientWithCount extends IIngredient {
   count: number;

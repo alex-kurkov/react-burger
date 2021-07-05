@@ -8,6 +8,7 @@ import {
   CONSTRUCTOR_MARGIN,
 } from '../../utils/constants';
 import { addBun, addIngredient } from '../../services/reducers/cart/cartSlice';
+import { countIngredientsInCart } from '../../services/reducers/content/contentSlice'
 import styles from './burger-constructor.module.css';
 import { IIngredient } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -34,8 +35,10 @@ const BurgerConstructor: FC = () => {
   const handleNewIndredientDrop = (item: IIngredient): void => {
     if (item.type === 'bun') {
       dispatch(addBun(item));
+      dispatch(countIngredientsInCart({ isAdd: true, id: item._id, isBun: true }))
     } else {
       dispatch(addIngredient(item));
+      dispatch(countIngredientsInCart({ isAdd: true, id: item._id, isBun: false}))
     }
   };
 

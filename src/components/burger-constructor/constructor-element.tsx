@@ -10,6 +10,7 @@ import {
 } from '../../services/reducers/cart/cartSlice';
 import { IIngredient } from '../../types';
 import { useAppDispatch } from '../../hooks';
+import { countIngredientsInCart } from '../../services/reducers/content/contentSlice';
 
 const TargetElement: FC<{ index: number, type: string }> = ({ index, children, type }) => {
   const dispatch = useAppDispatch();
@@ -60,7 +61,10 @@ const Constructor: FC<{
             && <DragIcon type="primary" />}
         </div>
         <ConstructorElement
-          handleClose={() => dispatch(removeIngredient({ positionIndex }))}
+          handleClose={() => {
+            dispatch(removeIngredient({ positionIndex }))
+            dispatch(countIngredientsInCart({isDel: true, id: item._id}))
+          }}
           type={position}
           isLocked={isLocked}
           text={text}

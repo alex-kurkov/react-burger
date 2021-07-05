@@ -29,7 +29,7 @@ const OrderButton: FC = () => {
   const placeOrder = (): void => {
     if (!loggedIn) {
       history.replace('/login');
-    } else {
+    } else if (chosenBun) {
       const ingredientsIds = [
         ...chosenIngredients.map(({ _id }) => _id),
         chosenBun?._id
