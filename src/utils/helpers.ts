@@ -30,9 +30,9 @@ export const getNearestTab = (): TBunType => {
 
 export const throttle = (callback: () => any, limit: number) => {
   let waiting: boolean = false;
-  return (...rest: any) => {
+  return () => {
     if (!waiting) {
-      callback.apply(this, rest);
+      callback.apply(this);
       waiting = true;
       setTimeout(() => {
         waiting = false;

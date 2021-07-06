@@ -16,6 +16,7 @@ import {
   TPostOrderRequest,
   TResetPasswordRequest
 } from '../../utils/api'
+import { AnyAction } from 'redux';
 
 const _setTokens = (res: {
   accessToken: string; refreshToken: string
@@ -31,7 +32,7 @@ const _clearTokens = () => {
   deleteCookie('token');
 };
 
-const _refreshToken = (afterRefreshFunc: any) => (dispatch: AppDispatch) => {
+const _refreshToken = (afterRefreshFunc: () => AnyAction | void) => (dispatch: AppDispatch) => {
   api.refreshTokenRequest()
     .then((res) => {
       _setTokens(res);
@@ -40,7 +41,7 @@ const _refreshToken = (afterRefreshFunc: any) => (dispatch: AppDispatch) => {
     .catch((e) => dispatch(setCurrentError(e.message)));
 };
 
-const _handleError = (e: {message: string }, dispatch: AppDispatch, func?: any) => {
+const _handleError = (e: {message: string }, dispatch: AppDispatch, func?: () => any) => {
   if ((e.message === 'jwt expired' || e.message === 'jwt malformed') && func) {
     dispatch(_refreshToken(func()));
   } else {

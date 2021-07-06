@@ -19,7 +19,7 @@ const TargetElement: FC<{ index: number, type: string }> = ({ index, children, t
   };
   const [{ hoveredTarget }, dropTarget] = useDrop({
     accept: 'sortedIngredient',
-    drop(item: any) {
+    drop(item: { graggedIndex: number }) {
       handleIndredientSort(item.graggedIndex, index);
     },
     collect: (monitor) => ({

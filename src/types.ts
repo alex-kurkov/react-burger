@@ -60,7 +60,9 @@ export type TOrderStatus = {
   color: string | null;
 };
 
+
 export type TLocationTemplate = {
+  modalViewLocation?: any;
   from: {
     pathname: string;
   };

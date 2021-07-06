@@ -27,14 +27,15 @@ import {
 } from '../../pages';
 import styles from './app.module.css';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { TLocationTemplate } from '../../types';
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const location: any = useLocation();
-  const history: any = useHistory();
+  const location= useLocation<TLocationTemplate>();
+  const history = useHistory<unknown>();
 
-  let modalViewLocation: any;
-  if (history.action !== 'POP') modalViewLocation = location.state?.modalViewLocation;
+  let modalViewLocation: undefined | typeof location;
+  if (history.action !== 'POP' && location.state) modalViewLocation = location.state?.modalViewLocation;
   const {
     ingredients, hasError, currentError,
   } = useAppSelector((store) => store.content);

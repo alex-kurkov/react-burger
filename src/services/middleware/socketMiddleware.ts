@@ -1,10 +1,11 @@
+import { AnyAction, MiddlewareAPI } from 'redux';
 import { getCookie } from '../../utils/common';
 import { ISocketActions } from '../actions/ws';
 
-export const socketMiddleware = (wsUrl: string, wsActions: ISocketActions, withAuth: boolean) => (store: any) => {
-  let socket: any = null;
+export const socketMiddleware = (wsUrl: string, wsActions: ISocketActions, withAuth: boolean) => (store: MiddlewareAPI) => {
+  let socket: WebSocket | null = null;
 
-  return (next: any) => (action: any) => {
+  return (next: (i: AnyAction) => void) => (action: AnyAction) => {
     const { dispatch } = store;
     const { type, payload } = action;
     const {
@@ -31,7 +32,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: ISocketActions, withA
         dispatch(onError('socket connection error!!!'));
       };
 
-      socket.onmessage = (event: any) => {
+      socket.onmessage = (event: MessageEvent) => {
         const { data } = event;
         const parsedData = JSON.parse(data);
         const { success, ...restParsedData } = parsedData;
@@ -39,7 +40,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: ISocketActions, withA
         dispatch(onMessage(restParsedData));
       };
 
-      socket.onclose = (e: any) => {
+      socket.onclose = (e: CloseEvent) => {
         // eslint-disable-next-line no-console
         console.log('socket closed with code: ', e.code);
       };
