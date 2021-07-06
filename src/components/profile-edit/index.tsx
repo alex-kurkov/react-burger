@@ -1,4 +1,4 @@
-import { useState, FC, SyntheticEvent } from 'react';
+import { useState, FC, SyntheticEvent, FormEvent } from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { modifyUser } from '../../services/actions/auth';
 import styles from './styles.module.css';
@@ -41,7 +41,8 @@ export const ProfileEdit: FC = () => {
       password: true,
     });
   };
-  const onFormSubmit = () => {
+  const onFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
     const data: {
       name?: string, email?: string, password?: string
     } = {};
@@ -52,7 +53,7 @@ export const ProfileEdit: FC = () => {
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
+    <form onSubmit={onFormSubmit} className={styles.form}>
       <Input
         disabled={disabled.name}
         type="text"
@@ -99,9 +100,7 @@ export const ProfileEdit: FC = () => {
         <Button type="secondary" size="large" onClick={resetForm}>
           Отмена
         </Button>
-        <Button type="primary" size="large" >
-          <span onClick={onFormSubmit}>Сохранить</span>
-        </Button>
+        <Button type="primary" size="large" >Сохранить</Button>
       </div>
     </form>
   );
