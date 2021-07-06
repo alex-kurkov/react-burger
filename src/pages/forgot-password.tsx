@@ -43,7 +43,7 @@ export const ForgotPasswordPage: FC = () => {
   );
 
   return (
-    <AuthForm title="Восстановление пароля">
+    <AuthForm title="Восстановление пароля" onSubmit={onFormSubmit} >
       <Input
         type="text"
         placeholder="Укажите e-mail"
@@ -55,7 +55,7 @@ export const ForgotPasswordPage: FC = () => {
         errorText=""
       />
       <Button type="primary" size="large">
-        <span onClick={onFormSubmit}>Восстановить</span>
+        Восстановить
       </Button>
       <LoginLink />
     </AuthForm>

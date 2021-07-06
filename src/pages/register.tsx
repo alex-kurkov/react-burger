@@ -37,7 +37,7 @@ export const RegisterPage: FC = () => {
   );
 
   return (
-    <AuthForm title="Регистрация">
+    <AuthForm title="Регистрация" onSubmit={onFormSubmit}>
       <Input
         type="text"
         placeholder="Имя"
@@ -71,7 +71,7 @@ export const RegisterPage: FC = () => {
         size="default"
       />
       <Button type="primary" size="large">
-        <span onClick={onFormSubmit}>Зарегистрироваться</span>
+        Зарегистрироваться
       </Button>
       <LoginLink />
     </AuthForm>
