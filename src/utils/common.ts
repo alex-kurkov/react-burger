@@ -1,20 +1,26 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-param-reassign */
-export const setCookie = (name: string, value: string | number | boolean, props: any = {}) => {
+type TSetCookieProps = {
+  expires?: number | string;
+  path?: string;
+} & { [extraParams: string]: string | number | boolean;}
+
+export const setCookie = (name: string, value: string | number | boolean, props?: TSetCookieProps) => {
   props = {
     path: '/',
     ...props,
   };
   let exp = props.expires;
+  const d = new Date();
+
   if (typeof exp === 'number' && exp) {
-    const d = new Date();
     d.setTime(d.getTime() + exp * 1000);
-    exp = d;
-    props.expires = d;
+    exp = Number(d);
+    props.expires = exp;
   }
-  if (exp && exp.toUTCString) {
-    props.expires = exp.toUTCString();
+  if (exp && d.toUTCString) {
+    props.expires = d.toUTCString();
   }
   value = encodeURIComponent(value);
   let updatedCookie = `${name}=${value}`;

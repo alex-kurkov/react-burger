@@ -43,7 +43,7 @@ export const LoginPage: FC = () => {
   );
 
   return (
-    <AuthForm title="Вход">
+    <AuthForm title="Вход" onSubmit={onFormSubmit}>
       <Input
         type="text"
         placeholder="E-mail"
@@ -66,9 +66,7 @@ export const LoginPage: FC = () => {
         errorText="Ошибка"
         size="default"
       />
-      <Button type="primary" size="large">
-        <span onClick={onFormSubmit}>Войти</span>
-      </Button>
+      <Button type="primary" size="large">Войти</Button>
       <RegisterLink />
       <ResetLink />
     </AuthForm>

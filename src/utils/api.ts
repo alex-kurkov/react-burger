@@ -13,7 +13,7 @@ export type TLoginRequest = {
 export type TRegisterRequest = TLoginRequest & {
   name: string;
 };
-export type TPostOrderRequest = TLoginRequest & {
+export type TPostOrderRequest = {
   ingredients: string[];
 };
 export type TPatchUserRequest = {
@@ -23,11 +23,10 @@ export type TPatchUserRequest = {
 };
 export type TConfirmPasswordRequest = {
   password: string;
-  code: string;
+  token: string;
 };
 
-
-const getResponseData = (res: any): Promise<any> => res.json()
+const getResponseData = (res: Response): Promise<any> => res.json()
   .then((resp: { success?: boolean } & any ) => (resp.success
     ? Promise.resolve(resp)
     : Promise.reject(resp)));

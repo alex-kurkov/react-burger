@@ -26,6 +26,7 @@ export interface IIngredient {
   image_large: string;
   description?: string;
   __v: number;
+  countInCart?: number;
 }
 export interface IIngredientWithCount extends IIngredient {
   count: number;
@@ -59,7 +60,9 @@ export type TOrderStatus = {
   color: string | null;
 };
 
+
 export type TLocationTemplate = {
+  modalViewLocation?: any;
   from: {
     pathname: string;
   };

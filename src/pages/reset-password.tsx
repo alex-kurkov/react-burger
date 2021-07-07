@@ -45,7 +45,7 @@ export const ResetPasswordPage: FC = () => {
   );
 
   return (
-    <AuthForm title="Восстановление пароля">
+    <AuthForm title="Восстановление пароля" onSubmit={onFormSubmit}>
       <Input
         type={passwordShown ? 'text' : 'password'}
         placeholder="Введите новый пароль"
@@ -68,11 +68,7 @@ export const ResetPasswordPage: FC = () => {
         error={false}
         errorText=""
       />
-      <div onClick={onFormSubmit}>
-        <Button type="primary" size="large">
-          Сохранить
-        </Button>
-      </div>
+      <Button type="primary" size="large">Сохранить</Button>
       <LoginLink />
     </AuthForm>
   );
